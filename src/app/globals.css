@@ -3,36 +3,46 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Imprima, Helvetica, sans-serif;
 }
 
 @layer base {
-  :root {
-    --background: 0, 0%, 93%;
-    --foreground: 224 71.4% 4.1%;
+    :root {
+    --background: 0 0% 100%; /* white */
+    --foreground: 224 71.4% 4.1%; /* unchanged */
+
     --card: 0 0% 100%;
     --card-foreground: 224 71.4% 4.1%;
+
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
-    --primary: 262.1 83.3% 57.8%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 0, 0%, 89%;
-    --secondary-foreground: 220.9 39.3% 11%;
-    --muted: 0, 0%, 89%;
+
+    --primary: 195 70% 35%; /* #1c799b in HSL ≈ hsl(195, 70%, 35%) */
+    --primary-foreground: 0 0% 100%; /* white */
+
+    --secondary: 194 64% 95%; /* #e3f4fa in HSL ≈ hsl(194, 64%, 95%) */
+    --secondary-foreground: 195 70% 35%; /* same as primary (#1c799b) */
+
+    --muted: 0 0% 89%;
     --muted-foreground: 220 8.9% 46.1%;
-    --accent: 0, 0%, 89%;
+
+    --accent: 0 0% 89%;
     --accent-foreground: 220.9 39.3% 11%;
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 20% 98%;
-    --border: 0, 0%, 11%, 0.1;
-    --input: 0, 0%, 11%, 0.1;
-    --ring: 262.1 83.3% 57.8%;
+
+    --border: 0 0% 11% / 0.1;
+    --input: 0 0% 11% / 0.1;
+    --ring:  195 70% 35%;
     --radius: 1rem;
+
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
