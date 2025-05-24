@@ -38,7 +38,7 @@ export default function Navbar() {
       <div className="container flex justify-between items-center mx-auto h-16 px-5">
         <Link href="/">
           <h1 className="text-2xl font-black flex items-center">
-            <Logo /> Next Mart
+            <Logo /> SwiftCart
           </h1>
         </Link>
         <div className="max-w-md  flex-grow">
