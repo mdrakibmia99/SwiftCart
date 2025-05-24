@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import Link from "next/link";
 import Logo from "@/assets/svgs/Logo";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,6 +19,20 @@ import { registerUser } from "@/services/AuthService";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContext";
+import { useEffect, useState } from "react";
+import { PasswordInput } from "@/components/ui/password-input";
+
+// Password rules
+const passwordRequirements = [
+  { label: "One uppercase letter", test: (pw: string) => /[A-Z]/.test(pw) },
+  { label: "One lowercase letter", test: (pw: string) => /[a-z]/.test(pw) },
+  { label: "One number", test: (pw: string) => /[0-9]/.test(pw) },
+  {
+    label: "One special character",
+    test: (pw: string) => /[!@#$%^&*(),.?\":{}|<>]/.test(pw),
+  },
+  { label: "Minimum 8 characters", test: (pw: string) => pw.length >= 8 },
+];
 
 export default function RegisterForm() {
   const form = useForm({
@@ -29,11 +43,17 @@ export default function RegisterForm() {
     formState: { isSubmitting },
   } = form;
 
-  const password = form.watch("password");
-  const passwordConfirm = form.watch("passwordConfirm");
-  const router = useRouter();
+  const password = form.watch("password") || "";
 
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+
+  const router = useRouter();
   const { setIsLoading } = useUser();
+
+  useEffect(() => {
+    const allValid = passwordRequirements.every((req) => req.test(password));
+    setIsPasswordValid(allValid);
+  }, [password]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
@@ -61,8 +81,9 @@ export default function RegisterForm() {
           </p>
         </div>
       </div>
+
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
             name="name"
@@ -96,42 +117,44 @@ export default function RegisterForm() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} value={field.value || ""} />
+                  <PasswordInput {...field} value={field.value || ""} />
                 </FormControl>
+
+                {/* Password checklist */}
+                <div className="space-y-1 mt-2">
+                  {passwordRequirements.map((req, idx) => (
+                    <p
+                      key={idx}
+                      className={`text-sm flex items-center gap-2 ${
+                        req.test(password) ? "text-green-600" : "text-gray-400"
+                      }`}
+                    >
+                      <span
+                        className={`w-2 h-2 rounded-full ${
+                          req.test(password) ? "bg-green-600" : "bg-gray-400"
+                        }`}
+                      />
+                      {req.label}
+                    </p>
+                  ))}
+                </div>
+
                 <FormMessage />
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="passwordConfirm"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Confirm Password</FormLabel>
-                <FormControl>
-                  <Input type="password" {...field} value={field.value || ""} />
-                </FormControl>
-
-                {passwordConfirm && password !== passwordConfirm ? (
-                  <FormMessage> Password does not match </FormMessage>
-                ) : (
-                  <FormMessage />
-                )}
-              </FormItem>
-            )}
-          />
-
           <Button
-            disabled={passwordConfirm && password !== passwordConfirm}
+            disabled={!isPasswordValid}
             type="submit"
-            className="mt-5 w-full"
+            className="mt-4 w-full"
           >
-            {isSubmitting ? "Registering...." : "Register"}
+            {isSubmitting ? "Registering..." : "Register"}
           </Button>
         </form>
       </Form>
+
       <p className="text-sm text-gray-600 text-center my-3">
-        Already have an account ?
+        Already have an account?{" "}
         <Link href="/login" className="text-primary">
           Login
         </Link>
