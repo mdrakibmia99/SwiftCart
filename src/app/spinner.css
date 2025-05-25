@@ -1,56 +1,49 @@
 .spinner {
-  width: 44px;
-  height: 44px;
-  animation: spinner-y0fdc1 2s infinite ease;
-  transform-style: preserve-3d;
+  position: relative;
+  width: 16px;
+  height: 16px;
 }
 
-.spinner > div {
-  background-color: hsla(262.1, 83.3%, 57.8%, 0.2);
-  height: 100%;
-  position: absolute;
+.spinner div {
   width: 100%;
-  border: 2px solid hsl(262.1, 83.3%, 57.8%);
+  height: 100%;
+  background-color: #004dff;
+  border-radius: 50%;
+  animation: spinner-4t3wzl 1.25s infinite backwards;
 }
 
-.spinner div:nth-of-type(1) {
-  transform: translateZ(-22px) rotateY(180deg);
+.spinner div:nth-child(1) {
+  animation-delay: 0.15s;
+  background-color: rgba(0, 77, 255, 0.9);
 }
 
-.spinner div:nth-of-type(2) {
-  transform: rotateY(-270deg) translateX(50%);
-  transform-origin: top right;
+.spinner div:nth-child(2) {
+  animation-delay: 0.3s;
+  background-color: rgba(0, 77, 255, 0.8);
 }
 
-.spinner div:nth-of-type(3) {
-  transform: rotateY(270deg) translateX(-50%);
-  transform-origin: center left;
+.spinner div:nth-child(3) {
+  animation-delay: 0.45s;
+  background-color: rgba(0, 77, 255, 0.7);
 }
 
-.spinner div:nth-of-type(4) {
-  transform: rotateX(90deg) translateY(-50%);
-  transform-origin: top center;
+.spinner div:nth-child(4) {
+  animation-delay: 0.6s;
+  background-color: rgba(0, 77, 255, 0.6);
 }
 
-.spinner div:nth-of-type(5) {
-  transform: rotateX(-90deg) translateY(50%);
-  transform-origin: bottom center;
+.spinner div:nth-child(5) {
+  animation-delay: 0.75s;
+  background-color: rgba(0, 77, 255, 0.5);
 }
 
-.spinner div:nth-of-type(6) {
-  transform: translateZ(22px);
-}
-
-@keyframes spinner-y0fdc1 {
+@keyframes spinner-4t3wzl {
   0% {
-    transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
+    transform: rotate(0deg) translateY(-200%);
   }
 
-  50% {
-    transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
-  }
-
+  60%,
   100% {
-    transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
+    transform: rotate(360deg) translateY(-200%);
   }
 }
