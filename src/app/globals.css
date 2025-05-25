@@ -109,7 +109,9 @@ body {
   }
 }
 
-
+#city-select>button {
+  @apply bg-secondary text-primary;
+}
 
 
 

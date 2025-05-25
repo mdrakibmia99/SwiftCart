@@ -56,7 +56,7 @@ export default function Coupon() {
                   <FormControl>
                     <Input
                       {...field}
-                      className="rounded-full"
+                      className="rounded-full bg-secondary placeholder:text-primary"
                       placeholder="Promo / Coupon code"
                       value={field.value || code}
                     />
