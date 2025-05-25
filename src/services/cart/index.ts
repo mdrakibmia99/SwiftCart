@@ -1,7 +1,7 @@
-"use server";
+'use server';
 
-import { getValidToken } from "@/lib/verifyToken";
-import { IOrder } from "@/types/cart";
+import { getValidToken } from '@/lib/verifyToken';
+import { IOrder } from '@/types/cart';
 
 export const createOrder = async (order: IOrder) => {
   const token = await getValidToken();
@@ -15,7 +15,8 @@ export const createOrder = async (order: IOrder) => {
       body: JSON.stringify(order),
     });
 
-    return await res.json();
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }
@@ -40,7 +41,8 @@ export const addCoupon = async (
       }
     );
 
-    return await res.json();
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }

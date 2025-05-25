@@ -5,7 +5,7 @@ import { revalidateTag } from 'next/cache';
 export type DiscountType = 'percentage' | 'flat';
 
 // create category
-export const createCategory = async (data:any) => {
+export const createCategory = async (data: any) => {
   const token = await getValidToken();
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/category`, {
@@ -16,24 +16,32 @@ export const createCategory = async (data:any) => {
       body: data,
     });
 
-    revalidateTag('CATEGORY');
+    revalidateTag('CATEGORIES');
 
-    return res.json();
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }
 };
 
-//get all categories
-export const getAllCategories = async () => {
+// get all categories
+export const getAllCategories = async (
+  page?: string,
+  limit?: string
+): Promise<any> => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/category`, {
-      next: {
-        tags: ['CATEGORY'],
-      },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/category?limit=${limit}&page=${page}`,
+      {
+        next: {
+          tags: ['CATEGORIES'],
+        },
+      }
+    );
 
-    return res.json();
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }
@@ -52,8 +60,11 @@ export const deleteCategory = async (categoryId: string): Promise<any> => {
         },
       }
     );
-    revalidateTag('CATEGORY');
-    return res.json();
+
+    revalidateTag('CATEGORIES');
+
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }

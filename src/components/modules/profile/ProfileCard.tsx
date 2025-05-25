@@ -1,4 +1,5 @@
 "use client";
+
 import { IProfile } from "@/types/profile";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";

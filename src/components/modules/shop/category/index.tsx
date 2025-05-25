@@ -1,5 +1,6 @@
 'use client';
-import { ICategory } from '@/types';
+
+import { ICategory, IMeta } from '@/types';
 import CreateCategoryModal from './CreateCategoryModal';
 import { SCTable } from '@/components/ui/core/SCTable';
 import { ColumnDef } from '@tanstack/react-table';
@@ -9,12 +10,15 @@ import { useState } from 'react';
 import DeleteConfirmationModal from '@/components/ui/core/SCModal/DeleteConfirmationModal';
 import { toast } from 'sonner';
 import { deleteCategory } from '@/services/Category';
+import TablePagination from '@/components/ui/core/SCTable/TablePagination';
 
 type TCategoriesProps = {
   categories: ICategory[];
+  meta: IMeta;
+  page: string;
 };
 
-const ManageCategories = ({ categories }: TCategoriesProps) => {
+const ManageCategories = ({ categories, meta, page }: TCategoriesProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
@@ -94,10 +98,11 @@ const ManageCategories = ({ categories }: TCategoriesProps) => {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold">Manage Categories</h1>
+        <h1 className="text-xl font-bold">Manage Categories ({meta?.total})</h1>
         <CreateCategoryModal />
       </div>
       <SCTable data={categories} columns={columns} />
+      <TablePagination page={Number(page)} totalPage={meta?.totalPage} />
       <DeleteConfirmationModal
         name={selectedItem}
         isOpen={isModalOpen}

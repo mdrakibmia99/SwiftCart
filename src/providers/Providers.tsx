@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import UserProvider from "@/context/UserContext";
-import StoreProvider from "./StoreProvider";
+import UserProvider from '@/context/UserContext';
+import StoreProvider from './StoreProvider';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (

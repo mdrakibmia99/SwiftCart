@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Card } from "@/components/ui/card";
+import { Card } from '@/components/ui/card';
 import {
   BarChart,
   Bar,
@@ -15,9 +15,9 @@ import {
   ResponsiveContainer,
   CartesianGrid,
   Cell,
-} from "recharts";
+} from 'recharts';
 
-const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042", "#8dd1e1"];
+const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#8dd1e1'];
 
 export default function DashboardPage({
   users,
@@ -33,7 +33,12 @@ export default function DashboardPage({
   shops: any[];
   brands: any[];
   categories: any[];
-  stats: { title: string; value: number; change: string; icon: React.ReactNode }[];
+  stats: {
+    title: string;
+    value: number;
+    change: string;
+    icon: React.ReactNode;
+  }[];
   userGrowthData: { month: string; users: number }[];
   shopDistributionData: { name: string; value: number }[];
   brandPopularityData: { name: string; shops: number }[];
@@ -75,11 +80,11 @@ export default function DashboardPage({
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line 
-                  type="monotone" 
-                  dataKey="users" 
-                  stroke="#8884d8" 
-                  activeDot={{ r: 8 }} 
+                <Line
+                  type="monotone"
+                  dataKey="users"
+                  stroke="#8884d8"
+                  activeDot={{ r: 8 }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -88,7 +93,9 @@ export default function DashboardPage({
 
         {/* Pie Chart - Shop Distribution */}
         <Card className="p-6">
-          <h2 className="text-lg font-semibold mb-4">Shop Distribution by Category</h2>
+          <h2 className="text-lg font-semibold mb-4">
+            Shop Distribution by Category
+          </h2>
           <div className="h-64">
             {shopDistributionData.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
@@ -102,10 +109,15 @@ export default function DashboardPage({
                     fill="#8884d8"
                     dataKey="value"
                     nameKey="name"
-                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                    label={({ name, percent }) =>
+                      `${name}: ${(percent * 100).toFixed(0)}%`
+                    }
                   >
                     {shopDistributionData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={COLORS[index % COLORS.length]}
+                      />
                     ))}
                   </Pie>
                   <Tooltip />
@@ -122,7 +134,9 @@ export default function DashboardPage({
 
         {/* Bar Chart - Brand Popularity */}
         <Card className="p-6 md:col-span-2">
-          <h2 className="text-lg font-semibold mb-4">Top Brands by Shop Count</h2>
+          <h2 className="text-lg font-semibold mb-4">
+            Top Brands by Shop Count
+          </h2>
           <div className="h-64">
             {brandPopularityData.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
@@ -149,10 +163,22 @@ export default function DashboardPage({
         <h2 className="text-lg font-semibold mb-4">Recent Activity</h2>
         <div className="space-y-4">
           {[
-            `${users.length > 0 ? `New user: ${users[0].name}` : 'User activity'}`,
-            `${shops.length > 0 ? `New shop: ${shops[0].name}` : 'Shop activity'}`,
-            `${categories.length > 0 ? `Category updated: ${categories[0].name}` : 'Category activity'}`,
-            `${brands.length > 0 ? `Brand added: ${brands[0].name}` : 'Brand activity'}`,
+            `${
+              users.length > 0 ? `New user: ${users[0].name}` : 'User activity'
+            }`,
+            `${
+              shops.length > 0 ? `New shop: ${shops[0].name}` : 'Shop activity'
+            }`,
+            `${
+              categories.length > 0
+                ? `Category updated: ${categories[0].name}`
+                : 'Category activity'
+            }`,
+            `${
+              brands.length > 0
+                ? `Brand added: ${brands[0].name}`
+                : 'Brand activity'
+            }`,
             `${Math.min(users.length, 5)} new users this week`,
           ].map((activity, index) => (
             <div
@@ -163,7 +189,7 @@ export default function DashboardPage({
               <div className="ml-4">
                 <p className="text-sm">{activity}</p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  {new Date(Date.now() - (index * 3600000)).toLocaleTimeString()}
+                  {new Date(Date.now() - index * 3600000).toLocaleTimeString()}
                 </p>
               </div>
             </div>

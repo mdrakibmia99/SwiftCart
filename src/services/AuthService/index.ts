@@ -74,7 +74,8 @@ export const reCaptchaTokenVerification = async (token: string) => {
       }),
     });
 
-    return res.json();
+    const result = await res.json();
+    return result;
   } catch (err: any) {
     return Error(err);
   }
@@ -98,7 +99,8 @@ export const getNewToken = async () => {
       }
     );
 
-    return res.json();
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }

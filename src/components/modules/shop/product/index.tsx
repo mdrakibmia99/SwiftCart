@@ -15,9 +15,11 @@ import TablePagination from '@/components/ui/core/SCTable/TablePagination';
 const ManageProducts = ({
   products,
   meta,
+  page,
 }: {
   products: IProduct[];
   meta: IMeta;
+  page: string;
 }) => {
   const router = useRouter();
   const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
@@ -161,7 +163,7 @@ const ManageProducts = ({
         </div>
       </div>
       <SCTable columns={columns} data={products || []} />
-      <TablePagination totalPage={meta?.totalPage} />
+      <TablePagination page={Number(page)} totalPage={meta?.totalPage} />
     </div>
   );
 };
