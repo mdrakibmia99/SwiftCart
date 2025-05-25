@@ -208,7 +208,7 @@ export function Subscribe() {
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
-        className="absolute hidden lg:block left-1/2 top-1/2 w-1 h-32 bg-gradient-to-b from-green-400/30 to-transparent -translate-y-16"
+        className="absolute hidden lg:block left-1/2 top-1/2 w-1 h-32 bg-gradient-to-b from-primary/30 to-transparent -translate-y-16"
       />
     </motion.div>
   );
