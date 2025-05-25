@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Checkbox } from '@/components/ui/checkbox';
 import { SCTable } from '@/components/ui/core/SCTable/index';
@@ -10,6 +10,17 @@ import { Trash } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import UpdateCouponModal from './UpdateCouponModal';
+import { Checkbox } from "@/components/ui/checkbox";
+import { SCTable } from "@/components/ui/core/SCTable/index";
+import TablePagination from "@/components/ui/core/SCTable/TablePagination";
+import { deleteCoupon } from "@/services/Coupon";
+import { ICoupon, IMeta } from "@/types";
+import { ColumnDef } from "@tanstack/react-table";
+import { Trash } from "lucide-react";
+
+import { useState } from "react";
+import { toast } from "sonner";
+import UpdateCouponModal from "./UpdateCouponModal";
 
 const CouponTable = ({
   coupons,
@@ -20,30 +31,26 @@ const CouponTable = ({
 }) => {
   const [selectedProductsId, setSelectedProductsId] = useState<string[]>([]);
 
-  // const handleView = (product: IProduct) => {
-  //   console.log('Viewing product:', product);
-  // };
-
   const handleDelete = async (couponId: string) => {
     try {
       const res = await deleteCoupon(couponId);
-      console.log('Delete response:', res);
-      toast.success('Coupon deleted successfully');
+      console.log("Delete response:", res);
+      toast.success("Coupon deleted successfully");
     } catch (error) {
-      console.error('Error deleting coupon:', error);
-      toast.error('Failed to delete coupon');
+      console.error("Error deleting coupon:", error);
+      toast.error("Failed to delete coupon");
     }
   };
   const columns: ColumnDef<ICoupon>[] = [
     {
-      id: 'select',
+      id: "select",
       header: ({ table }) => (
         <Checkbox
           checked={
             table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && 'indeterminate')
+            (table.getIsSomePageRowsSelected() && "indeterminate")
           }
-          onCheckedChange={value => {
+          onCheckedChange={(value) => {
             table.toggleAllPageRowsSelected(!!value);
           }}
           aria-label="Select all"
@@ -52,13 +59,13 @@ const CouponTable = ({
       cell: ({ row }) => (
         <Checkbox
           checked={row.getIsSelected()}
-          onCheckedChange={value => {
+          onCheckedChange={(value) => {
             const id = row.original._id;
             if (value) {
               setSelectedProductsId([...selectedProductsId, id]);
             } else {
               setSelectedProductsId(
-                selectedProductsId.filter(existingId => existingId !== id)
+                selectedProductsId.filter((existingId) => existingId !== id)
               );
             }
 
@@ -71,78 +78,66 @@ const CouponTable = ({
       enableHiding: false,
     },
     {
-      accessorKey: 'code',
-      header: 'Coupon Code',
+      accessorKey: "code",
+      header: "Coupon Code",
       cell: ({ row }) => <span>{row.original.code}</span>,
     },
     {
-      accessorKey: 'discountType',
-      header: 'Type',
+      accessorKey: "discountType",
+      header: "Type",
       cell: ({ row }) => <span>{row.original.discountType}</span>,
     },
     {
-      accessorKey: 'discountValue',
-      header: 'Discount',
+      accessorKey: "discountValue",
+      header: "Discount",
       cell: ({ row }) => <span>{row.original.discountValue}%</span>,
     },
     {
-      accessorKey: 'minOrderAmount',
-      header: 'Min Order',
+      accessorKey: "minOrderAmount",
+      header: "Min Order",
       cell: ({ row }) => <span>${row.original.minOrderAmount}</span>,
     },
     {
-      accessorKey: 'maxDiscountAmount',
-      header: 'Max Discount',
+      accessorKey: "maxDiscountAmount",
+      header: "Max Discount",
       cell: ({ row }) => <span>${row.original.maxDiscountAmount}</span>,
     },
     {
-      accessorKey: 'startDate',
-      header: 'Start Date',
+      accessorKey: "startDate",
+      header: "Start Date",
       cell: ({ row }) => (
         <span>{new Date(row.original.startDate).toLocaleDateString()}</span>
       ),
     },
     {
-      accessorKey: 'endDate',
-      header: 'End Date',
+      accessorKey: "endDate",
+      header: "End Date",
       cell: ({ row }) => (
         <span>{new Date(row.original.endDate).toLocaleDateString()}</span>
       ),
     },
     {
-      accessorKey: 'isActive',
-      header: 'Status',
+      accessorKey: "isActive",
+      header: "Status",
       cell: ({ row }) => (
         <span
           className={`font-medium ${
-            row.original.isActive ? 'text-green-600' : 'text-red-500'
+            row.original.isActive ? "text-green-600" : "text-red-500"
           }`}
         >
-          {row.original.isActive ? 'Active' : 'Inactive'}
+          {row.original.isActive ? "Active" : "Inactive"}
         </span>
       ),
     },
     {
-      accessorKey: 'action',
-      header: 'Action',
+      accessorKey: "action",
+      header: "Action",
       cell: ({ row }) => (
         <div className="flex items-center space-x-3">
-          {/* <button
-          className="text-gray-500 hover:text-blue-500"
-          title="View"
-          onClick={() => console.log('Viewing coupon:', row.original)}
-        >
-          <Eye className="w-5 h-5" />
-        </button> */}
+
           <UpdateCouponModal coupon={row?.original} />
 
-          {/* <button
-          className="text-gray-500 hover:text-green-500"
-          title="Edit"
-          onClick={() => <UpdateCouponModal coupon={row.original} />}
-        >
-         
-        </button> */}
+ 
 
           <button
             className="text-gray-500 hover:text-red-500"

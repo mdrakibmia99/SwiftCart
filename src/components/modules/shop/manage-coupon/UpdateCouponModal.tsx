@@ -117,7 +117,7 @@ export default function UpdateCouponModal({ coupon }: { coupon: ICoupon }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Edit className="w-5 h-5" />
+        <Edit className="w-5 h-5 text-gray-500 hover:text-green-500 cursor-pointer" />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
