@@ -57,7 +57,7 @@ const Footer = () => {
 
         {/* Responsive navigation links */}
         <ul className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm text-gray-800 font-medium my-6">
-          {navLinks.map((link) => (
+          {navLinks.map(link => (
             <li key={link.href}>
               <Link
                 href={link.href}
@@ -68,24 +68,16 @@ const Footer = () => {
             </li>
           ))}
         </ul>
-<<<<<<<<< Temporary merge branch 1
 
         {/* social Links */}
         {/* <div className="flex justify-center space-x-4">
-=========
-        {/* Social links */}
-        <div className="flex justify-center space-x-4 md:space-x-6 mb-6">
-          {/* social Links */}
-          {/* <div className="flex justify-center space-x-4">
->>>>>>>>> Temporary merge branch 2
           {socialLinks.map(({ href, icon: Icon }, index) => (
             <Link
               href={href}
               key={index}
-              className="text-gray-600 hover:text-purple-600 transition-colors duration-200"
-              aria-label={Icon.name}
+              className="text-gray-600 hover:text-purple-600"
             >
-              <Icon className="w-5 h-5 md:w-6 md:h-6" />
+              <Icon className="w-5 h-5" />
             </Link>
           ))}
         </div> */}
@@ -104,16 +96,9 @@ const Footer = () => {
           ))}
         </div>
 
-<<<<<<<<< Temporary merge branch 1
         {/* Copyright */}
         <div className="text-sm text-gray-500 mt-8 text-center">
           ©{new Date().getFullYear()} SwiftCart. All rights reserved.
-=========
-          {/* Copyright */}
-          <div className="text-xs text-gray-500 mt-8 text-center">
-            © {new Date().getFullYear()} SwiftCart. All rights reserved.
-          </div>
->>>>>>>>> Temporary merge branch 2
         </div>
       </div>
     </footer>
