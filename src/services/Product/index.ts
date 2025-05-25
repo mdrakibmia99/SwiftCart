@@ -101,6 +101,27 @@ export const updateProduct = async (
     return Error(error);
   }
 };
+// update product
+export const deleteProduct = async (
+  productId: string
+): Promise<any> => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/product/${productId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    revalidateTag("PRODUCT");
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
 
 export const getTrendingProducts = async (limit: number) => {
   try {

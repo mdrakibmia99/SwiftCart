@@ -11,6 +11,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from 'react';
 import DiscountModal from './DiscountModal';
 import TablePagination from '@/components/ui/core/SCTable/TablePagination';
+import { toast } from 'sonner';
+import { deleteProduct } from '@/services/Product';
 
 const ManageProducts = ({
   products,
@@ -26,8 +28,23 @@ const ManageProducts = ({
     console.log('Viewing product:', product);
   };
 
-  const handleDelete = (productId: string) => {
-    console.log('Deleting product with ID:', productId);
+  const handleDelete = async(productId: string) => {
+    try {
+      const res=await  deleteProduct(productId);
+      console.log('Delete response:', res);
+      if (res.success) {
+        toast.success('Product deleted successfully');
+
+      } else {
+        toast.error(res.message || 'Failed to delete product');
+      }
+      
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      // You can show a toast notification here if needed
+      toast.error('Failed to delete product');
+      
+    }
   };
 
   const columns: ColumnDef<IProduct>[] = [
@@ -111,13 +128,13 @@ const ManageProducts = ({
       header: 'Action',
       cell: ({ row }) => (
         <div className="flex items-center space-x-3">
-          <button
+          {/* <button
             className="text-gray-500 hover:text-blue-500"
             title="View"
             onClick={() => handleView(row.original)}
           >
             <Eye className="w-5 h-5" />
-          </button>
+          </button> */}
 
           <button
             className="text-gray-500 hover:text-green-500"
@@ -161,7 +178,7 @@ const ManageProducts = ({
         </div>
       </div>
       <SCTable columns={columns} data={products || []} />
-      <TablePagination totalPage={meta?.totalPage} />
+      <TablePagination totalPage={meta?.totalPage} page={meta?.page || 1} />
     </div>
   );
 };
