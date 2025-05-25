@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 
 import {
   Table,
@@ -14,14 +14,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 
 interface NMTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function NMTable<TData, TValue>({
+export function SCTable<TData, TValue>({
   columns,
   data,
 }: NMTableProps<TData, TValue>) {
@@ -35,9 +35,9 @@ export function NMTable<TData, TValue>({
     <div className="my-5">
       <Table>
         <TableHeader>
-          {table?.getHeaderGroups().map((headerGroup) => (
+          {table?.getHeaderGroups().map(headerGroup => (
             <TableRow key={headerGroup.id} className="bg-gray-200">
-              {headerGroup.headers.map((header) => {
+              {headerGroup.headers.map(header => {
                 return (
                   <TableHead
                     className="font-bold text-gray-600"
@@ -57,12 +57,12 @@ export function NMTable<TData, TValue>({
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
+            table.getRowModel().rows.map(row => (
               <TableRow
                 key={row.id}
-                data-state={row.getIsSelected() && "selected"}
+                data-state={row.getIsSelected() && 'selected'}
               >
-                {row.getVisibleCells().map((cell) => (
+                {row.getVisibleCells().map(cell => (
                   <TableCell className="py-4" key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>

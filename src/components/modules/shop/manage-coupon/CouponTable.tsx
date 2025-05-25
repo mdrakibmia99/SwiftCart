@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { Checkbox } from "@/components/ui/checkbox";
-import { NMTable } from "@/components/ui/core/NMTable/index";
-import TablePagination from "@/components/ui/core/NMTable/TablePagination";
-import { IMeta, IProduct } from "@/types";
-import { ColumnDef } from "@tanstack/react-table";
-import { Edit, Eye, Trash } from "lucide-react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Checkbox } from '@/components/ui/checkbox';
+import { SCTable } from '@/components/ui/core/SCTable/index';
+import TablePagination from '@/components/ui/core/SCTable/TablePagination';
+import { IMeta, IProduct } from '@/types';
+import { ColumnDef } from '@tanstack/react-table';
+import { Edit, Eye, Trash } from 'lucide-react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const CouponTable = ({
   coupons,
@@ -23,23 +23,23 @@ const CouponTable = ({
   const router = useRouter();
 
   const handleView = (product: IProduct) => {
-    console.log("Viewing product:", product);
+    console.log('Viewing product:', product);
   };
 
   const handleDelete = (productId: string) => {
-    console.log("Deleting product with ID:", productId);
+    console.log('Deleting product with ID:', productId);
   };
 
   const columns: ColumnDef<IProduct>[] = [
     {
-      id: "select",
+      id: 'select',
       header: ({ table }) => (
         <Checkbox
           checked={
             table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
+            (table.getIsSomePageRowsSelected() && 'indeterminate')
           }
-          onCheckedChange={(value) => {
+          onCheckedChange={value => {
             table.toggleAllPageRowsSelected(!!value);
           }}
           aria-label="Select all"
@@ -48,12 +48,12 @@ const CouponTable = ({
       cell: ({ row }) => (
         <Checkbox
           checked={row.getIsSelected()}
-          onCheckedChange={(value) => {
+          onCheckedChange={value => {
             if (value) {
               setSelectedProductsId([...selectedProductsId, row.original._id]);
             } else {
               setSelectedProductsId(
-                selectedProductsId.filter((id) => id !== row.original._id)
+                selectedProductsId.filter(id => id !== row.original._id)
               );
             }
 
@@ -66,8 +66,8 @@ const CouponTable = ({
       enableHiding: false,
     },
     {
-      accessorKey: "name",
-      header: "Product Name",
+      accessorKey: 'name',
+      header: 'Product Name',
       cell: ({ row }) => (
         <div className="flex items-center space-x-3">
           <Image
@@ -82,37 +82,37 @@ const CouponTable = ({
       ),
     },
     {
-      accessorKey: "category",
-      header: "Category",
+      accessorKey: 'category',
+      header: 'Category',
       cell: ({ row }) => <span>{row.original.category.name}</span>,
     },
     {
-      accessorKey: "brand",
-      header: "Brand",
+      accessorKey: 'brand',
+      header: 'Brand',
       cell: ({ row }) => <span>{row.original.brand.name}</span>,
     },
     {
-      accessorKey: "stock",
-      header: "Stock",
+      accessorKey: 'stock',
+      header: 'Stock',
       cell: ({ row }) => <span>{row.original.stock}</span>,
     },
     {
-      accessorKey: "price",
-      header: "Price",
+      accessorKey: 'price',
+      header: 'Price',
       cell: ({ row }) => <span>$ {row.original.price.toFixed(2)}</span>,
     },
     {
-      accessorKey: "offerPrice",
-      header: "Ofter Price",
+      accessorKey: 'offerPrice',
+      header: 'Ofter Price',
       cell: ({ row }) => (
         <span>
-          $ {row.original.offerPrice ? row.original.offerPrice.toFixed(2) : "0"}
+          $ {row.original.offerPrice ? row.original.offerPrice.toFixed(2) : '0'}
         </span>
       ),
     },
     {
-      accessorKey: "action",
-      header: "Action",
+      accessorKey: 'action',
+      header: 'Action',
       cell: ({ row }) => (
         <div className="flex items-center space-x-3">
           <button
@@ -147,7 +147,7 @@ const CouponTable = ({
 
   return (
     <div className="my-5">
-      <NMTable columns={columns} data={coupons || []} />
+      <SCTable columns={columns} data={coupons || []} />
       <TablePagination
         currentPage={currentPage}
         totalPages={meta?.totalPage}

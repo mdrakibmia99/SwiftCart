@@ -1,14 +1,14 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import NMImageUploader from "@/components/ui/core/NMImageUploader";
-import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
+'use client';
+import { Button } from '@/components/ui/button';
+import SCImageUploader from '@/components/ui/core/SCImageUploader';
+import ImagePreviewer from '@/components/ui/core/SCImageUploader/ImagePreviewer';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -16,13 +16,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { createCategory } from "@/services/Category";
-import { useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "sonner";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { createCategory } from '@/services/Category';
+import { useState } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 const CreateCategoryModal = () => {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
@@ -33,11 +33,11 @@ const CreateCategoryModal = () => {
     formState: { isSubmitting },
   } = form;
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async data => {
     try {
       const formData = new FormData();
-      formData.append("data", JSON.stringify(data));
-      formData.append("icon", imageFiles[0] as File);
+      formData.append('data', JSON.stringify(data));
+      formData.append('icon', imageFiles[0] as File);
 
       const res = await createCategory(formData);
 
@@ -70,7 +70,7 @@ const CreateCategoryModal = () => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input type="text" {...field} value={field.value || ""} />
+                    <Input type="text" {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -87,7 +87,7 @@ const CreateCategoryModal = () => {
                       <Textarea
                         className="h-36 w-72"
                         {...field}
-                        value={field.value || ""}
+                        value={field.value || ''}
                       />
                     </FormControl>
                     <FormMessage />
@@ -104,7 +104,7 @@ const CreateCategoryModal = () => {
                 />
               ) : (
                 <div className="mt-8">
-                  <NMImageUploader
+                  <SCImageUploader
                     setImageFiles={setImageFiles}
                     setImagePreview={setImagePreview}
                     label="Upload Icon"
@@ -114,7 +114,7 @@ const CreateCategoryModal = () => {
             </div>
 
             <Button type="submit" className="mt-5 w-full">
-              {isSubmitting ? "Creating...." : "Create"}
+              {isSubmitting ? 'Creating....' : 'Create'}
             </Button>
           </form>
         </Form>

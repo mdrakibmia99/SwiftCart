@@ -1,8 +1,8 @@
-"use client";
-import Logo from "@/assets/svgs/Logo";
-import { Button } from "../ui/button";
-import { Heart, LogOut, ShoppingCart } from "lucide-react";
-import Link from "next/link";
+'use client';
+import Logo from '@/assets/svgs/Logo';
+import { Button } from '../ui/button';
+import { Heart, LogOut, ShoppingCart } from 'lucide-react';
+import Link from 'next/link';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,14 +10,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { logout } from "@/services/AuthService";
-import { useUser } from "@/context/UserContext";
-import { usePathname, useRouter } from "next/navigation";
-import { protectedRoutes } from "@/contants";
-import { useAppSelector } from "@/redux/hooks";
-import { orderedProductsSelector } from "@/redux/features/cartSlice";
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { logout } from '@/services/AuthService';
+import { useUser } from '@/context/UserContext';
+import { usePathname, useRouter } from 'next/navigation';
+import { protectedRoutes } from '@/contants';
+import { useAppSelector } from '@/redux/hooks';
+import { orderedProductsSelector } from '@/redux/features/cartSlice';
 
 export default function Navbar() {
   const { user, setIsLoading } = useUser();
@@ -28,8 +28,8 @@ export default function Navbar() {
   const handleLogOut = () => {
     logout();
     setIsLoading(true);
-    if (protectedRoutes.some((route) => pathname.match(route))) {
-      router.push("/");
+    if (protectedRoutes.some(route => pathname.match(route))) {
+      router.push('/');
     }
   };
 

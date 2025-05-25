@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button";
-import styles from "./HeroSection.module.css";
-import Image from "next/image";
-import cupImg from "@/assets/cup-with-headphone.png";
-import NMContainer from "@/components/ui/core/NMContainer";
+import { Button } from '@/components/ui/button';
+import styles from './HeroSection.module.css';
+import Image from 'next/image';
+import cupImg from '@/assets/cup-with-headphone.png';
+import SCContainer from '@/components/ui/core/SCContainer';
 
 const HeroSection = () => {
   return (
-    <NMContainer>
+    <SCContainer>
       <div
         className={`${styles.banner} border-2 border-white rounded-3xl  mt-10`}
       >
@@ -35,7 +35,7 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-    </NMContainer>
+    </SCContainer>
   );
 };
 

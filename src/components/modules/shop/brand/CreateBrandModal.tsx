@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
 
 import {
   Form,
@@ -14,13 +14,13 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
-import NMImageUploader from "@/components/ui/core/NMImageUploader";
-import { useState } from "react";
-import { toast } from "sonner";
-import { createBrand } from "@/services/Brand";
+} from '@/components/ui/form';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import ImagePreviewer from '@/components/ui/core/SCImageUploader/ImagePreviewer';
+import SCImageUploader from '@/components/ui/core/SCImageUploader';
+import { useState } from 'react';
+import { toast } from 'sonner';
+import { createBrand } from '@/services/Brand';
 
 const CreateBrandModal = () => {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
@@ -31,11 +31,11 @@ const CreateBrandModal = () => {
     formState: { isSubmitting },
   } = form || {};
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async data => {
     try {
       const formData = new FormData();
-      formData.append("data", JSON.stringify(data));
-      formData.append("logo", imageFiles[0] as File);
+      formData.append('data', JSON.stringify(data));
+      formData.append('logo', imageFiles[0] as File);
 
       const res = await createBrand(formData);
 
@@ -67,7 +67,7 @@ const CreateBrandModal = () => {
               setImagePreview={setImagePreview}
             />
           ) : (
-            <NMImageUploader
+            <SCImageUploader
               setImageFiles={setImageFiles}
               setImagePreview={setImagePreview}
               label="Upload Logo"
@@ -89,7 +89,7 @@ const CreateBrandModal = () => {
                     <Input
                       type="text"
                       {...field}
-                      value={field.value || ""}
+                      value={field.value || ''}
                       className="rounded-sm w-56"
                       placeholder="Name"
                     />
@@ -100,7 +100,7 @@ const CreateBrandModal = () => {
             />
 
             <Button type="submit" className="w-full rounded-sm">
-              {isSubmitting ? "Creating...." : "Create"}
+              {isSubmitting ? 'Creating....' : 'Create'}
             </Button>
           </form>
         </Form>

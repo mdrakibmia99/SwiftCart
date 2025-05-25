@@ -1,10 +1,10 @@
-import AllProducts from "@/components/modules/products";
-import ProductBanner from "@/components/modules/products/banner";
-import CategoryCard from "@/components/ui/core/CategoryCard";
-import NMContainer from "@/components/ui/core/NMContainer";
-import { getAllCategories } from "@/services/Category";
-import { getAllProducts } from "@/services/Product";
-import { ICategory } from "@/types";
+import AllProducts from '@/components/modules/products';
+import ProductBanner from '@/components/modules/products/banner';
+import CategoryCard from '@/components/ui/core/CategoryCard';
+import SCContainer from '@/components/ui/core/SCContainer';
+import { getAllCategories } from '@/services/Category';
+import { getAllProducts } from '@/services/Product';
+import { ICategory } from '@/types';
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -19,7 +19,7 @@ const AllProductsPage = async ({
   const { data: products } = await getAllProducts(undefined, undefined, query);
 
   return (
-    <NMContainer>
+    <SCContainer>
       <ProductBanner title="All Products" path="Home - Products" />
       <h2 className="text-xl sm:text-2xl md:text-3xl font-bold my-5">
         Featured Collection
@@ -30,7 +30,7 @@ const AllProductsPage = async ({
         ))}
       </div>
       <AllProducts products={products} />
-    </NMContainer>
+    </SCContainer>
   );
 };
 

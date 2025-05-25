@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -8,20 +8,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   FieldValues,
   SubmitHandler,
   useFieldArray,
   useForm,
-} from "react-hook-form";
-import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
-import NMImageUploader from "@/components/ui/core/NMImageUploader";
-import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
-import { Plus } from "lucide-react";
-import Logo from "@/assets/svgs/Logo";
+} from 'react-hook-form';
+import { Textarea } from '@/components/ui/textarea';
+import { useEffect, useState } from 'react';
+import SCImageUploader from '@/components/ui/core/SCImageUploader';
+import ImagePreviewer from '@/components/ui/core/SCImageUploader/ImagePreviewer';
+import { Plus } from 'lucide-react';
+import Logo from '@/assets/svgs/Logo';
 
 import {
   Select,
@@ -29,13 +29,13 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { IBrand, ICategory } from "@/types";
-import { getAllCategories } from "@/services/Category";
-import { getAllBrands } from "@/services/Brand";
-import { addProduct } from "@/services/Product";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+} from '@/components/ui/select';
+import { IBrand, ICategory } from '@/types';
+import { getAllCategories } from '@/services/Category';
+import { getAllBrands } from '@/services/Brand';
+import { addProduct } from '@/services/Product';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export default function AddProductsForm() {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
@@ -47,16 +47,16 @@ export default function AddProductsForm() {
 
   const form = useForm({
     defaultValues: {
-      name: "",
-      description: "",
-      price: "",
-      category: "",
-      brand: "",
-      stock: "",
-      weight: "",
-      availableColors: [{ value: "" }],
-      keyFeatures: [{ value: "" }],
-      specification: [{ key: "", value: "" }],
+      name: '',
+      description: '',
+      price: '',
+      category: '',
+      brand: '',
+      stock: '',
+      weight: '',
+      availableColors: [{ value: '' }],
+      keyFeatures: [{ value: '' }],
+      specification: [{ key: '', value: '' }],
     },
   });
 
@@ -66,29 +66,29 @@ export default function AddProductsForm() {
 
   const { append: appendColor, fields: colorFields } = useFieldArray({
     control: form.control,
-    name: "availableColors",
+    name: 'availableColors',
   });
 
   const addColor = () => {
-    appendColor({ value: "" });
+    appendColor({ value: '' });
   };
 
   const { append: appendFeatures, fields: featureFields } = useFieldArray({
     control: form.control,
-    name: "keyFeatures",
+    name: 'keyFeatures',
   });
 
   const addFeatures = () => {
-    appendFeatures({ value: "" });
+    appendFeatures({ value: '' });
   };
 
   const { append: appendSpec, fields: specFields } = useFieldArray({
     control: form.control,
-    name: "specification",
+    name: 'specification',
   });
 
   const addSpec = () => {
-    appendSpec({ key: "", value: "" });
+    appendSpec({ key: '', value: '' });
   };
 
   // console.log(specFields);
@@ -107,7 +107,7 @@ export default function AddProductsForm() {
     fetchData();
   }, []);
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async data => {
     const availableColors = data.availableColors.map(
       (color: { value: string }) => color.value
     );
@@ -135,17 +135,17 @@ export default function AddProductsForm() {
     };
 
     const formData = new FormData();
-    formData.append("data", JSON.stringify(modifiedData));
+    formData.append('data', JSON.stringify(modifiedData));
 
     for (const file of imageFiles) {
-      formData.append("images", file);
+      formData.append('images', file);
     }
     try {
       const res = await addProduct(formData);
 
       if (res.success) {
         toast.success(res.message);
-        router.push("/user/shop/products");
+        router.push('/user/shop/products');
       } else {
         toast.error(res.message);
       }
@@ -174,7 +174,7 @@ export default function AddProductsForm() {
                 <FormItem>
                   <FormLabel>Product Name</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} />
+                    <Input {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -188,7 +188,7 @@ export default function AddProductsForm() {
                 <FormItem>
                   <FormLabel>Price</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} />
+                    <Input {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -211,7 +211,7 @@ export default function AddProductsForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {categories.map((category) => (
+                      {categories.map(category => (
                         <SelectItem key={category?._id} value={category?._id}>
                           {category?.name}
                         </SelectItem>
@@ -239,7 +239,7 @@ export default function AddProductsForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {brands.map((brand) => (
+                      {brands.map(brand => (
                         <SelectItem key={brand?._id} value={brand?._id}>
                           {brand?.name}
                         </SelectItem>
@@ -258,7 +258,7 @@ export default function AddProductsForm() {
                 <FormItem>
                   <FormLabel>Stock</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} />
+                    <Input {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -271,7 +271,7 @@ export default function AddProductsForm() {
                 <FormItem>
                   <FormLabel>Weight</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} />
+                    <Input {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -290,7 +290,7 @@ export default function AddProductsForm() {
                     <Textarea
                       className="h-36 resize-none"
                       {...field}
-                      value={field.value || ""}
+                      value={field.value || ''}
                     />
                   </FormControl>
                   <FormMessage />
@@ -304,7 +304,7 @@ export default function AddProductsForm() {
               <p className="text-primary font-bold text-xl">Images</p>
             </div>
             <div className="flex gap-4 ">
-              <NMImageUploader
+              <SCImageUploader
                 setImageFiles={setImageFiles}
                 setImagePreview={setImagePreview}
                 label="Upload Image"
@@ -342,7 +342,7 @@ export default function AddProductsForm() {
                       <FormItem>
                         <FormLabel>Color {index + 1}</FormLabel>
                         <FormControl>
-                          <Input {...field} value={field.value || ""} />
+                          <Input {...field} value={field.value || ''} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -376,7 +376,7 @@ export default function AddProductsForm() {
                       <FormItem>
                         <FormLabel>Key Feature {index + 1}</FormLabel>
                         <FormControl>
-                          <Input {...field} value={field.value || ""} />
+                          <Input {...field} value={field.value || ''} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -412,7 +412,7 @@ export default function AddProductsForm() {
                     <FormItem>
                       <FormLabel>Feature name {index + 1}</FormLabel>
                       <FormControl>
-                        <Input {...field} value={field.value || ""} />
+                        <Input {...field} value={field.value || ''} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -425,7 +425,7 @@ export default function AddProductsForm() {
                     <FormItem>
                       <FormLabel>Feature Description {index + 1}</FormLabel>
                       <FormControl>
-                        <Input {...field} value={field.value || ""} />
+                        <Input {...field} value={field.value || ''} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -436,7 +436,7 @@ export default function AddProductsForm() {
           </div>
 
           <Button type="submit" className="mt-5 w-full" disabled={isSubmitting}>
-            {isSubmitting ? "Adding Product....." : "Add Product"}
+            {isSubmitting ? 'Adding Product.....' : 'Add Product'}
           </Button>
         </form>
       </Form>

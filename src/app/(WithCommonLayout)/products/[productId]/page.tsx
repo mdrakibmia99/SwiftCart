@@ -1,7 +1,7 @@
-import ProductBanner from "@/components/modules/products/banner";
-import ProductDetails from "@/components/modules/products/productDetails";
-import NMContainer from "@/components/ui/core/NMContainer";
-import { getSingleProduct } from "@/services/Product";
+import ProductBanner from '@/components/modules/products/banner';
+import ProductDetails from '@/components/modules/products/productDetails';
+import SCContainer from '@/components/ui/core/SCContainer';
+import { getSingleProduct } from '@/services/Product';
 
 const ProductDetailsPage = async ({
   params,
@@ -13,13 +13,13 @@ const ProductDetailsPage = async ({
   const { data: product } = await getSingleProduct(productId);
 
   return (
-    <NMContainer>
+    <SCContainer>
       <ProductBanner
         title="Product Details"
         path="Home - Products - Product Details"
       />
       <ProductDetails product={product} />
-    </NMContainer>
+    </SCContainer>
   );
 };
 
