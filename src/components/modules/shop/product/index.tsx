@@ -3,7 +3,7 @@
 import { SCTable } from '@/components/ui/core/SCTable/index';
 import { IMeta, IProduct } from '@/types';
 import { ColumnDef } from '@tanstack/react-table';
-import { Edit, Eye, Plus, Trash } from 'lucide-react';
+import { Edit, Plus, Trash } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -26,26 +26,23 @@ const ManageProducts = ({
   const router = useRouter();
   const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
 
-  const handleView = (product: IProduct) => {
-    console.log('Viewing product:', product);
-  };
+  // const handleView = (product: IProduct) => {
+  //   console.log('Viewing product:', product);
+  // };
 
-  const handleDelete = async(productId: string) => {
+  const handleDelete = async (productId: string) => {
     try {
-      const res=await  deleteProduct(productId);
+      const res = await deleteProduct(productId);
       console.log('Delete response:', res);
       if (res.success) {
         toast.success('Product deleted successfully');
-
       } else {
         toast.error(res.message || 'Failed to delete product');
       }
-      
     } catch (error) {
       console.error('Error deleting product:', error);
       // You can show a toast notification here if needed
       toast.error('Failed to delete product');
-      
     }
   };
 
