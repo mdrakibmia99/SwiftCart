@@ -11,18 +11,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import Link from "next/link";
-import Logo from "@/assets/svgs/Logo";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registrationSchema } from "./registerValidation";
 import { registerUser } from "@/services/AuthService";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 import { useEffect, useState } from "react";
 import { PasswordInput } from "@/components/ui/password-input";
+import Link from "next/link";
+import { toast } from "sonner";
+import HelperFooter from "@/components/shared/HelperFooter";
+// import Logo from "@/assets/svgs/Logo";
 
-// Password rules
 const passwordRequirements = [
   { label: "One uppercase letter", test: (pw: string) => /[A-Z]/.test(pw) },
   { label: "One lowercase letter", test: (pw: string) => /[a-z]/.test(pw) },
@@ -35,24 +35,18 @@ const passwordRequirements = [
 ];
 
 export default function RegisterForm() {
-  const form = useForm({
-    resolver: zodResolver(registrationSchema),
-  });
-
+  const form = useForm({ resolver: zodResolver(registrationSchema) });
   const {
     formState: { isSubmitting },
   } = form;
-
   const password = form.watch("password") || "";
-
   const [isPasswordValid, setIsPasswordValid] = useState(false);
-
   const router = useRouter();
   const { setIsLoading } = useUser();
 
   useEffect(() => {
-    const allValid = passwordRequirements.every((req) => req.test(password));
-    setIsPasswordValid(allValid);
+    const valid = passwordRequirements.every((rule) => rule.test(password));
+    setIsPasswordValid(valid);
   }, [password]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -60,10 +54,10 @@ export default function RegisterForm() {
       const res = await registerUser(data);
       setIsLoading(true);
       if (res?.success) {
-        toast.success(res?.message);
+        toast.success(res.message);
         router.push("/");
       } else {
-        toast.error(res?.message);
+        toast.error(res.message);
       }
     } catch (err: any) {
       console.error(err);
@@ -71,13 +65,13 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
-      <div className="flex items-center space-x-4 ">
-        <Logo />
+    <div className="bg-white border border-gray-200 shadow-md rounded-2xl p-6 w-full max-w-md mx-auto space-y-6">
+      <div className="flex items-center gap-3">
+        {/* <Logo /> */}
         <div>
-          <h1 className="text-xl font-semibold">Register</h1>
-          <p className="font-extralight text-sm text-gray-600">
-            Join us today and start your journey!
+          <h2 className="text-2xl font-bold text-gray-800">Create Account</h2>
+          <p className="text-sm text-gray-500">
+            Join SwiftCart and start shopping today
           </p>
         </div>
       </div>
@@ -89,9 +83,9 @@ export default function RegisterForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>Full Name</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value || ""} />
+                  <Input placeholder="John Doe" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -104,7 +98,7 @@ export default function RegisterForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" {...field} value={field.value || ""} />
+                  <Input placeholder="you@example.com" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -117,25 +111,27 @@ export default function RegisterForm() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <PasswordInput {...field} value={field.value || ""} />
+                  <PasswordInput {...field} />
                 </FormControl>
 
-                {/* Password checklist */}
-                <div className="space-y-1 mt-2">
-                  {passwordRequirements.map((req, idx) => (
-                    <p
-                      key={idx}
-                      className={`text-sm flex items-center gap-2 ${
-                        req.test(password) ? "text-green-600" : "text-gray-400"
-                      }`}
-                    >
-                      <span
+                <div className="mt-2 space-y-1">
+                  {passwordRequirements.map((rule, i) => (
+                    <div key={i} className="flex items-center gap-2 text-sm">
+                      <div
                         className={`w-2 h-2 rounded-full ${
-                          req.test(password) ? "bg-green-600" : "bg-gray-400"
+                          rule.test(password) ? "bg-green-600" : "bg-gray-300"
                         }`}
                       />
-                      {req.label}
-                    </p>
+                      <span
+                        className={`${
+                          rule.test(password)
+                            ? "text-green-600"
+                            : "text-gray-400"
+                        }`}
+                      >
+                        {rule.label}
+                      </span>
+                    </div>
                   ))}
                 </div>
 
@@ -143,22 +139,21 @@ export default function RegisterForm() {
               </FormItem>
             )}
           />
-          <Button
-            disabled={!isPasswordValid}
-            type="submit"
-            className="mt-4 w-full"
-          >
+          <Button className="w-full" disabled={!isPasswordValid} type="submit">
             {isSubmitting ? "Registering..." : "Register"}
           </Button>
         </form>
       </Form>
 
-      <p className="text-sm text-gray-600 text-center my-3">
+      <p className="text-sm text-center text-gray-600">
         Already have an account?{" "}
-        <Link href="/login" className="text-primary">
-          Login
+        <Link href="/login" className="text-primary hover:underline">
+          Login here
         </Link>
       </p>
+      <div>
+        <HelperFooter />
+      </div>
     </div>
   );
 }

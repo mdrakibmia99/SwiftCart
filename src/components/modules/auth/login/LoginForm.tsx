@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
-import Logo from "@/assets/svgs/Logo";
+// import Logo from "@/assets/svgs/Logo";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginUser } from "@/services/AuthService";
 import { toast } from "sonner";
@@ -21,6 +21,7 @@ import { loginSchema } from "./loginValidation";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 import { PasswordInput } from "@/components/ui/password-input";
+import HelperFooter from "@/components/shared/HelperFooter";
 
 export default function LoginForm() {
   const form = useForm({
@@ -71,10 +72,10 @@ export default function LoginForm() {
   return (
     <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
       <div className="flex items-center space-x-4">
-        <Logo />
+        {/* <Logo /> */}
         <div>
-          <h1 className="text-xl font-semibold">Login</h1>
-          <p className="font-extralight text-sm text-gray-600">Welcome back!</p>
+        <h2 className="text-2xl font-bold text-gray-800">Welcome Back</h2>
+        <p className="text-sm text-gray-500">Login to your SwiftCart account</p>
         </div>
       </div>
 
@@ -128,17 +129,8 @@ export default function LoginForm() {
             )}
           />
 
-          {/* reCAPTCHA (optional) */}
-          {/* <div className="flex mt-3 w-full">
-            <ReCAPTCHA
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_CLIENT_KEY!}
-              onChange={handleReCaptcha}
-              className="mx-auto"
-            />
-          </div> */}
-
           <Button
-            // disabled={!reCaptchaStatus}
+            disabled={isSubmitting}
             type="submit"
             className="mt-5 w-full"
           >
@@ -153,6 +145,10 @@ export default function LoginForm() {
           Register
         </Link>
       </p>
+
+      <div>
+        <HelperFooter />
+      </div>
     </div>
   );
 }
