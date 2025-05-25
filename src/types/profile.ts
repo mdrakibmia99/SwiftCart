@@ -8,7 +8,6 @@ type profile = {
   _id: string;
   gender: string;
   phoneNo : string;
-  profilePhoto : string;
 };
 
 // User Schema Definition
@@ -17,6 +16,7 @@ export interface IProfile {
   password: string;
   passwordChangedAt?: Date;
   name: string;
+  profilePhoto: string
   role: UserRole;
   phoneNo: string;
   hasShop: boolean;

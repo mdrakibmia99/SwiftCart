@@ -29,9 +29,9 @@ const UpdateProfile = ({ data: userData }: { data: IProfile }) => {
   const { setIsLoading } = useUser();
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreview, setImagePreview] = useState<string[]>(
-    userData?.profile?.profilePhoto ? [userData.profile.profilePhoto] : []
+    userData?.profilePhoto ? [userData.profilePhoto] : []
   );
-  console.log(userData);
+  
   const form = useForm({
     defaultValues: {
       name: userData?.name || "",
@@ -43,6 +43,8 @@ const UpdateProfile = ({ data: userData }: { data: IProfile }) => {
     formState: { isSubmitting },
   } = form;
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    // console.log(data);
+    // console.log(imageFiles[0]);
     const formData = new FormData();
     formData.append("data", JSON.stringify(data));
     formData.append("profilePhoto", imageFiles[0] as File);
@@ -50,6 +52,7 @@ const UpdateProfile = ({ data: userData }: { data: IProfile }) => {
     try {
       const res = await updateProfile(formData);
       setIsLoading(true);
+      console.log(res);
       if (res.success) {
         toast.success(res?.message);
       } else {
