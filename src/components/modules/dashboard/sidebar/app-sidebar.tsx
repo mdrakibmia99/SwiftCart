@@ -95,11 +95,7 @@ const ADMIN_NAV_ITEMS = [
   },
 ];
 
-// Common Secondary Items
-const COMMON_SECONDARY_ITEMS = [
-  { title: "Support", url: "/support", icon: LifeBuoy },
-  { title: "Feedback", url: "/feedback", icon: Send },
-];
+
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   userRole: "user" | "admin"; // Role-based prop
@@ -118,10 +114,7 @@ export function AppSidebar({ userRole, ...props }: AppSidebarProps) {
         {/* Main Navigation */}
         <NavMain items={navItems} />
 
-        {/* Common Secondary Navigation */}
-        <div className="mt-4">
-          <NavMain items={COMMON_SECONDARY_ITEMS} />
-        </div>
+        
       </SidebarContent>
 
       <SidebarFooter>
