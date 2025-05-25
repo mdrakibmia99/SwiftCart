@@ -13,7 +13,8 @@ import {
   Tag,
   Award,
   CreditCard,
-  DollarSign
+  DollarSign,
+  User
 } from "lucide-react";
 import Link from "next/link";
 
@@ -86,7 +87,7 @@ const ADMIN_NAV_ITEMS = [
   {
     title: "User Management",
     url: "/admin/user-management",
-    icon: DollarSign
+    icon: User
   },
    {
     title: "Profile",
