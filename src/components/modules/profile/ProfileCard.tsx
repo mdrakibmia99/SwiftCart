@@ -89,8 +89,7 @@ const ProfileCard = ({ data }: { data: IProfile }) => {
             </p>
           </div>
         </CardContent></>
-        )}
-       
+        )}      
       </Card>
     </div>
   );
