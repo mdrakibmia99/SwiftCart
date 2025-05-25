@@ -1,11 +1,17 @@
 // app/dashboard/users/UserTable.tsx
-'use client'
-import { ColumnDef } from "@tanstack/react-table";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal } from "lucide-react";
-import { SCTable } from "@/components/ui/core/SCTable";
+'use client';
+
+import { ColumnDef } from '@tanstack/react-table';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { MoreHorizontal } from 'lucide-react';
+import { SCTable } from '@/components/ui/core/SCTable';
 
 type User = {
   _id: string;
@@ -24,8 +30,8 @@ interface UserTableProps {
 const UserTable = ({ users, loading, onStatusUpdate }: UserTableProps) => {
   const columns: ColumnDef<User>[] = [
     {
-      accessorKey: "name",
-      header: "User",
+      accessorKey: 'name',
+      header: 'User',
       cell: ({ row }) => (
         <div className="flex items-center gap-3">
           <div className="rounded-full w-10 h-10 bg-gray-200 flex items-center justify-center">
@@ -39,17 +45,20 @@ const UserTable = ({ users, loading, onStatusUpdate }: UserTableProps) => {
       ),
     },
     {
-      accessorKey: "role",
-      header: "Role",
+      accessorKey: 'role',
+      header: 'Role',
       cell: ({ row }) => (
-        <Badge variant={row.original.role === 'admin' ? 'default' : 'outline'} className="capitalize">
+        <Badge
+          variant={row.original.role === 'admin' ? 'default' : 'outline'}
+          className="capitalize"
+        >
           {row.original.role}
         </Badge>
       ),
     },
     {
-      accessorKey: "isActive",
-      header: "Status",
+      accessorKey: 'isActive',
+      header: 'Status',
       cell: ({ row }) => (
         <Badge variant={row.original.isActive ? 'default' : 'destructive'}>
           {row.original.isActive ? 'Active' : 'Inactive'}
@@ -57,10 +66,10 @@ const UserTable = ({ users, loading, onStatusUpdate }: UserTableProps) => {
       ),
     },
     {
-      id: "actions",
+      id: 'actions',
       cell: ({ row }) => {
         const user = row.original;
-        
+
         // Don't show actions for admin users
         if (user.role === 'admin') {
           return null;
@@ -74,13 +83,13 @@ const UserTable = ({ users, loading, onStatusUpdate }: UserTableProps) => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem 
+              <DropdownMenuItem
                 onClick={() => onStatusUpdate(user._id, true)}
                 disabled={user.isActive}
               >
                 Activate
               </DropdownMenuItem>
-              <DropdownMenuItem 
+              <DropdownMenuItem
                 onClick={() => onStatusUpdate(user._id, false)}
                 disabled={!user.isActive}
               >
@@ -93,7 +102,7 @@ const UserTable = ({ users, loading, onStatusUpdate }: UserTableProps) => {
     },
   ];
 
-  return <SCTable columns={columns} data={users}  />;
+  return <SCTable columns={columns} data={users} />;
 };
 
 export default UserTable;

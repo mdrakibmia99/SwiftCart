@@ -1,4 +1,5 @@
 'use client';
+
 import { SCTable } from '@/components/ui/core/SCTable/index';
 import { ColumnDef } from '@tanstack/react-table';
 import { Trash } from 'lucide-react';

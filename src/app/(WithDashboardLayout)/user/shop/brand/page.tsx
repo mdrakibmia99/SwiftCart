@@ -1,11 +1,17 @@
-import ManageBrands from "@/components/modules/shop/brand";
-import { getAllBrands } from "@/services/Brand";
+import ManageBrands from '@/components/modules/shop/brand';
+import { getAllBrands } from '@/services/Brand';
 
-const ProductBrandPage = async () => {
-  const { data, meta } = await getAllBrands();
+const ProductBrandPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ page: string }>;
+}) => {
+  const { page } = await searchParams;
+  const { data: brands, meta } = await getAllBrands(page, '10');
+
   return (
     <div>
-      <ManageBrands brands={data} />
+      <ManageBrands brands={brands} meta={meta} page={page} />
     </div>
   );
 };

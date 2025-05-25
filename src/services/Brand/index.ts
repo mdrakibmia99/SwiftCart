@@ -13,12 +13,13 @@ export const getAllBrands = async (
       `${process.env.NEXT_PUBLIC_BASE_API}/brand?limit=${limit}&page=${page}`,
       {
         next: {
-          tags: ['Brands'],
+          tags: ['BRANDS'],
         },
       }
     );
-    const data = await res.json();
-    return data;
+
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error.message);
   }
@@ -37,9 +38,10 @@ export const createBrand = async (brandData: FormData): Promise<any> => {
       },
     });
 
-    revalidateTag('Brands');
+    revalidateTag('BRANDS');
 
-    return res.json();
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     throw new Error(error.message || 'Something went wrong');
   }
@@ -59,8 +61,11 @@ export const deleteBrand = async (brandId: string): Promise<any> => {
         },
       }
     );
-    revalidateTag('Brands');
-    return res.json();
+
+    revalidateTag('BRANDS');
+
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }

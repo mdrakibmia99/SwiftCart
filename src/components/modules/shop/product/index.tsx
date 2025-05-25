@@ -17,9 +17,11 @@ import { deleteProduct } from '@/services/Product';
 const ManageProducts = ({
   products,
   meta,
+  page,
 }: {
   products: IProduct[];
   meta: IMeta;
+  page: string;
 }) => {
   const router = useRouter();
   const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
@@ -178,7 +180,7 @@ const ManageProducts = ({
         </div>
       </div>
       <SCTable columns={columns} data={products || []} />
-      <TablePagination totalPage={meta?.totalPage} page={meta?.page || 1} />
+      <TablePagination page={Number(page)} totalPage={meta?.totalPage} />
     </div>
   );
 };

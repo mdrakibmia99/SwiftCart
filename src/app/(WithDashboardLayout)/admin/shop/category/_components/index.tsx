@@ -1,10 +1,11 @@
 'use client';
-import { ICategory } from '@/types';
+
+import { ICategory, IMeta } from '@/types';
 import CreateCategoryModal from './CreateCategoryModal';
 import { SCTable } from '@/components/ui/core/SCTable';
 import { ColumnDef } from '@tanstack/react-table';
 import Image from 'next/image';
-import { Trash, Plus } from 'lucide-react';
+import { Trash } from 'lucide-react';
 import { useState } from 'react';
 import DeleteConfirmationModal from '@/components/ui/core/SCModal/DeleteConfirmationModal';
 import { toast } from 'sonner';
@@ -12,12 +13,15 @@ import { deleteCategory } from '@/services/Category';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import TablePagination from '@/components/ui/core/SCTable/TablePagination';
 
 type TCategoriesProps = {
   categories: ICategory[];
+  meta: IMeta;
+  page: string;
 };
 
-const ManageCategories = ({ categories }: TCategoriesProps) => {
+const ManageCategories = ({ categories, meta, page }: TCategoriesProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
@@ -67,8 +71,8 @@ const ManageCategories = ({ categories }: TCategoriesProps) => {
       header: () => <div className="font-semibold">Status</div>,
       cell: ({ row }) => (
         <div>
-          <Badge 
-            variant={row.original.isActive ? "default" : "destructive"}
+          <Badge
+            variant={row.original.isActive ? 'default' : 'destructive'}
             className="px-3 py-1 rounded-full"
           >
             {row.original.isActive ? 'Active' : 'Inactive'}
@@ -98,16 +102,16 @@ const ManageCategories = ({ categories }: TCategoriesProps) => {
       <Card className="shadow-sm">
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl font-bold text-gray-800">Manage Categories</CardTitle>
-            <CreateCategoryModal/>  
+            <CardTitle className="text-2xl font-bold text-gray-800">
+              Manage Categories ({meta?.total})
+            </CardTitle>
+            <CreateCategoryModal />
           </div>
         </CardHeader>
         <CardContent>
           <div className="rounded-md border">
-            <SCTable 
-              columns={columns} 
-              data={categories || []} 
-            />
+            <SCTable columns={columns} data={categories || []} />
+            <TablePagination page={Number(page)} totalPage={meta?.totalPage} />
           </div>
         </CardContent>
       </Card>

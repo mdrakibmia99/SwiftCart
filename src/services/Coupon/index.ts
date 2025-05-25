@@ -1,25 +1,26 @@
 'use server';
-import { getValidToken } from "@/lib/verifyToken";
-import { revalidateTag } from "next/cache";
+
+import { getValidToken } from '@/lib/verifyToken';
+import { revalidateTag } from 'next/cache';
 
 // create category
 export const createCoupon = async (data: any) => {
-
   try {
     const token = await getValidToken();
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/coupon`, {
-      method: "POST",
+      method: 'POST',
       headers: {
         Authorization: token,
-         "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     });
 
-    revalidateTag("COUPON");
+    revalidateTag('COUPONS');
 
-    return res.json();
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }
@@ -32,20 +33,21 @@ export const getAllCoupon = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/coupon`, {
       headers: {
         Authorization: token,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       next: {
-        tags: ["COUPON"],
+        tags: ['COUPONS'],
       },
     });
-  const result = await res.json();
+
+    const result = await res.json();
     return result;
   } catch (error: any) {
     return Error(error);
   }
 };
 
-// delete coupon
+// delete category
 export const deleteCoupon = async (couponId: string): Promise<any> => {
   const token = await getValidToken();
   try {
@@ -55,18 +57,24 @@ export const deleteCoupon = async (couponId: string): Promise<any> => {
         method: 'DELETE',
         headers: {
           Authorization: token,
-          "Content-Type": "application/json",
         },
       }
     );
-    revalidateTag('COUPON');
-    return res.json();
+
+    revalidateTag('COUPONS');
+
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }
 };
-// delete coupon
-export const updateCoupon = async (couponId: string,data:any): Promise<any> => {
+
+// update Coupon
+export const updateCoupon = async (
+  couponId: string,
+  data: any
+): Promise<any> => {
   const token = await getValidToken();
   try {
     const res = await fetch(
@@ -75,7 +83,7 @@ export const updateCoupon = async (couponId: string,data:any): Promise<any> => {
         method: 'PATCH',
         headers: {
           Authorization: token,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       }

@@ -1,23 +1,24 @@
-'use client'
-import { Button } from "@/components/ui/button";
-import { IProduct } from "@/types";
-import { Star, ChevronRight, ChevronLeft } from "lucide-react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+'use client';
+
+import { Button } from '@/components/ui/button';
+import { IProduct } from '@/types';
+import { Star, ChevronRight, ChevronLeft } from 'lucide-react';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 
 const ProductDetails = ({ product }: { product: IProduct }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
 
   const nextImage = () => {
-    setCurrentImageIndex((prev) =>
+    setCurrentImageIndex(prev =>
       prev === product?.imageUrls.length - 1 ? 0 : prev + 1
     );
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) =>
+    setCurrentImageIndex(prev =>
       prev === 0 ? product?.imageUrls.length - 1 : prev - 1
     );
   };
@@ -86,8 +87,8 @@ const ProductDetails = ({ product }: { product: IProduct }) => {
               onClick={() => setCurrentImageIndex(idx)}
               className={`relative aspect-square rounded-lg overflow-hidden border-2 ${
                 currentImageIndex === idx
-                  ? "border-primary"
-                  : "border-transparent"
+                  ? 'border-primary'
+                  : 'border-transparent'
               }`}
             >
               <Image
@@ -130,7 +131,7 @@ const ProductDetails = ({ product }: { product: IProduct }) => {
             transition={{ delay: 0.2 }}
             className="text-sm text-gray-500"
           >
-            Brand: {product?.brand?.name ?? "Unknown"}
+            Brand: {product?.brand?.name ?? 'Unknown'}
           </motion.span>
         </div>
 
@@ -153,12 +154,12 @@ const ProductDetails = ({ product }: { product: IProduct }) => {
             <span className="text-sm text-gray-500">Availability:</span>
             <span
               className={`text-sm font-medium ${
-                product?.stock > 0 ? "text-green-600" : "text-red-600"
+                product?.stock > 0 ? 'text-green-600' : 'text-red-600'
               }`}
             >
               {product?.stock > 0
                 ? `In Stock (${product?.stock})`
-                : "Out of Stock"}
+                : 'Out of Stock'}
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -185,8 +186,8 @@ const ProductDetails = ({ product }: { product: IProduct }) => {
                   ${product?.price}
                 </span>
                 <span className="ml-2 bg-red-100 text-red-600 text-sm font-medium px-2 py-0.5 rounded">
-                  {Math.round((1 - product?.offerPrice / product?.price) * 100)}%
-                  OFF
+                  {Math.round((1 - product?.offerPrice / product?.price) * 100)}
+                  % OFF
                 </span>
               </>
             ) : (
@@ -206,7 +207,11 @@ const ProductDetails = ({ product }: { product: IProduct }) => {
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-              <Button size="lg" variant="outline" className="w-full bg-secondary text-primary hover:bg-primary/90 hover:text-secondary"> 
+              <Button
+                size="lg"
+                variant="outline"
+                className="w-full bg-secondary text-primary hover:bg-primary/90 hover:text-secondary"
+              >
                 Buy Now
               </Button>
             </motion.div>

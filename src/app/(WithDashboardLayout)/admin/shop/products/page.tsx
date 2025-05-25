@@ -1,5 +1,5 @@
-import ManageProducts from "@/components/modules/shop/product";
-import { getAllProducts } from "@/services/Product";
+import ManageProducts from '@/components/modules/shop/product';
+import { getAllProducts } from '@/services/Product';
 
 const ManageProductsPage = async ({
   searchParams,
@@ -7,11 +7,11 @@ const ManageProductsPage = async ({
   searchParams: Promise<{ page: string }>;
 }) => {
   const { page } = await searchParams;
+  const { data: products, meta } = await getAllProducts(page, '10');
 
-  const { data, meta } = await getAllProducts(page, "3");
   return (
     <div>
-      <ManageProducts products={data} meta={meta} />
+      <ManageProducts products={products} meta={meta} page={page} />
     </div>
   );
 };

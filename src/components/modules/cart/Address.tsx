@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Select,
@@ -6,16 +6,16 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { cities } from "@/constants/cities";
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { cities } from '@/constants/cities';
 import {
   citySelector,
   shippingAddressSelector,
   updateCity,
   updateShippingAddress,
-} from "@/redux/features/cartSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+} from '@/redux/features/cartSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 export default function Address() {
   const dispatch = useAppDispatch();
@@ -36,9 +36,7 @@ export default function Address() {
         <h1 className="text-2xl font-bold">Address</h1>
         <p className="text-gray-500">Enter your address.</p>
         <div className="mt-5" id="city-select">
-          <Select
-            onValueChange={(city) => handleCitySelect(city)}
-          >
+          <Select onValueChange={city => handleCitySelect(city)}>
             <SelectTrigger className="mb-5 placeholder:text-primary placeholder:bg-secondary">
               <SelectValue
                 className="placeholder:text-primary placeholder:bg-secondary"
@@ -46,7 +44,7 @@ export default function Address() {
               />
             </SelectTrigger>
             <SelectContent className="bg-secondary text-primary">
-              {cities.map((city) => (
+              {cities.map(city => (
                 <SelectItem
                   key={city}
                   value={city}
@@ -60,7 +58,7 @@ export default function Address() {
           <Textarea
             className="bg-secondary text-primary placeholder:text-primary placeholder:bg-secondary"
             placeholder="Enter your shipping address"
-            onChange={(e) => handleShippingAddress(e.target.value)}
+            onChange={e => handleShippingAddress(e.target.value)}
             rows={5}
           />
         </div>
