@@ -1,24 +1,28 @@
 'use client';
-import { SCTable } from '@/components/ui/core/SCTable/index';
+import { ICategory } from '@/types';
+import CreateCategoryModal from './CreateCategoryModal';
+import { SCTable } from '@/components/ui/core/SCTable';
 import { ColumnDef } from '@tanstack/react-table';
-import { Trash, Plus } from 'lucide-react';
 import Image from 'next/image';
+import { Trash, Plus } from 'lucide-react';
 import { useState } from 'react';
-import { toast } from 'sonner';
-import { IBrand } from '@/types';
-import { deleteBrand } from '@/services/Brand';
 import DeleteConfirmationModal from '@/components/ui/core/SCModal/DeleteConfirmationModal';
+import { toast } from 'sonner';
+import { deleteCategory } from '@/services/Category';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import CreateBrandModal from './CreateBrandModal';
 
-const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
+type TCategoriesProps = {
+  categories: ICategory[];
+};
+
+const ManageCategories = ({ categories }: TCategoriesProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
-  const handleDelete = (data: IBrand) => {
+  const handleDelete = (data: ICategory) => {
     setSelectedId(data?._id);
     setSelectedItem(data?.name);
     setModalOpen(true);
@@ -27,8 +31,7 @@ const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
   const handleDeleteConfirm = async () => {
     try {
       if (selectedId) {
-        const res = await deleteBrand(selectedId);
-        console.log(res);
+        const res = await deleteCategory(selectedId);
         if (res.success) {
           toast.success(res.message);
           setModalOpen(false);
@@ -41,15 +44,15 @@ const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
     }
   };
 
-  const columns: ColumnDef<IBrand>[] = [
+  const columns: ColumnDef<ICategory>[] = [
     {
       accessorKey: 'name',
-      header: () => <div className="font-semibold">Brand Name</div>,
+      header: () => <div className="font-semibold">Category Name</div>,
       cell: ({ row }) => (
         <div className="flex items-center space-x-3">
           <div className="relative w-10 h-10 overflow-hidden rounded-full bg-gray-100 border">
             <Image
-              src={row.original.logo}
+              src={row.original.icon}
               alt={row.original.name}
               fill
               className="object-cover"
@@ -95,16 +98,16 @@ const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
       <Card className="shadow-sm">
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl font-bold text-gray-800">Manage Brands</CardTitle>
-            <CreateBrandModal/>
-              
+            <CardTitle className="text-2xl font-bold text-gray-800">Manage Categories</CardTitle>
+            <CreateCategoryModal/>  
           </div>
         </CardHeader>
         <CardContent>
           <div className="rounded-md border">
             <SCTable 
               columns={columns} 
-              data={brands || []} />
+              data={categories || []} 
+            />
           </div>
         </CardContent>
       </Card>
@@ -119,4 +122,4 @@ const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
   );
 };
 
-export default ManageBrands;
+export default ManageCategories;

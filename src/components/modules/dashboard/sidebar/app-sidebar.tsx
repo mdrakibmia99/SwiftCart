@@ -45,7 +45,7 @@ const USER_NAV_ITEMS = [
       { title: "Products", url: "/user/shop/products", icon: Package },
       { title: "Categories", url: "/user/shop/category", icon: Tag },
       { title: "Brands", url: "/user/shop/brand", icon: Award },
-      { title: "Coupons", url: "/user/shop/coupons", icon: CreditCard },
+      { title: "Coupons", url: "/user/shop/manage-coupon", icon: CreditCard },
     ],
   },
   {
@@ -72,9 +72,9 @@ const ADMIN_NAV_ITEMS = [
     icon: Bot,
     items: [
       { title: "Products", url: "/admin/shop/products", icon: Package },
-      { title: "Categories", url: "/admin/shop/categories", icon: Tag },
-      { title: "Brands", url: "/admin/shop/brands", icon: Award },
-      { title: "Coupons", url: "/admin/shop/coupons", icon: CreditCard },
+      { title: "Categories", url: "/admin/shop/category", icon: Tag },
+      { title: "Brands", url: "/admin/shop/brand", icon: Award },
+      { title: "Coupons", url: "/admin/shop/manage-coupon", icon: CreditCard },
     ],
   },
    {
