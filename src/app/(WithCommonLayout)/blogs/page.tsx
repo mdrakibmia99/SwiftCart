@@ -29,7 +29,7 @@ const BlogsPage = () => {
               <div className="p-6">
                 <h3 className="text-lg md:text-xl font-bold mb-2">
                   <Link
-                    href="/blogs/starting-online-store"
+                    href="/blogs"
                     className="hover:text-blue-500"
                   >
                     From Zero to $10k: Launching Your First Online Store
@@ -52,7 +52,7 @@ const BlogsPage = () => {
               <div className="p-6">
                 <h3 className="text-lg md:text-xl font-bold mb-2">
                   <Link
-                    href="/blogs/product-photography"
+                    href="/blogs"
                     className="hover:text-blue-500"
                   >
                     Master Product Photography on a Budget
@@ -86,7 +86,7 @@ const BlogsPage = () => {
                 </span>
                 <h3 className="text-lg font-bold mb-2">
                   <Link
-                    href="/blogs/pricing-strategies"
+                    href="/blogs"
                     className="hover:text-blue-500"
                   >
                     Pricing Strategies That Boost Sales
@@ -107,7 +107,7 @@ const BlogsPage = () => {
                 </span>
                 <h3 className="text-lg font-bold mb-2">
                   <Link
-                    href="/blogs/safe-shopping"
+                    href="/blogs"
                     className="hover:text-blue-500"
                   >
                     How to Shop Safely Online
@@ -128,7 +128,7 @@ const BlogsPage = () => {
                 </span>
                 <h3 className="text-lg font-bold mb-2">
                   <Link
-                    href="/blogs/home-business-success"
+                    href="/blogs"
                     className="hover:text-blue-500"
                   >
                     From Hobby to $5k/Month: A Home Business Journey
@@ -157,7 +157,7 @@ const BlogsPage = () => {
               seller&apos;s success in the competitive vintage clothing market.
             </p>
             <Link
-              href="/blogs/vintage-store-success"
+              href="/blogs"
               className="inline-flex items-center text-blue-500 hover:underline font-medium"
             >
               Read the success story
