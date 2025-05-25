@@ -1,5 +1,6 @@
-"use client";
-import { Button } from "@/components/ui/button";
+'use client';
+
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -8,48 +9,52 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { useUser } from "@/context/UserContext";
-import { useState } from "react";
-import { IProfile } from "@/types/profile";
-import ImagePreviewer from "@/components/ui/core/SCImageUploader/ImagePreviewer";
-import NMImageUploader from "@/components/ui/core/SCImageUploader";
-import { updateProfile } from "@/services/Profile";
+} from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { useUser } from '@/context/UserContext';
+import { useState } from 'react';
+import { IProfile } from '@/types/profile';
+import ImagePreviewer from '@/components/ui/core/SCImageUploader/ImagePreviewer';
+import NMImageUploader from '@/components/ui/core/SCImageUploader';
+import { updateProfile } from '@/services/Profile';
+
 const UpdateProfile = ({ data: userData }: { data: IProfile }) => {
   const { setIsLoading } = useUser();
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreview, setImagePreview] = useState<string[]>(
-    userData?.profile?.profilePhoto ? [userData.profile.profilePhoto] : []
+    userData?.profilePhoto ? [userData.profilePhoto] : []
   );
-  console.log(userData);
+
   const form = useForm({
     defaultValues: {
-      name: userData?.name || "",
-      phoneNo: userData?.profile?.phoneNo || "",
-      gender: userData?.profile?.gender || "",
+      name: userData?.name || '',
+      phoneNo: userData?.profile?.phoneNo || '',
+      gender: userData?.profile?.gender || '',
     },
   });
+
   const {
     formState: { isSubmitting },
   } = form;
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+
+  const onSubmit: SubmitHandler<FieldValues> = async data => {
     const formData = new FormData();
-    formData.append("data", JSON.stringify(data));
-    formData.append("profilePhoto", imageFiles[0] as File);
+    formData.append('data', JSON.stringify(data));
+    formData.append('profilePhoto', imageFiles[0] as File);
 
     try {
       const res = await updateProfile(formData);
       setIsLoading(true);
+      console.log(res);
       if (res.success) {
         toast.success(res?.message);
       } else {
@@ -57,9 +62,10 @@ const UpdateProfile = ({ data: userData }: { data: IProfile }) => {
       }
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      console.error(error);
     }
   };
+
   return (
     <div className=" w-full p-6">
       <div className="flex items-center mb-3 gap-2">
@@ -81,7 +87,7 @@ const UpdateProfile = ({ data: userData }: { data: IProfile }) => {
                       type="text"
                       placeholder="Username..."
                       {...field}
-                      value={field.value || ""}
+                      value={field.value || ''}
                     />
                   </FormControl>
                   <FormDescription />
@@ -101,7 +107,7 @@ const UpdateProfile = ({ data: userData }: { data: IProfile }) => {
                       type="text"
                       placeholder="Contact number..."
                       {...field}
-                      value={field.value || ""}
+                      value={field.value || ''}
                     />
                   </FormControl>
                   <FormDescription />
@@ -156,8 +162,8 @@ const UpdateProfile = ({ data: userData }: { data: IProfile }) => {
 
           <div className="flex justify-end">
             <Button type="submit">
-              {" "}
-              {isSubmitting ? "Updating..." : "Update"}
+              {' '}
+              {isSubmitting ? 'Updating...' : 'Update'}
             </Button>
           </div>
         </form>

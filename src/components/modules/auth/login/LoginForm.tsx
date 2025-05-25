@@ -65,8 +65,8 @@ export default function LoginForm() {
   };
 
   const handleUserLogin = () => {
-    form.setValue("email", "user@gamil.com");
-    form.setValue("password", "User@123");
+    form.setValue("email", "user@gmail.com");
+    form.setValue('password', '12345678');
   };
 
   return (

@@ -26,7 +26,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { protectedRoutes } from '@/contants';
 import { useAppSelector } from '@/redux/hooks';
 import { orderedProductsSelector } from '@/redux/features/cartSlice';
-import logo from '../../../public/logo.png';
+// import logo from '../../../public/logo.png';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import {
@@ -110,7 +110,7 @@ export default function Navbar() {
                 transition={{ type: 'spring', stiffness: 400, damping: 10 }}
               >
                 <Image
-                  src={logo}
+                  src="/logo.png"
                   alt="SwiftCart Logo"
                   fill
                   className="object-contain"
@@ -211,7 +211,6 @@ export default function Navbar() {
                       <DropdownMenuSeparator />
                       <DropdownMenuItem>
                         <Link href="/profile">Profile</Link>
-                        Profile
                       </DropdownMenuItem>
                       <DropdownMenuItem>
                         <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
