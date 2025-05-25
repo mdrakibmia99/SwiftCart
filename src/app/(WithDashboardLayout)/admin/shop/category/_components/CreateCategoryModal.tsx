@@ -44,7 +44,7 @@ const CreateCategoryModal = () => {
   
   const form = useForm<FormValues>({
     defaultValues,
-    mode: 'onChange' // Add form mode for better control
+    mode: 'onChange'
   });
 
   const { reset } = form;
@@ -76,7 +76,7 @@ const CreateCategoryModal = () => {
 
       if (res?.success) {
         toast.success(res?.message);
-        handleClose();
+        handleClose(); // This will close the modal and reset the form
       } else {
         toast.error(res?.message || 'Failed to create category');
       }
@@ -93,7 +93,7 @@ const CreateCategoryModal = () => {
 
   const handleClose = () => {
     setIsOpen(false);
-    reset(defaultValues); // Properly reset form values
+    reset(defaultValues);
     setFile(null);
     setPreview(null);
   };
@@ -128,7 +128,7 @@ const CreateCategoryModal = () => {
                       <FormControl>
                         <Input
                           {...field}
-                          value={field.value ?? ''} // Ensure value is never undefined
+                          value={field.value ?? ''}
                           placeholder="e.g. Electronics, Clothing"
                           className="w-full"
                         />
@@ -147,7 +147,7 @@ const CreateCategoryModal = () => {
                       <FormControl>
                         <Textarea
                           {...field}
-                          value={field.value ?? ''} // Ensure value is never undefined
+                          value={field.value ?? ''}
                           placeholder="Brief description about this category"
                           className="min-h-[120px]"
                         />
