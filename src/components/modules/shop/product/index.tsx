@@ -161,7 +161,7 @@ const ManageProducts = ({
       ),
     },
   ];
-
+console.log('Selected IDs:', selectedIds);
   return (
     <div>
       <div className="flex items-center justify-between">
