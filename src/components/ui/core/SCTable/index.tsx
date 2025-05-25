@@ -36,7 +36,7 @@ export function SCTable<TData, TValue>({
       <Table>
         <TableHeader>
           {table?.getHeaderGroups().map(headerGroup => (
-            <TableRow key={headerGroup.id} className="bg-gray-200">
+            <TableRow key={headerGroup.id} className="bg-secondary">
               {headerGroup.headers.map(header => {
                 return (
                   <TableHead
