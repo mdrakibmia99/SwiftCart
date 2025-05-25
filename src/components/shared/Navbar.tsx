@@ -211,7 +211,6 @@ export default function Navbar() {
                       <DropdownMenuSeparator />
                       <DropdownMenuItem>
                         <Link href="/profile">Profile</Link>
-                        Profile
                       </DropdownMenuItem>
                       <DropdownMenuItem>
                         <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
