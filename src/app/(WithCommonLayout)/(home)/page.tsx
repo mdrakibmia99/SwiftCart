@@ -1,14 +1,16 @@
 
 import FeaturedProducts from "@/components/modules/home/FeaturedProducts";
 import FlashSale from "@/components/modules/home/FlashSale";
-import HeroSection from "@/components/modules/home/HeroSection";
 import Category from "./_components/_category/CategoryModule";
 import TopBrands from "./_components/_brand/BrandModule";
+import { HeroSection } from "@/components/modules/home/HeroSection";
 
 const HomePage = async () => {
   return (
     <div>
-      <HeroSection />
+      <div className="my-5">
+        <HeroSection />
+      </div>
       <Category />
       <FeaturedProducts />
       <FlashSale />

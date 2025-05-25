@@ -12,7 +12,8 @@ import {
   Package,
   Tag,
   Award,
-  CreditCard
+  CreditCard,
+  DollarSign
 } from "lucide-react";
 import Link from "next/link";
 
@@ -68,22 +69,29 @@ const ADMIN_NAV_ITEMS = [
   },
   {
     title: "Shop Management",
-    url: "/admin/shop/products",
+    url: "#",
     icon: Bot,
     items: [
-      { title: "Products", url: "/admin/shop/products", icon: Package },
+      { title: "All-Shops", url: "/admin/shop/all-shops", icon: Tag },
       { title: "Categories", url: "/admin/shop/category", icon: Tag },
       { title: "Brands", url: "/admin/shop/brand", icon: Award },
       { title: "Coupons", url: "/admin/shop/manage-coupon", icon: CreditCard },
     ],
   },
+  {
+    title: "Payment Management",
+    url: "/admin/payment",
+    icon: DollarSign
+  },
+  {
+    title: "User Management",
+    url: "/admin/user-management",
+    icon: DollarSign
+  },
    {
-    title: "Account",
-    url: "#",
-    icon: Settings,
-    items: [
-      { title: "Profile", url: "/profile" }
-    ],
+    title: "Profile",
+    url: "/profile",
+    icon: Settings
   },
 ];
 
