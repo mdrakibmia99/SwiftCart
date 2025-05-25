@@ -79,8 +79,10 @@ export default function Navbar() {
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>User</AvatarFallback>
+                    <AvatarImage src={user?.profilePhoto} />
+                    <AvatarFallback>
+                      <AvatarImage src="https://github.com/shadcn.png" />
+                    </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
