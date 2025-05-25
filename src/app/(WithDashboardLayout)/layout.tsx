@@ -48,7 +48,7 @@ export default async function DashboardLayout({
         </header>
 
         {/* Main content area */}
-        <main className="p-4 pt-6 min-h-[calc(100vh-4rem)] bg-muted/10">
+        <main className="relative p-4 pt-6 min-h-[calc(100vh-4rem)] bg-muted/10">
           {children}
         </main>
       </SidebarInset>
