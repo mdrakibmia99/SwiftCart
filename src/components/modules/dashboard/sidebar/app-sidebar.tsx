@@ -7,7 +7,6 @@ import {
   Send,
   Settings,
   SquareTerminal,
-  UserCog,
   ShoppingCart,
   Package,
   Tag,
@@ -28,7 +27,6 @@ import {
 } from '@/components/ui/sidebar';
 import { NavMain } from './nav-main';
 import { NavUser } from './nav-user';
-import Logo from '@/assets/svgs/Logo';
 import Image from 'next/image';
 
 // User Navigation Items
