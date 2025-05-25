@@ -1,12 +1,13 @@
 import { ICategory } from "@/types";
 import Image from "next/image";
+import cartIcon from "@/assets/images/cart-icon.png"
 
 const CategoryCard = ({ category }: { category: ICategory }) => {
   return (
     <div className="bg-white bg-opacity-50 border-2 border-white rounded-2xl text-center p-6 h-44">
       <div className="w-24 h-24 mx-auto">
         <Image
-          src={category?.icon}
+          src={category?.icon || cartIcon}
           width={96}
           height={96}
           alt="category icon"
