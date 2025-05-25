@@ -13,9 +13,9 @@ import { Input } from '@/components/ui/input';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { Textarea } from '@/components/ui/textarea';
 import Logo from '@/assets/svgs/Logo';
-import NMImageUploader from '@/components/ui/core/NMImageUploader';
+import SCImageUploader from '@/components/ui/core/SCImageUploader';
 import { useState } from 'react';
-import ImagePreviewer from '@/components/ui/core/NMImageUploader/ImagePreviewer';
+import ImagePreviewer from '@/components/ui/core/SCImageUploader/ImagePreviewer';
 import { createShop } from '@/services/Shop';
 import { toast } from 'sonner';
 
@@ -239,7 +239,7 @@ export default function CreateShopForm() {
               />
             ) : (
               <div className="mt-8">
-                <NMImageUploader
+                <SCImageUploader
                   setImageFiles={setImageFiles}
                   setImagePreview={setImagePreview}
                   label="Upload Logo"

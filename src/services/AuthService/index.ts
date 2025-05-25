@@ -16,8 +16,8 @@ export const registerUser = async (userData: FieldValues) => {
     const result = await res.json();
 
     if (result.success) {
-      (await cookies()).set('accessToken', result.data.accessToken);
-      (await cookies()).set('refreshToken', result?.data?.refreshToken);
+      (await cookies()).set('accessTokenSC', result.data.accessToken);
+      (await cookies()).set('refreshTokenSC', result?.data?.refreshToken);
     }
 
     return result;
@@ -39,8 +39,8 @@ export const loginUser = async (userData: FieldValues) => {
     const result = await res.json();
 
     if (result?.success) {
-      (await cookies()).set('accessToken', result?.data?.accessToken);
-      (await cookies()).set('refreshToken', result?.data?.refreshToken);
+      (await cookies()).set('accessTokenSC', result?.data?.accessToken);
+      (await cookies()).set('refreshTokenSC', result?.data?.refreshToken);
     }
 
     return result;
@@ -49,8 +49,8 @@ export const loginUser = async (userData: FieldValues) => {
   }
 };
 
-export const getCurrentUser = async () => {
-  const accessToken = (await cookies()).get('accessToken')?.value;
+export const getCurrentUser = async (): Promise<any> => {
+  const accessToken = (await cookies()).get('accessTokenSC')?.value;
   let decodedData = null;
 
   if (accessToken) {
@@ -81,7 +81,8 @@ export const reCaptchaTokenVerification = async (token: string) => {
 };
 
 export const logout = async () => {
-  (await cookies()).delete('accessToken');
+  (await cookies()).delete('accessTokenSC');
+  (await cookies()).delete('refreshTokenSC');
 };
 
 export const getNewToken = async () => {
@@ -92,7 +93,7 @@ export const getNewToken = async () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: (await cookies()).get('refreshToken')!.value,
+          Authorization: (await cookies()).get('refreshTokenSC')!.value,
         },
       }
     );

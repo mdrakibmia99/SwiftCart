@@ -1,14 +1,14 @@
-"use client";
-import { ICategory } from "@/types";
-import CreateCategoryModal from "./CreateCategoryModal";
-import { NMTable } from "@/components/ui/core/NMTable";
-import { ColumnDef } from "@tanstack/react-table";
-import Image from "next/image";
-import { Trash } from "lucide-react";
-import { useState } from "react";
-import DeleteConfirmationModal from "@/components/ui/core/NMModal/DeleteConfirmationModal";
-import { toast } from "sonner";
-import { deleteCategory } from "@/services/Category";
+'use client';
+import { ICategory } from '@/types';
+import CreateCategoryModal from './CreateCategoryModal';
+import { SCTable } from '@/components/ui/core/SCTable';
+import { ColumnDef } from '@tanstack/react-table';
+import Image from 'next/image';
+import { Trash } from 'lucide-react';
+import { useState } from 'react';
+import DeleteConfirmationModal from '@/components/ui/core/SCModal/DeleteConfirmationModal';
+import { toast } from 'sonner';
+import { deleteCategory } from '@/services/Category';
 
 type TCategoriesProps = {
   categories: ICategory[];
@@ -44,7 +44,7 @@ const ManageCategories = ({ categories }: TCategoriesProps) => {
 
   const columns: ColumnDef<ICategory>[] = [
     {
-      accessorKey: "name",
+      accessorKey: 'name',
       header: () => <div>Category Name</div>,
       cell: ({ row }) => (
         <div className="flex items-center space-x-3">
@@ -60,7 +60,7 @@ const ManageCategories = ({ categories }: TCategoriesProps) => {
       ),
     },
     {
-      accessorKey: "isActive",
+      accessorKey: 'isActive',
       header: () => <div>isActive</div>,
       cell: ({ row }) => (
         <div>
@@ -77,7 +77,7 @@ const ManageCategories = ({ categories }: TCategoriesProps) => {
       ),
     },
     {
-      accessorKey: "action",
+      accessorKey: 'action',
       header: () => <div>Action</div>,
       cell: ({ row }) => (
         <button
@@ -97,7 +97,7 @@ const ManageCategories = ({ categories }: TCategoriesProps) => {
         <h1 className="text-xl font-bold">Manage Categories</h1>
         <CreateCategoryModal />
       </div>
-      <NMTable data={categories} columns={columns} />
+      <SCTable data={categories} columns={columns} />
       <DeleteConfirmationModal
         name={selectedItem}
         isOpen={isModalOpen}

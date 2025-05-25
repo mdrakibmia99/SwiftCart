@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
 
 type TImageUploader = {
   label?: string;
@@ -10,8 +10,8 @@ type TImageUploader = {
   setImagePreview: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const NMImageUploader = ({
-  label = "Upload Images",
+const SCImageUploader = ({
+  label = 'Upload Images',
   className,
   setImageFiles,
   setImagePreview,
@@ -19,23 +19,23 @@ const NMImageUploader = ({
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files![0];
 
-    setImageFiles((prev) => [...prev, file]);
+    setImageFiles(prev => [...prev, file]);
 
     if (file) {
       const reader = new FileReader();
 
       reader.onloadend = () => {
-        setImagePreview((prev) => [...prev, reader.result as string]);
+        setImagePreview(prev => [...prev, reader.result as string]);
       };
 
       reader.readAsDataURL(file);
     }
 
-    event.target.value = "";
+    event.target.value = '';
   };
 
   return (
-    <div className={cn("flex flex-col items-center w-full gap-4", className)}>
+    <div className={cn('flex flex-col items-center w-full gap-4', className)}>
       <Input
         id="image-upload"
         type="file"
@@ -54,4 +54,4 @@ const NMImageUploader = ({
   );
 };
 
-export default NMImageUploader;
+export default SCImageUploader;

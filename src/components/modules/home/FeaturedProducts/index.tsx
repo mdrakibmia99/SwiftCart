@@ -1,16 +1,16 @@
-import { Button } from "@/components/ui/button";
-import NMContainer from "@/components/ui/core/NMContainer";
-import ProductCard from "@/components/ui/core/ProductCard";
-import { getAllProducts } from "@/services/Product";
-import { IProduct } from "@/types";
-import Link from "next/link";
+import { Button } from '@/components/ui/button';
+import SCContainer from '@/components/ui/core/SCContainer';
+import ProductCard from '@/components/ui/core/ProductCard';
+import { getAllProducts } from '@/services/Product';
+import { IProduct } from '@/types';
+import Link from 'next/link';
 
 const FeaturedProducts = async () => {
   const { data: products } = await getAllProducts();
 
   return (
     <div className=" bg-white bg-opacity-50 pt-6 pb-8">
-      <NMContainer className="my-16">
+      <SCContainer className="my-16">
         <div className="flex items-center justify-between ">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">
             Featured Products
@@ -26,7 +26,7 @@ const FeaturedProducts = async () => {
             <ProductCard key={idx} product={product} />
           ))}
         </div>
-      </NMContainer>
+      </SCContainer>
     </div>
   );
 };

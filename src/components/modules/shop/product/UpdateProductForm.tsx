@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -8,20 +8,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   FieldValues,
   SubmitHandler,
   useFieldArray,
   useForm,
-} from "react-hook-form";
-import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useState } from "react";
-import NMImageUploader from "@/components/ui/core/NMImageUploader";
-import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
-import { Plus } from "lucide-react";
-import Logo from "@/assets/svgs/Logo";
+} from 'react-hook-form';
+import { Textarea } from '@/components/ui/textarea';
+import { useEffect, useState } from 'react';
+import SCImageUploader from '@/components/ui/core/SCImageUploader';
+import ImagePreviewer from '@/components/ui/core/SCImageUploader/ImagePreviewer';
+import { Plus } from 'lucide-react';
+import Logo from '@/assets/svgs/Logo';
 
 import {
   Select,
@@ -29,13 +29,13 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { IBrand, ICategory, IProduct } from "@/types";
-import { getAllCategories } from "@/services/Category";
-import { getAllBrands } from "@/services/Brand";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { updateProduct } from "@/services/Product";
+} from '@/components/ui/select';
+import { IBrand, ICategory, IProduct } from '@/types';
+import { getAllCategories } from '@/services/Category';
+import { getAllBrands } from '@/services/Brand';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { updateProduct } from '@/services/Product';
 
 export default function UpdateProductForm({ product }: { product: IProduct }) {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
@@ -49,24 +49,24 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
 
   const form = useForm({
     defaultValues: {
-      name: product?.name || "",
-      description: product?.description || "",
-      price: product?.price || "",
-      category: product?.category?.name || "",
-      brand: product?.brand?.name || "",
-      stock: product?.stock || "",
-      weight: product?.weight || "",
-      availableColors: product?.availableColors?.map((color) => ({
+      name: product?.name || '',
+      description: product?.description || '',
+      price: product?.price || '',
+      category: product?.category?.name || '',
+      brand: product?.brand?.name || '',
+      stock: product?.stock || '',
+      weight: product?.weight || '',
+      availableColors: product?.availableColors?.map(color => ({
         value: color,
-      })) || [{ value: "" }],
+      })) || [{ value: '' }],
 
       specification: Object.entries(product?.specification || {}).map(
         ([key, value]) => ({ key, value })
-      ) || [{ key: "", value: "" }],
+      ) || [{ key: '', value: '' }],
 
-      keyFeatures: product?.keyFeatures?.map((feature) => ({
+      keyFeatures: product?.keyFeatures?.map(feature => ({
         value: feature,
-      })) || [{ value: "" }],
+      })) || [{ value: '' }],
     },
   });
 
@@ -76,29 +76,29 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
 
   const { append: appendColor, fields: colorFields } = useFieldArray({
     control: form.control,
-    name: "availableColors",
+    name: 'availableColors',
   });
 
   const addColor = () => {
-    appendColor({ value: "" });
+    appendColor({ value: '' });
   };
 
   const { append: appendFeatures, fields: featureFields } = useFieldArray({
     control: form.control,
-    name: "keyFeatures",
+    name: 'keyFeatures',
   });
 
   const addFeatures = () => {
-    appendFeatures({ value: "" });
+    appendFeatures({ value: '' });
   };
 
   const { append: appendSpec, fields: specFields } = useFieldArray({
     control: form.control,
-    name: "specification",
+    name: 'specification',
   });
 
   const addSpec = () => {
-    appendSpec({ key: "", value: "" });
+    appendSpec({ key: '', value: '' });
   };
 
   // console.log(specFields);
@@ -117,7 +117,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
     fetchData();
   }, []);
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async data => {
     const availableColors = data.availableColors.map(
       (color: { value: string }) => color.value
     );
@@ -145,17 +145,17 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
     };
 
     const formData = new FormData();
-    formData.append("data", JSON.stringify(modifiedData));
+    formData.append('data', JSON.stringify(modifiedData));
 
     for (const file of imageFiles) {
-      formData.append("images", file);
+      formData.append('images', file);
     }
     try {
       const res = await updateProduct(formData, product?._id);
 
       if (res.success) {
         toast.success(res.message);
-        router.push("/user/shop/products");
+        router.push('/user/shop/products');
       } else {
         toast.error(res.message);
       }
@@ -184,7 +184,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                 <FormItem>
                   <FormLabel>Product Name</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} />
+                    <Input {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -198,7 +198,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                 <FormItem>
                   <FormLabel>Price</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} />
+                    <Input {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -221,7 +221,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {categories.map((category) => (
+                      {categories.map(category => (
                         <SelectItem key={category?._id} value={category?._id}>
                           {category?.name}
                         </SelectItem>
@@ -249,7 +249,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {brands.map((brand) => (
+                      {brands.map(brand => (
                         <SelectItem key={brand?._id} value={brand?._id}>
                           {brand?.name}
                         </SelectItem>
@@ -268,7 +268,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                 <FormItem>
                   <FormLabel>Stock</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} />
+                    <Input {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -281,7 +281,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                 <FormItem>
                   <FormLabel>Weight</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} />
+                    <Input {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -300,7 +300,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                     <Textarea
                       className="h-36 resize-none"
                       {...field}
-                      value={field.value || ""}
+                      value={field.value || ''}
                     />
                   </FormControl>
                   <FormMessage />
@@ -314,7 +314,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
               <p className="text-primary font-bold text-xl">Images</p>
             </div>
             <div className="flex gap-4 ">
-              <NMImageUploader
+              <SCImageUploader
                 setImageFiles={setImageFiles}
                 setImagePreview={setImagePreview}
                 label="Upload Image"
@@ -352,7 +352,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                       <FormItem>
                         <FormLabel>Color {index + 1}</FormLabel>
                         <FormControl>
-                          <Input {...field} value={field.value || ""} />
+                          <Input {...field} value={field.value || ''} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -386,7 +386,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                       <FormItem>
                         <FormLabel>Key Feature {index + 1}</FormLabel>
                         <FormControl>
-                          <Input {...field} value={field.value || ""} />
+                          <Input {...field} value={field.value || ''} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -422,7 +422,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                     <FormItem>
                       <FormLabel>Feature name {index + 1}</FormLabel>
                       <FormControl>
-                        <Input {...field} value={field.value || ""} />
+                        <Input {...field} value={field.value || ''} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -435,7 +435,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                     <FormItem>
                       <FormLabel>Feature Description {index + 1}</FormLabel>
                       <FormControl>
-                        <Input {...field} value={field.value || ""} />
+                        <Input {...field} value={field.value || ''} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -446,7 +446,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
           </div>
 
           <Button type="submit" className="mt-5 w-full" disabled={isSubmitting}>
-            {isSubmitting ? "Updating Product....." : "Update Product"}
+            {isSubmitting ? 'Updating Product.....' : 'Update Product'}
           </Button>
         </form>
       </Form>

@@ -1,14 +1,14 @@
-"use client";
-import { NMTable } from "@/components/ui/core/NMTable/index";
-import { ColumnDef } from "@tanstack/react-table";
-import { Trash } from "lucide-react";
-import Image from "next/image";
-import { useState } from "react";
-import CreateBrandModal from "./CreateBrandModal";
-import { toast } from "sonner";
-import { IBrand } from "@/types";
-import { deleteBrand } from "@/services/Brand";
-import DeleteConfirmationModal from "@/components/ui/core/NMModal/DeleteConfirmationModal";
+'use client';
+import { SCTable } from '@/components/ui/core/SCTable/index';
+import { ColumnDef } from '@tanstack/react-table';
+import { Trash } from 'lucide-react';
+import Image from 'next/image';
+import { useState } from 'react';
+import CreateBrandModal from './CreateBrandModal';
+import { toast } from 'sonner';
+import { IBrand } from '@/types';
+import { deleteBrand } from '@/services/Brand';
+import DeleteConfirmationModal from '@/components/ui/core/SCModal/DeleteConfirmationModal';
 
 const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -40,7 +40,7 @@ const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
 
   const columns: ColumnDef<IBrand>[] = [
     {
-      accessorKey: "name",
+      accessorKey: 'name',
       header: () => <div>Brand Name</div>,
       cell: ({ row }) => (
         <div className="flex items-center space-x-3">
@@ -56,7 +56,7 @@ const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
       ),
     },
     {
-      accessorKey: "isActive",
+      accessorKey: 'isActive',
       header: () => <div>isActive</div>,
       cell: ({ row }) => (
         <div>
@@ -73,7 +73,7 @@ const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
       ),
     },
     {
-      accessorKey: "action",
+      accessorKey: 'action',
       header: () => <div>Action</div>,
       cell: ({ row }) => (
         <button
@@ -94,7 +94,7 @@ const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
 
         <CreateBrandModal />
       </div>
-      <NMTable columns={columns} data={brands || []} />
+      <SCTable columns={columns} data={brands || []} />
 
       <DeleteConfirmationModal
         name={selectedItem}

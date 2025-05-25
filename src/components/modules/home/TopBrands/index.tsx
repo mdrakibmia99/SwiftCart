@@ -1,15 +1,15 @@
-import { Button } from "@/components/ui/button";
-import NMContainer from "@/components/ui/core/NMContainer";
-import { getAllBrands } from "@/services/Brand";
-import { IBrand } from "@/types";
-import Image from "next/image";
-import Link from "next/link";
+import { Button } from '@/components/ui/button';
+import SCContainer from '@/components/ui/core/SCContainer';
+import { getAllBrands } from '@/services/Brand';
+import { IBrand } from '@/types';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const TopBrands = async () => {
   const { data: brands } = await getAllBrands();
 
   return (
-    <NMContainer className="my-36">
+    <SCContainer className="my-36">
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-bold">Top Brands</h2>
         <Link href="/products">
@@ -33,7 +33,7 @@ const TopBrands = async () => {
           </div>
         ))}
       </div>
-    </NMContainer>
+    </SCContainer>
   );
 };
 
