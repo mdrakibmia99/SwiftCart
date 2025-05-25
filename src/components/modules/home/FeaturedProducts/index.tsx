@@ -16,8 +16,11 @@ const FeaturedProducts = async () => {
             Featured Products
           </h2>
           <Link href="/products">
-            <Button variant="outline" className="rounded-full">
-              All Collection
+            <Button
+              variant="outline"
+              className="rounded-full border-primary bg-primary text-secondary hover:bg-secondary/10 hover:text-primary"
+            >
+              All Collections
             </Button>
           </Link>
         </div>

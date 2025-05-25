@@ -1,5 +1,6 @@
 'use client';
 
+
 import { Facebook, Instagram, X, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -23,7 +24,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-white border-t border-gray-200 py-24">
+    <footer className="bg-secondary border-t border-gray-200 py-24">
       <div className="max-w-6xl mx-auto px-4 text-center">
         <div className="flex flex-col items-center mb-6">
           {/* <div className="flex items-center space-x-2">
@@ -52,27 +53,34 @@ const Footer = () => {
             essentials, fashion, and more! Limited stock.
           </p>
         </div>
-
-        <hr />
-        <ul className="flex justify-center space-x-6 text-sm text-gray-800 font-medium my-4">
-          {navLinks.map(link => (
+        
+        <hr className="my-6" />
+        
+        {/* Responsive navigation links */}
+        <ul className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm text-gray-800 font-medium my-6">
+          {navLinks.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} className="hover:text-purple-600">
+              <Link
+                href={link.href}
+                className="hover:text-purple-600 transition-colors duration-200"
+              >
                 {link.label}
               </Link>
             </li>
           ))}
         </ul>
-
+        {/* Social links */}
+        <div className="flex justify-center space-x-4 md:space-x-6 mb-6">
         {/* social Links */}
         {/* <div className="flex justify-center space-x-4">
           {socialLinks.map(({ href, icon: Icon }, index) => (
             <Link
               href={href}
               key={index}
-              className="text-gray-600 hover:text-purple-600"
+              className="text-gray-600 hover:text-purple-600 transition-colors duration-200"
+              aria-label={Icon.name}
             >
-              <Icon className="w-5 h-5" />
+              <Icon className="w-5 h-5 md:w-6 md:h-6" />
             </Link>
           ))}
         </div> */}
@@ -89,6 +97,11 @@ const Footer = () => {
               <Icon className="w-5 h-5 text-gray-300 group-hover:text-black transition-colors duration-300 ease-in-out" />
             </Link>
           ))}
+        </div>
+
+        {/* Copyright */}
+        <div className="text-xs text-gray-500 mt-8 text-center">
+          © {new Date().getFullYear()} SwiftCart. All rights reserved.
         </div>
       </div>
     </footer>
