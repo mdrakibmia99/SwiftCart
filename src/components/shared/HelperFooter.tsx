@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowLeft, Home, ShoppingBag } from 'lucide-react';
+import { ArrowLeft, Home } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 const HelperFooter = () => {

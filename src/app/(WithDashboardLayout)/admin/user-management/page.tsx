@@ -58,7 +58,7 @@ const UsersPage = () => {
           <div className="rounded-md border">
             <UserTable 
               users={users} 
-              loading={loading}
+              // loading={loading}
               onStatusUpdate={handleStatusUpdate}
             />
           </div>

@@ -1,21 +1,17 @@
-import type { Metadata } from "next";
-import { Imprima, Jaldi } from "next/font/google";
-import "./globals.css";
-import { Toaster } from "sonner";
-import Providers from "@/providers/Providers";
+import type { Metadata } from 'next';
+import { Imprima } from 'next/font/google';
+import './globals.css';
+import { Toaster } from 'sonner';
+import Providers from '@/providers/Providers';
 
 const imprima = Imprima({
-  subsets: ["latin"],
-  weight: "400", // only available weight
+  subsets: ['latin'],
+  weight: '400', // only available weight
 });
-const jaldi = Jaldi({
-  subsets: ["latin"],
-  weight: ["400", "700"], 
-})
 
 export const metadata: Metadata = {
-  title: "SwiftCart",
-  description: "E-commerce site built with Next.js and Tailwind CSS",
+  title: 'SwiftCart',
+  description: 'E-commerce site built with Next.js and Tailwind CSS',
 };
 
 export default function RootLayout({
@@ -31,7 +27,7 @@ export default function RootLayout({
             richColors
             toastOptions={{
               style: {
-                 background: "#e3f4fa"
+                background: '#e3f4fa',
               },
             }}
           />
