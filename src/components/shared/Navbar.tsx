@@ -1,16 +1,16 @@
-"use client";
-import Image from "next/image";
-import { Button } from "../ui/button";
+'use client';
+
+import Image from 'next/image';
+import { Button } from '../ui/button';
 import {
   LogOut,
   ShoppingCart,
   ChevronDown,
-  X,
   Search,
   Menu,
   CircleX,
-} from "lucide-react";
-import Link from "next/link";
+} from 'lucide-react';
+import Link from 'next/link';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,18 +18,25 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { logout } from "@/services/AuthService";
-import { useUser } from "@/context/UserContext";
-import { usePathname, useRouter } from "next/navigation";
-import { protectedRoutes } from "@/contants";
-import { useAppSelector } from "@/redux/hooks";
-import { orderedProductsSelector } from "@/redux/features/cartSlice";
-import logo from "../../../public/logo.png";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "../ui/navigation-menu";
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { logout } from '@/services/AuthService';
+import { useUser } from '@/context/UserContext';
+import { usePathname, useRouter } from 'next/navigation';
+import { protectedRoutes } from '@/contants';
+import { useAppSelector } from '@/redux/hooks';
+import { orderedProductsSelector } from '@/redux/features/cartSlice';
+import logo from '../../../public/logo.png';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '../ui/navigation-menu';
 
 export default function Navbar() {
   const { user, setIsLoading } = useUser();
@@ -43,8 +50,8 @@ export default function Navbar() {
   const handleLogOut = () => {
     logout();
     setIsLoading(true);
-    if (protectedRoutes.some((route) => pathname.match(route))) {
-      router.push("/");
+    if (protectedRoutes.some(route => pathname.match(route))) {
+      router.push('/');
     }
   };
 
@@ -55,26 +62,26 @@ export default function Navbar() {
         setIsMegaMenuOpen(false);
       }
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [isMegaMenuOpen]);
 
   const categories = [
     {
-      name: "Electronics",
-      subcategories: ["Phones", "Laptops", "Cameras", "Accessories"],
+      name: 'Electronics',
+      subcategories: ['Phones', 'Laptops', 'Cameras', 'Accessories'],
     },
     {
-      name: "Fashion",
-      subcategories: ["Men's Wear", "Women's Wear", "Kids", "Jewelry"],
+      name: 'Fashion',
+      subcategories: ["Men's Wear", "Women's Wear", 'Kids', 'Jewelry'],
     },
     {
-      name: "Home & Living",
-      subcategories: ["Furniture", "Kitchen", "Decor", "Lighting"],
+      name: 'Home & Living',
+      subcategories: ['Furniture', 'Kitchen', 'Decor', 'Lighting'],
     },
     {
-      name: "Beauty",
-      subcategories: ["Skincare", "Makeup", "Haircare", "Fragrances"],
+      name: 'Beauty',
+      subcategories: ['Skincare', 'Makeup', 'Haircare', 'Fragrances'],
     },
   ];
 
@@ -100,7 +107,7 @@ export default function Navbar() {
               <motion.div
                 className="relative w-28 h-10 md:w-40 md:h-12"
                 whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
               >
                 <Image
                   src={logo}
@@ -140,7 +147,7 @@ export default function Navbar() {
               <Search className="text-primary" size={20} />
             </button>
 
-            {user?.role === "user" && (
+            {user?.role === 'user' && (
               <motion.div
                 className="flex gap-2"
                 initial={{ opacity: 0 }}
@@ -158,7 +165,7 @@ export default function Navbar() {
                         className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        transition={{ type: "spring" }}
+                        transition={{ type: 'spring' }}
                       >
                         {products?.length}
                       </motion.span>
@@ -170,7 +177,7 @@ export default function Navbar() {
 
             {user?.email ? (
               <>
-                {user?.role === "user" && (
+                {user?.role === 'user' && (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -202,13 +209,16 @@ export default function Navbar() {
                     <DropdownMenuContent className="min-w-[200px]">
                       <DropdownMenuLabel>My Account</DropdownMenuLabel>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem>Profile</DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href="/profile">Profile</Link>
+                        Profile
+                      </DropdownMenuItem>
                       <DropdownMenuItem>
                         <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
                       </DropdownMenuItem>
-                      {user?.role === "user" && (
+                      {user?.role === 'user' && (
                         <DropdownMenuItem>
-                          <Link href={"/user/shop"}>My Shop</Link>
+                          <Link href="/user/shop">My Shop</Link>
                         </DropdownMenuItem>
                       )}
                       <DropdownMenuSeparator />
@@ -248,7 +258,7 @@ export default function Navbar() {
             <motion.div
               className="md:hidden py-2"
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
+              animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
             >
@@ -268,24 +278,24 @@ export default function Navbar() {
         <div className="hidden md:flex justify-center border-t">
           <NavigationMenu>
             <NavigationMenuList>
-              {categories.map((category) => (
+              {categories.map(category => (
                 <NavigationMenuItem key={category.name}>
                   <NavigationMenuTrigger className="text-sm font-medium hover:text-primary data-[state=open]:text-primary">
                     {category.name}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="container mx-auto px-4 py-6 grid grid-cols-4 gap-6 w-screen">
-                      {categories.map((cat) => (
+                      {categories.map(cat => (
                         <div key={cat.name} className="space-y-2">
                           <h3 className="font-bold text-lg">{cat.name}</h3>
                           <ul className="space-y-1">
-                            {cat.subcategories.map((sub) => (
+                            {cat.subcategories.map(sub => (
                               <li key={sub}>
                                 <NavigationMenuLink asChild>
                                   <Link
                                     href={`/category/${cat.name.toLowerCase()}/${sub
                                       .toLowerCase()
-                                      .replace(/\s+/g, "-")}`}
+                                      .replace(/\s+/g, '-')}`}
                                     className="hover:text-primary transition-colors block py-1"
                                   >
                                     {sub}
@@ -310,12 +320,12 @@ export default function Navbar() {
             <motion.div
               className="md:hidden bg-white shadow-lg"
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
+              animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
             >
               <div className="px-4 py-3 space-y-4">
-                {user?.role === "user" && (
+                {user?.role === 'user' && (
                   <Link href="/create-shop">
                     <Button className="w-full">Create Shop</Button>
                   </Link>
@@ -323,7 +333,7 @@ export default function Navbar() {
 
                 <div className="space-y-2">
                   <h3 className="font-bold px-2">Categories</h3>
-                  {categories.map((category) => (
+                  {categories.map(category => (
                     <div key={category.name} className="border-b last:border-0">
                       <button className="w-full text-left px-2 py-3 flex justify-between items-center">
                         {category.name}
