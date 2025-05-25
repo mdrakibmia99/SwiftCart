@@ -2,9 +2,10 @@
 
 import { getValidToken } from '@/lib/verifyToken';
 import { revalidateTag } from 'next/cache';
+export type DiscountType = 'percentage' | 'flat';
 
 // create category
-export const createCategory = async (data: FormData) => {
+export const createCategory = async (data:any) => {
   const token = await getValidToken();
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/category`, {
