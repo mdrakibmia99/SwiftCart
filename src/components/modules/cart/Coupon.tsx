@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { Trash } from "lucide-react";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { toast } from "sonner";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { Trash } from 'lucide-react';
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import { toast } from 'sonner';
 import {
   couponSelector,
   fetchCoupon,
   shopSelector,
   subTotalSelector,
-} from "@/redux/features/cartSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+} from '@/redux/features/cartSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 export default function Coupon() {
   const subTotal = useAppSelector(subTotalSelector);
@@ -23,18 +23,17 @@ export default function Coupon() {
 
   const form = useForm();
 
-  const couponInput = form.watch("coupon");
+  const couponInput = form.watch('coupon');
 
   const handleRemoveCoupon = () => {
     form.reset();
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async data => {
     try {
-      const res = await dispatch(
-        fetchCoupon({ couponCode: data.coupon, subTotal, shopId })
+      await dispatch(
+        fetchCoupon({ couponCode: data.coupon, subTotal, shopId }) as any
       ).unwrap();
-      console.log(res, "inside component");
     } catch (error: any) {
       console.log(error);
       toast.error(error.message);
@@ -71,7 +70,7 @@ export default function Coupon() {
                 type="submit"
                 className="w-full text-xl font-semibold py-5 "
               >
-                {isLoading ? "Applying..." : "Apply"}
+                {isLoading ? 'Applying...' : 'Apply'}
               </Button>
               {couponInput && (
                 <Button

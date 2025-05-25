@@ -1,4 +1,3 @@
-
 import AllProducts from '@/components/modules/products';
 import ProductBanner from '@/components/modules/products/banner';
 import CategoryCard from '@/components/ui/core/CategoryCard';

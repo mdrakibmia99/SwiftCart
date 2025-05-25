@@ -1,7 +1,7 @@
 'use client';
 import Logo from '@/assets/svgs/Logo';
 import { Button } from '../ui/button';
-import { Heart, LogOut, ShoppingCart } from 'lucide-react';
+import { LogOut, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -49,26 +49,32 @@ export default function Navbar() {
           />
         </div>
         <nav className="flex gap-2">
-          <Button variant="outline" className="rounded-full p-0 size-10">
-            <Heart />
-          </Button>
-          <Link href="/cart" passHref>
-            <Button
-              variant="outline"
-              className="rounded-full size-10 flex items-center justify-center gap-1"
-            >
-              <ShoppingCart className="w-5 h-5" />
-              <span className="text-red-500 font-bold">
-                {products?.length ?? 0}
-              </span>
-            </Button>
-          </Link>
+          {user?.role === 'user' && (
+            <div className="flex gap-2">
+              {/* <Button variant="outline" className="rounded-full p-0 size-10">
+                <Heart />
+              </Button> */}
+              <Link href="/cart" passHref>
+                <Button
+                  variant="outline"
+                  className="rounded-full size-10 flex items-center justify-center gap-1"
+                >
+                  <ShoppingCart className="w-5 h-5" />
+                  <span className="text-red-500 font-bold">
+                    {products?.length ?? 0}
+                  </span>
+                </Button>
+              </Link>
+            </div>
+          )}
 
           {user?.email ? (
             <>
-              <Link href="/create-shop">
-                <Button className="rounded-full">Create Shop</Button>
-              </Link>
+              {user?.role === 'user' && (
+                <Link href="/create-shop">
+                  <Button className="rounded-full">Create Shop</Button>
+                </Link>
+              )}
 
               <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -84,7 +90,12 @@ export default function Navbar() {
                   <DropdownMenuItem>
                     <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>My Shop</DropdownMenuItem>
+                  {user?.role === 'user' && (
+                    <DropdownMenuItem>
+                      <Link href={'/user/shop'}>My Shop</Link>
+                    </DropdownMenuItem>
+                  )}
+
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className="bg-red-500 cursor-pointer"
