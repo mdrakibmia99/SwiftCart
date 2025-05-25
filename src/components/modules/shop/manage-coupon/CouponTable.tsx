@@ -170,7 +170,7 @@ const columns: ColumnDef<ICoupon>[] = [
     <div className="my-5">
       <SCTable columns={columns} data={coupons || []} />
       <TablePagination
-        // currentPage={currentPage }
+        page={meta?.page || 1}
         totalPage={meta?.totalPage}
         // onPageChange={setCurrentPage}
       />
