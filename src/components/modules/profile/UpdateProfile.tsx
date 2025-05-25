@@ -22,8 +22,8 @@ import { toast } from "sonner";
 import { useUser } from "@/context/UserContext";
 import { useState } from "react";
 import { IProfile } from "@/types/profile";
-import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
-import NMImageUploader from "@/components/ui/core/NMImageUploader";
+import ImagePreviewer from "@/components/ui/core/SCImageUploader/ImagePreviewer";
+import NMImageUploader from "@/components/ui/core/SCImageUploader";
 import { updateProfile } from "@/services/Profile";
 const UpdateProfile = ({ data: userData }: { data: IProfile }) => {
   const { setIsLoading } = useUser();
