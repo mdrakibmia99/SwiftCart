@@ -22,7 +22,7 @@ const Category = async () => {
         <Link href="/products" className="flex-shrink-0 mt-4 md:mt-0"> {/* Prevent shrinking */}
           <Button 
             variant="outline" 
-            className="rounded-full border-primary text-primary hover:bg-primary/10 w-full md:w-auto"
+            className="rounded-full border-primary bg-primary text-secondary hover:bg-secondary/10 hover:text-primary w-full md:w-auto"
           >
             View All Categories →
           </Button>

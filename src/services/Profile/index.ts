@@ -30,18 +30,15 @@ export const updateProfile = async (formData: FormData) => {
       {
         method: "PATCH",
         headers: {
-          // "Content-Type": "application/json",
           Authorization: token,
         },
         body: formData,
       }
     );
     revalidateTag("USER");
-    console.log(res);
     const result = await res.json();
     return result
   } catch (error: any) {
-    console.log(error);
      return Error(error);
   }
 };

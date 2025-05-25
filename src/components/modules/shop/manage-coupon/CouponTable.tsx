@@ -149,9 +149,9 @@ const CouponTable = ({
     <div className="my-5">
       <SCTable columns={columns} data={coupons || []} />
       <TablePagination
-        currentPage={currentPage}
-        totalPages={meta?.totalPage}
-        onPageChange={setCurrentPage}
+        // currentPage={currentPage }
+        totalPage={meta?.totalPage}
+        // onPageChange={setCurrentPage}
       />
     </div>
   );

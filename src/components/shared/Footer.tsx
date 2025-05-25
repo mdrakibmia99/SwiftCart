@@ -68,16 +68,18 @@ const Footer = () => {
             </li>
           ))}
         </ul>
-
+        {/* Social links */}
+        <div className="flex justify-center space-x-4 md:space-x-6 mb-6">
         {/* social Links */}
         {/* <div className="flex justify-center space-x-4">
           {socialLinks.map(({ href, icon: Icon }, index) => (
             <Link
               href={href}
               key={index}
-              className="text-gray-600 hover:text-purple-600"
+              className="text-gray-600 hover:text-purple-600 transition-colors duration-200"
+              aria-label={Icon.name}
             >
-              <Icon className="w-5 h-5" />
+              <Icon className="w-5 h-5 md:w-6 md:h-6" />
             </Link>
           ))}
         </div> */}
