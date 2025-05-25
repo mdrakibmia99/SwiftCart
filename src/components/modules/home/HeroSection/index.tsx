@@ -53,7 +53,7 @@ export function HeroSection() {
                 src={heroImages[currentIndex].src}
                 alt={heroImages[currentIndex].alt}
                 fill
-                className="object-cover"
+                className="object-cover object-[0_20%]"
                 priority
               />
               {/* Updated gradient overlay - dark on left half, fading to right */}
