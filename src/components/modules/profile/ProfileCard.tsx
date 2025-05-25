@@ -35,7 +35,7 @@ const ProfileCard = ({ data }: { data: IProfile }) => {
           </div>
           <div className="space-y-2">
             <Label>Gender</Label>
-            <p className="font-medium">{data.profile.gender}</p>
+            <p className="font-medium">{data.profile?.gender}</p>
           </div>
           <div className="space-y-2">
             <Label>Account Status</Label>
