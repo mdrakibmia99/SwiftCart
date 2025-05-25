@@ -1,4 +1,5 @@
 'use client';
+
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -22,7 +23,11 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import { createBrand } from '@/services/Brand';
 import { Loader2, Plus, UploadCloud, X } from 'lucide-react';
-import { useDropzone } from 'react-dropzone';
+import {
+  useDropzone,
+  DropzoneRootProps,
+  DropzoneInputProps,
+} from 'react-dropzone';
 import Image from 'next/image';
 
 type FormValues = {
@@ -33,23 +38,31 @@ const CreateBrandModal = () => {
   const [isOpen, setIsOpen] = useState(false); // Add state for dialog control
   const [preview, setPreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
-  
+
   const form = useForm<FormValues>({
     defaultValues: {
-      name: ''
-    }
+      name: '',
+    },
   });
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+  }: {
+    getRootProps: () => DropzoneRootProps;
+    getInputProps: () => DropzoneInputProps;
+    isDragActive: boolean;
+  } = useDropzone({
     accept: {
-      'image/*': ['.jpeg', '.jpg', '.png', '.webp']
+      'image/*': ['.jpeg', '.jpg', '.png', '.webp'],
     },
     maxFiles: 1,
-    onDrop: (acceptedFiles) => {
-      const file = acceptedFiles[0];
+    onDrop: (acceptedFiles: File[]) => {
+      const file: File = acceptedFiles[0];
       setFile(file);
       setPreview(URL.createObjectURL(file));
-    }
+    },
   });
 
   const onSubmit = async (data: FormValues) => {
@@ -85,7 +98,8 @@ const CreateBrandModal = () => {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}> {/* Connect dialog to state */}
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      {/* Connect dialog to state */}
       <DialogTrigger asChild>
         <Button size="sm" className="gap-2">
           <Plus className="w-4 h-4" />
@@ -94,7 +108,9 @@ const CreateBrandModal = () => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold">Create New Brand</DialogTitle>
+          <DialogTitle className="text-xl font-semibold">
+            Create New Brand
+          </DialogTitle>
           <DialogDescription>
             Add a new brand to your product catalog
           </DialogDescription>
@@ -103,25 +119,27 @@ const CreateBrandModal = () => {
         <div className="space-y-6 py-4">
           {/* Logo Upload Section */}
           <div className="space-y-2">
-            <div 
-              {...getRootProps()} 
+            <div
+              {...getRootProps()}
               className={`border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-all ${
-                isDragActive ? 'border-primary bg-primary/10' : 'border-muted-foreground/30'
+                isDragActive
+                  ? 'border-primary bg-primary/10'
+                  : 'border-muted-foreground/30'
               }`}
             >
               <input {...getInputProps()} />
               {preview ? (
                 <div className="relative">
-                  <Image 
-                    src={preview} 
-                    alt="Preview" 
+                  <Image
+                    src={preview}
+                    alt="Preview"
                     width={160}
                     height={160}
                     className="w-full h-40 object-contain rounded-lg"
                   />
                   <button
                     type="button"
-                    onClick={(e) => {
+                    onClick={e => {
                       e.stopPropagation();
                       removeImage();
                     }}
@@ -138,7 +156,9 @@ const CreateBrandModal = () => {
                       <span className="text-primary">Drop the logo here</span>
                     ) : (
                       <>
-                        <span className="font-medium text-primary">Click to upload</span>{' '}
+                        <span className="font-medium text-primary">
+                          Click to upload
+                        </span>{' '}
                         or drag and drop
                       </>
                     )}
