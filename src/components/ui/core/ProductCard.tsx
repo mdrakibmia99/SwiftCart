@@ -36,27 +36,31 @@ const ProductCard = ({ product }: { product: IProduct }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
       whileHover={{ y: -5 }}
-      className="h-full"
+      className="h-full w-full"
     >
       <Card
-        className="p-4 h-full flex flex-col transition-all duration-300 hover:shadow-lg hover:border-primary hover:border"
+        className="p-3 sm:p-4 h-full flex flex-col transition-all duration-300 hover:shadow-lg hover:border-primary/30 border"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
+        {/* Product Image */}
         <CardHeader className="relative p-0 aspect-square overflow-hidden rounded-lg">
-          <Image
-            src={
-              product?.imageUrls[0] ||
-              "https://psediting.websites.co.in/obaju-turquoise/img/product-placeholder.png"
-            }
-            width={500}
-            height={500}
-            alt={product?.name}
-            className="object-cover w-full h-full transition-transform duration-500"
-            style={{ transform: isHovered ? "scale(1.05)" : "scale(1)" }}
-            priority
-          />
+          <Link href={`/products/${product?._id}`} passHref>
+            <Image
+              src={
+                product?.imageUrls[0] ||
+                "https://psediting.websites.co.in/obaju-turquoise/img/product-placeholder.png"
+              }
+              width={500}
+              height={500}
+              alt={product?.name}
+              className="object-cover w-full h-full transition-transform duration-500 hover:opacity-90"
+              style={{ transform: isHovered ? "scale(1.05)" : "scale(1)" }}
+              priority
+            />
+          </Link>
 
+          {/* Badges */}
           {product?.stock === 0 && (
             <div className="absolute left-2 top-2 bg-red-500 text-white px-2 py-1 text-xs rounded-full">
               Out of Stock
@@ -70,35 +74,34 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           )}
         </CardHeader>
 
-        <CardContent className="p-0 mt-4 flex-1">
+        {/* Product Info */}
+        <CardContent className="p-0 mt-3 sm:mt-4 flex-1 space-y-2">
           <Link href={`/products/${product?._id}`} passHref>
-            <CardTitle className="font-semibold text-lg hover:text-primary transition-colors">
-              {product?.name.length > 30
-                ? product?.name?.slice(0, 30) + "..."
-                : product?.name}
+            <CardTitle className="font-semibold text-base sm:text-lg hover:text-primary transition-colors line-clamp-2 min-h-[3rem]">
+              {product?.name}
             </CardTitle>
           </Link>
 
-          <div className="flex items-center justify-between mt-2">
-            <div className="flex items-center gap-1">
-              <Star className="w-4 h-4" fill="orange" stroke="orange" />
-              <span className="text-sm font-medium text-gray-700">
-                {product?.averageRating}
-              </span>
-            </div>
+          <div className="flex items-center gap-1">
+            <Star className="w-4 h-4" fill="orange" stroke="orange" />
+            <span className="text-sm font-medium text-gray-700">
+              {product?.averageRating}
+            </span>
+          </div>
 
-            <div className="text-right">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mt-1">
+            <div className="text-left">
               {product?.offerPrice ? (
-                <div className="space-y-1">
-                  <span className="font-bold text-lg text-primary">
+                <div className="flex flex-wrap items-baseline gap-1 sm:gap-2">
+                  <span className="font-bold text-lg sm:text-xl text-primary">
                     ${product?.offerPrice.toFixed(2)}
                   </span>
-                  <del className="text-sm text-gray-500 block">
+                  <del className="text-sm text-gray-500">
                     ${product?.price.toFixed(2)}
                   </del>
                 </div>
               ) : (
-                <span className="font-bold text-lg">
+                <span className="font-bold text-lg sm:text-xl">
                   ${product?.price.toFixed(2)}
                 </span>
               )}
@@ -106,35 +109,50 @@ const ProductCard = ({ product }: { product: IProduct }) => {
           </div>
         </CardContent>
 
-        <CardFooter className="p-0 mt-4">
-          <div className="flex gap-2 items-center w-full">
-            <Button
-              disabled={product?.stock === 0}
-              size="sm"
-              className="w-full flex-1 bg-primary text-secondary hover:bg-secondary hover:text-primary hover:border-primary"
-              variant="outline"
-              onClick={() => handleAddProduct(product)}
-            >
-              <ShoppingCart className="mr-2 h-4 w-4" />
-              Add to Cart
-            </Button>
-
-            <motion.div
-              whileTap={{ scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            >
-              <Button
-                variant="ghost"
-                size="icon"
-                className={`rounded-full ${isWishlisted ? "text-red-500" : ""}`}
-                onClick={toggleWishlist}
+        {/* Action Buttons */}
+        <CardFooter className="p-0 mt-3 sm:mt-4">
+          <div className="flex flex-col gap-2 w-full">
+            <div className="flex gap-2 w-full">
+              <Link
+                href={`/products/${product?._id}`}
+                passHref
+                className="flex-1"
               >
-                <Heart
-                  className="h-5 w-5"
-                  fill={isWishlisted ? "currentColor" : "none"}
-                />
+                <Button
+                  size="sm"
+                  className="w-full bg-primary text-secondary hover:bg-secondary/90 hover:text-primary"
+                >
+                  Details
+                </Button>
+              </Link>
+
+              <Button
+                disabled={product?.stock === 0}
+                size="sm"
+                className="flex-1 bg-secondary hover:bg-primary/90 hover:text-secondary text-primary"
+                onClick={() => handleAddProduct(product)}
+              >
+                <ShoppingCart className="h-4 w-4 sm:mr-2" />
+                <span className="hidden sm:inline">Add to Cart</span>
               </Button>
-            </motion.div>
+            </div>
+
+            <Button
+              variant="outline"
+              size="sm"
+              className={`w-full ${
+                isWishlisted
+                  ? "text-red-500 border-red-500"
+                  : "bg-secondary hover:bg-primary/90 hover:text-secondary text-primary"
+              }`}
+              onClick={toggleWishlist}
+            >
+              <Heart
+                className="h-4 w-4 mr-2"
+                fill={isWishlisted ? "currentColor" : "none"}
+              />
+              {isWishlisted ? "Wishlisted" : "Wishlist"}
+            </Button>
           </div>
         </CardFooter>
       </Card>
