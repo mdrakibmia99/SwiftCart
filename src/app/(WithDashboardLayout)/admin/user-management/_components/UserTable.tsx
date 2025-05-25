@@ -23,11 +23,11 @@ type User = {
 
 interface UserTableProps {
   users: User[];
-  loading: boolean;
+  // loading: boolean;
   onStatusUpdate: (userId: string, isActive: boolean) => void;
 }
 
-const UserTable = ({ users, loading, onStatusUpdate }: UserTableProps) => {
+const UserTable = ({ users, onStatusUpdate }: UserTableProps) => {
   const columns: ColumnDef<User>[] = [
     {
       accessorKey: 'name',
