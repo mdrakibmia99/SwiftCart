@@ -34,9 +34,7 @@ import { getProfile } from "@/services/Profile";
 import { IProfile } from "@/types/profile";
 import SearchInput from "../modules/home/SearchInput/SearchInput";
 import MegaMenu from "./MegaMenu";
-import { getAllCategories } from "@/services/Category";
-import { getAllBrands } from "@/services/Brand";
-import useFetchData from "./Action/useFetchData";
+import { useFetchData } from "./Action/useFetchData";
 
 export default function Navbar() {
   const { user, setIsLoading } = useUser();
@@ -81,18 +79,24 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isMegaMenuOpen]);
 
-  const { categories: category, brands,featured ,flash,trending} = useFetchData();
+  const {
+    categories: category,
+    brands,
+    featured,
+    flash,
+    trending,
+  } = useFetchData();
 
   const categories = [
     {
       name: "Categories",
       subcategories: category,
-      query: "category",
+      query: "categories",
     },
     {
       name: "Brands",
       subcategories: brands,
-      query: "brand",
+      query: "brands",
     },
     {
       name: "Featured Products",
@@ -345,19 +349,20 @@ export default function Navbar() {
                         >
                           {category.subcategories.map((sub) => (
                             <Link
-                              key={sub}
-                              href={{
-                                pathname: "/products",
-                                query: {
-                                  [category.query]: sub
-                                    .toLowerCase()
-                                    .replace(/\s+/g, "-"),
-                                  // Add other query parameters if needed
-                                },
-                              }}
+                              key={sub.id}
+                              href={
+                                category.query === "products" 
+                                  ? `/products/${sub.id}`
+                                  : {
+                                      pathname: "/products",
+                                      query: {
+                                        [category.query]: sub.id
+                                      }
+                                    }
+                              }
                               className="block py-2 text-sm hover:text-primary transition-colors"
                             >
-                              {sub}
+                              {sub.name}
                             </Link>
                           ))}
                         </motion.div>

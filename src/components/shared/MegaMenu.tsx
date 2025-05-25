@@ -7,15 +7,22 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "../ui/navigation-menu";
+
+interface SubcategoryItem {
+  id: string;
+  name: string;
+}
+
 interface Category {
   name: string;
-  subcategories: string[];
-  query : string
+  subcategories: SubcategoryItem[];
+  query: string;
 }
 
 interface MegaMenuProps {
   categories: Category[];
 }
+
 const MegaMenu = ({ categories }: MegaMenuProps) => {
   return (
     <div className="hidden md:flex justify-center border-t">
@@ -27,25 +34,27 @@ const MegaMenu = ({ categories }: MegaMenuProps) => {
                 {category.name}
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <div className=" px-4 py-6 grid grid-cols-1 gap-6 w-[650px]">
+                <div className="px-4 py-6 grid grid-cols-1 gap-6 w-[650px]">
                   <div className="space-y-2">
                     <h3 className="font-bold text-lg mb-4">{category.name}</h3>
                     <ul className="grid grid-cols-3 gap-x-8 gap-y-2">
                       {category.subcategories.map((sub) => (
-                        <li key={sub}>
+                        <li key={sub.id}>
                           <NavigationMenuLink asChild>
                             <Link
-                              href={{
-                                pathname: "/products",
-                                query: {
-                                  [category.query]: sub
-                                    .toLowerCase()
-                                    .replace(/\s+/g, "-")
-                                },
-                              }}
+                              href={
+                                category.query === "products" 
+                                  ? `/products/${sub.id}`
+                                  : {
+                                      pathname: "/products",
+                                      query: {
+                                        [category.query]: sub.id
+                                      }
+                                    }
+                              }
                               className="hover:text-primary transition-colors block py-1 text-sm"
                             >
-                              {sub}
+                              {sub.name}
                             </Link>
                           </NavigationMenuLink>
                         </li>
