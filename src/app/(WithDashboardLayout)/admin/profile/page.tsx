@@ -7,6 +7,7 @@ import ProfileCard from "@/components/modules/profile/ProfileCard";
 
 const page = async () => {
   const { data } = await getProfile();
+  
 
   return (
     <div className="p-6 space-y-5">
