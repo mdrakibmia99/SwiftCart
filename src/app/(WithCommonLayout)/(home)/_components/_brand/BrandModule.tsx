@@ -1,13 +1,14 @@
-import NMContainer from "@/components/ui/core/NMContainer";
+
 import { getAllBrands } from "@/services/Brand";
 import { IBrand } from "@/types";
 import BrandCard from "./BrandCard";
+import SCContainer from "@/components/ui/core/SCContainer";
 
 const TopBrands = async () => {
   const { data: brands } = await getAllBrands();
 
   return (
-    <NMContainer className="my-16">
+    <SCContainer className="my-16">
       {/* Simple centered header */}
       <div className="text-center mb-10">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
@@ -24,7 +25,7 @@ const TopBrands = async () => {
           <BrandCard key={brand._id} brand={brand} />
         ))}
       </div>
-    </NMContainer>
+    </SCContainer>
   );
 };
 

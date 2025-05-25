@@ -1,15 +1,15 @@
 import { Button } from "@/components/ui/button";
-import NMContainer from "@/components/ui/core/NMContainer";
 import { getAllCategories } from "@/services/Category";
 import { ICategory } from "@/types";
 import Link from "next/link";
 import CategoryCard from "./CategoryCard";
+import SCContainer from "@/components/ui/core/SCContainer";
 
 const Category = async () => {
   const { data: categories } = await getAllCategories();
 
   return (
-    <NMContainer className="my-8 md:my-16 lg:my-24 px-4 sm:px-6"> {/* Added horizontal padding */}
+    <SCContainer className="my-8 md:my-16 lg:my-24 px-4 sm:px-6"> {/* Added horizontal padding */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
         <div className="flex-1 min-w-0"> {/* Added min-width constraint */}
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 break-words"> {/* Added word break */}
@@ -34,7 +34,7 @@ const Category = async () => {
           <CategoryCard key={category._id || idx} category={category} />
         ))}
       </div>
-    </NMContainer>
+    </SCContainer>
   );
 };
 
