@@ -53,8 +53,7 @@ const USER_NAV_ITEMS = [
     url: "#",
     icon: Settings,
     items: [
-      { title: "Profile", url: "/user/profile" },
-      { title: "Settings", url: "/user/settings" },
+      { title: "Profile", url: "/profile" },
     ],
   },
 ];
@@ -83,7 +82,7 @@ const ADMIN_NAV_ITEMS = [
     url: "#",
     icon: Settings,
     items: [
-      { title: "Profile", url: "/admin/profile" }
+      { title: "Profile", url: "/profile" }
     ],
   },
 ];
