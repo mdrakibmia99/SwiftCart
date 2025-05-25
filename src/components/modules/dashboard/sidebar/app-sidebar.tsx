@@ -14,7 +14,7 @@ import {
   Award,
   CreditCard,
   DollarSign,
-  User
+  User,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -29,7 +29,8 @@ import {
 } from "@/components/ui/sidebar";
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
-import Logo from "@/assets/svgs/Logo";
+import Logo from "@/assets/shop-icon.png";
+import Image from "next/image";
 
 // User Navigation Items
 const USER_NAV_ITEMS = [
@@ -54,9 +55,7 @@ const USER_NAV_ITEMS = [
     title: "Account",
     url: "#",
     icon: Settings,
-    items: [
-      { title: "Profile", url: "/profile" },
-    ],
+    items: [{ title: "Profile", url: "/profile" }],
   },
 ];
 
@@ -82,17 +81,17 @@ const ADMIN_NAV_ITEMS = [
   {
     title: "Payment Management",
     url: "/admin/payment",
-    icon: DollarSign
+    icon: DollarSign,
   },
   {
     title: "User Management",
     url: "/admin/user-management",
-    icon: User
+    icon: User,
   },
-   {
+  {
     title: "Profile",
     url: "/profile",
-    icon: Settings
+    icon: Settings,
   },
 ];
 
@@ -103,28 +102,28 @@ const COMMON_SECONDARY_ITEMS = [
 ];
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
-  userRole: 'user' | 'admin'; // Role-based prop
+  userRole: "user" | "admin"; // Role-based prop
 }
 
 export function AppSidebar({ userRole, ...props }: AppSidebarProps) {
-  const navItems = userRole === 'admin' ? ADMIN_NAV_ITEMS : USER_NAV_ITEMS;
+  const navItems = userRole === "admin" ? ADMIN_NAV_ITEMS : USER_NAV_ITEMS;
 
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <LogoHeader />
       </SidebarHeader>
-      
+
       <SidebarContent>
         {/* Main Navigation */}
         <NavMain items={navItems} />
-        
+
         {/* Common Secondary Navigation */}
         <div className="mt-4">
           <NavMain items={COMMON_SECONDARY_ITEMS} />
         </div>
       </SidebarContent>
-      
+
       <SidebarFooter>
         <NavUser />
       </SidebarFooter>
@@ -137,7 +136,13 @@ const LogoHeader = () => (
     <SidebarMenuItem>
       <SidebarMenuButton size="lg" asChild>
         <Link href="/" className="flex items-center gap-2">
-          <Logo />
+          <Image
+            src={Logo}
+            alt="SwiftCart Logo"
+            width={30} // Set appropriate width
+            height={30} // Set appropriate height
+            className="h-[30px] w-auto" // Responsive sizing
+          />
           <span className="font-bold text-xl">SwiftCart</span>
         </Link>
       </SidebarMenuButton>
