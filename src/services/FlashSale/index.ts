@@ -1,6 +1,7 @@
-"use server";
-import { getValidToken } from "@/lib/verifyToken";
-import { revalidateTag } from "next/cache";
+'use server';
+
+import { getValidToken } from '@/lib/verifyToken';
+import { revalidateTag } from 'next/cache';
 
 // add Flash Sale
 export const addFlashSale = async (productData: any): Promise<any> => {
@@ -15,8 +16,10 @@ export const addFlashSale = async (productData: any): Promise<any> => {
       body: JSON.stringify(productData),
     });
 
-    revalidateTag("PRODUCT");
-    return res.json();
+    revalidateTag('PRODUCTS');
+
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }
@@ -27,11 +30,12 @@ export const getFlashSaleProducts = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/flash-sale`, {
       next: {
-        tags: ["PRODUCT"],
+        tags: ['PRODUCTS'],
       },
     });
-    const data = await res.json();
-    return data;
+
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error.message);
   }

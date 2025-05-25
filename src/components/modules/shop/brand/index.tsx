@@ -1,4 +1,5 @@
 'use client';
+
 import { SCTable } from '@/components/ui/core/SCTable/index';
 import { ColumnDef } from '@tanstack/react-table';
 import { Trash } from 'lucide-react';
@@ -6,11 +7,20 @@ import Image from 'next/image';
 import { useState } from 'react';
 import CreateBrandModal from './CreateBrandModal';
 import { toast } from 'sonner';
-import { IBrand } from '@/types';
+import { IBrand, IMeta } from '@/types';
 import { deleteBrand } from '@/services/Brand';
 import DeleteConfirmationModal from '@/components/ui/core/SCModal/DeleteConfirmationModal';
+import TablePagination from '@/components/ui/core/SCTable/TablePagination';
 
-const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
+const ManageBrands = ({
+  brands,
+  meta,
+  page,
+}: {
+  brands: IBrand[];
+  meta: IMeta;
+  page: string;
+}) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
@@ -90,11 +100,12 @@ const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold">Manage Brands</h1>
+        <h1 className="text-xl font-bold">Manage Brands ({meta?.total})</h1>
 
         <CreateBrandModal />
       </div>
       <SCTable columns={columns} data={brands || []} />
+      <TablePagination page={Number(page)} totalPage={meta?.totalPage} />
 
       <DeleteConfirmationModal
         name={selectedItem}

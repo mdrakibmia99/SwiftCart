@@ -108,9 +108,7 @@ export default function ContactPage() {
                   name="name"
                   render={({ field }) => (
                     <FormItem className="space-y-2">
-                      <FormLabel className="text-gray-700">
-                        Name
-                      </FormLabel>
+                      <FormLabel className="text-gray-700">Name</FormLabel>
                       <FormControl>
                         <Input
                           placeholder="John Doe"
@@ -131,9 +129,7 @@ export default function ContactPage() {
                   name="email"
                   render={({ field }) => (
                     <FormItem className="space-y-2">
-                      <FormLabel className="text-gray-700">
-                        Email
-                      </FormLabel>
+                      <FormLabel className="text-gray-700">Email</FormLabel>
                       <FormControl>
                         <Input
                           placeholder="john@example.com"
@@ -155,9 +151,7 @@ export default function ContactPage() {
                 name="subject"
                 render={({ field }) => (
                   <FormItem className="space-y-2">
-                    <FormLabel className="text-gray-700">
-                      Subject
-                    </FormLabel>
+                    <FormLabel className="text-gray-700">Subject</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="How can we help?"
@@ -178,9 +172,7 @@ export default function ContactPage() {
                 name="message"
                 render={({ field }) => (
                   <FormItem className="space-y-2">
-                    <FormLabel className="text-gray-700">
-                      Message
-                    </FormLabel>
+                    <FormLabel className="text-gray-700">Message</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Your message here..."
@@ -271,9 +263,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="text-gray-600">Phone</p>
-                <p className="font-medium text-gray-900">
-                  +880 1234 567 890
-                </p>
+                <p className="font-medium text-gray-900">+880 1234 567 890</p>
               </div>
             </div>
           </div>

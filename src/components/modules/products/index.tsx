@@ -1,4 +1,5 @@
 "use client";
+
 import ProductCard from "@/components/ui/core/ProductCard";
 import FilterSidebar from "./filterSidebar";
 import { IProduct } from "@/types";

@@ -14,7 +14,6 @@ export const addSubscriber = async (data: FieldValues) => {
     });
 
     const result = await res.json();
-
     return result;
   } catch (error: any) {
     return Error(error);

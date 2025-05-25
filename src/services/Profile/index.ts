@@ -1,21 +1,24 @@
-"use server"
-import { getValidToken } from "@/lib/verifyToken";
-import { revalidateTag } from "next/cache";
+'use server';
 
-export const getProfile= async () => {
+import { getValidToken } from '@/lib/verifyToken';
+import { revalidateTag } from 'next/cache';
+
+export const getProfile = async () => {
   const token = await getValidToken();
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/user/me`, {
-      method: "GET",
+      method: 'GET',
       headers: {
         Authorization: token,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       next: {
-        tags: ["USER"],
+        tags: ['USERS'],
       },
     });
-    return await res.json();
+    
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }
@@ -23,22 +26,24 @@ export const getProfile= async () => {
 
 export const updateProfile = async (formData: FormData) => {
   const token = await getValidToken();
-  console.log({token});
+  console.log({ token });
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/user/update-profile`,
       {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
           Authorization: token,
         },
         body: formData,
       }
     );
-    revalidateTag("USER");
+
+    revalidateTag('USERS');
+
     const result = await res.json();
-    return result
+    return result;
   } catch (error: any) {
-     return Error(error);
+    return Error(error);
   }
 };

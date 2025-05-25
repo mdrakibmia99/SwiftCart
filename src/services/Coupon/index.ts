@@ -1,25 +1,26 @@
 'use server';
-import { getValidToken } from "@/lib/verifyToken";
-import { revalidateTag } from "next/cache";
+
+import { getValidToken } from '@/lib/verifyToken';
+import { revalidateTag } from 'next/cache';
 
 // create category
 export const createCoupon = async (data: any) => {
-
   try {
     const token = await getValidToken();
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/coupon`, {
-      method: "POST",
+      method: 'POST',
       headers: {
         Authorization: token,
-         "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     });
 
-    revalidateTag("COUPON");
+    revalidateTag('COUPONS');
 
-    return res.json();
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }
@@ -32,13 +33,14 @@ export const getAllCoupon = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/coupon`, {
       headers: {
         Authorization: token,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       next: {
-        tags: ["COUPON"],
+        tags: ['COUPONS'],
       },
     });
-  const result = await res.json();
+
+    const result = await res.json();
     return result;
   } catch (error: any) {
     return Error(error);
@@ -58,8 +60,11 @@ export const deleteCoupon = async (couponId: string): Promise<any> => {
         },
       }
     );
-    revalidateTag('COUPON');
-    return res.json();
+
+    revalidateTag('COUPONS');
+
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }

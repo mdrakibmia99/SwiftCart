@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { addProduct } from "@/redux/features/cartSlice";
-import { useAppDispatch } from "@/redux/hooks";
-import { IProduct } from "@/types";
-import { Heart, ShoppingCart, Star } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { useState } from "react";
+} from '@/components/ui/card';
+import { addProduct } from '@/redux/features/cartSlice';
+import { useAppDispatch } from '@/redux/hooks';
+import { IProduct } from '@/types';
+import { Heart, ShoppingCart, Star } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 const ProductCard = ({ product }: { product: IProduct }) => {
   const dispatch = useAppDispatch();
@@ -49,13 +49,13 @@ const ProductCard = ({ product }: { product: IProduct }) => {
             <Image
               src={
                 product?.imageUrls[0] ||
-                "https://psediting.websites.co.in/obaju-turquoise/img/product-placeholder.png"
+                'https://psediting.websites.co.in/obaju-turquoise/img/product-placeholder.png'
               }
               width={500}
               height={500}
               alt={product?.name}
               className="object-cover w-full h-full transition-transform duration-500 hover:opacity-90"
-              style={{ transform: isHovered ? "scale(1.05)" : "scale(1)" }}
+              style={{ transform: isHovered ? 'scale(1.05)' : 'scale(1)' }}
               priority
             />
           </Link>
@@ -142,16 +142,16 @@ const ProductCard = ({ product }: { product: IProduct }) => {
               size="sm"
               className={`w-full ${
                 isWishlisted
-                  ? "text-red-500 border-red-500"
-                  : "bg-secondary hover:bg-primary/90 hover:text-secondary text-primary"
+                  ? 'text-red-500 border-red-500'
+                  : 'bg-secondary hover:bg-primary/90 hover:text-secondary text-primary'
               }`}
               onClick={toggleWishlist}
             >
               <Heart
                 className="h-4 w-4 mr-2"
-                fill={isWishlisted ? "currentColor" : "none"}
+                fill={isWishlisted ? 'currentColor' : 'none'}
               />
-              {isWishlisted ? "Wishlisted" : "Wishlist"}
+              {isWishlisted ? 'Wishlisted' : 'Wishlist'}
             </Button>
           </div>
         </CardFooter>

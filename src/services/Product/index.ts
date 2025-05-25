@@ -1,6 +1,7 @@
-"use server";
-import { getValidToken } from "@/lib/verifyToken";
-import { revalidateTag } from "next/cache";
+'use server';
+
+import { getValidToken } from '@/lib/verifyToken';
+import { revalidateTag } from 'next/cache';
 
 // get all products
 export const getAllProducts = async (
@@ -10,20 +11,20 @@ export const getAllProducts = async (
 ) => {
   const params = new URLSearchParams();
   if (query?.searchTerm) {
-    params.append("searchTerm", query.searchTerm.toString());
+    params.append('searchTerm', query.searchTerm.toString());
   }
   if (query?.price) {
-    params.append("minPrice", "0");
-    params.append("maxPrice", query?.price.toString());
+    params.append('minPrice', '0');
+    params.append('maxPrice', query?.price.toString());
   }
   if (query?.category) {
-    params.append("categories", query?.category.toString());
+    params.append('categories', query?.category.toString());
   }
   if (query?.brand) {
-    params.append("brands", query?.brand.toString());
+    params.append('brands', query?.brand.toString());
   }
   if (query?.rating) {
-    params.append("ratings", query?.rating.toString());
+    params.append('ratings', query?.rating.toString());
   }
 
   try {
@@ -31,12 +32,13 @@ export const getAllProducts = async (
       `${process.env.NEXT_PUBLIC_BASE_API}/product?limit=${limit}&page=${page}&${params}`,
       {
         next: {
-          tags: ["PRODUCT"],
+          tags: ['PRODUCTS'],
         },
       }
     );
-    const data = await res.json();
-    return data;
+
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error.message);
   }
@@ -49,12 +51,13 @@ export const getSingleProduct = async (productId: string) => {
       `${process.env.NEXT_PUBLIC_BASE_API}/product/${productId}`,
       {
         next: {
-          tags: ["PRODUCT"],
+          tags: ['PRODUCTS'],
         },
       }
     );
-    const data = await res.json();
-    return data;
+
+   const result = await res.json();
+   return result;
   } catch (error: any) {
     return Error(error.message);
   }
@@ -65,14 +68,17 @@ export const addProduct = async (productData: FormData): Promise<any> => {
   const token = await getValidToken();
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/product`, {
-      method: "POST",
+      method: 'POST',
       body: productData,
       headers: {
         Authorization: token,
       },
     });
-    revalidateTag("PRODUCT");
-    return res.json();
+
+    revalidateTag('PRODUCTS');
+
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }
@@ -88,15 +94,18 @@ export const updateProduct = async (
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/product/${productId}`,
       {
-        method: "PATCH",
+        method: 'PATCH',
         body: productData,
         headers: {
           Authorization: token,
         },
       }
     );
-    revalidateTag("PRODUCT");
-    return res.json();
+
+    revalidateTag('PRODUCTS');
+
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }
@@ -108,12 +117,13 @@ export const getTrendingProducts = async (limit: number) => {
       `${process.env.NEXT_PUBLIC_BASE_API}/products/trending?limit=${limit}`,
       {
         next: {
-          tags: ["PRODUCT"],
+          tags: ['PRODUCTS'],
         },
       }
     );
-    const data = await res.json();
-    return data;
+    
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error.message);
   }
