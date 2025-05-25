@@ -1,4 +1,3 @@
-
 import { getAllBrands } from "@/services/Brand";
 import ManageBrands from "./_components";
 
