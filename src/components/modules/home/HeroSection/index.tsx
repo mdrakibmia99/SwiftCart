@@ -12,7 +12,7 @@ const HeroSection = () => {
       >
         <div className="grid grid-cols-2 items-center gap-4">
           <div className="pl-12">
-            <h1 className="text-4xl font-bold leading-normal">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-normal">
               Don&apos;t Miss Out on <br /> These Unbeatable Black <br /> Friday
               Deals!
             </h1>

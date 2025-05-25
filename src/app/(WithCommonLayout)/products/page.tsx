@@ -1,10 +1,10 @@
 import AllProducts from "@/components/modules/products";
 import ProductBanner from "@/components/modules/products/banner";
-import CategoryCard from "@/components/ui/core/CategoryCard";
 import NMContainer from "@/components/ui/core/NMContainer";
 import { getAllCategories } from "@/services/Category";
 import { getAllProducts } from "@/services/Product";
 import { ICategory } from "@/types";
+import CategoryCard from "../(home)/_components/_category/CategoryCard";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 

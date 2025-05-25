@@ -1,5 +1,6 @@
 import { ICategory } from "@/types";
 import Image from "next/image";
+import cartIcon from "@/assets/images/cart-icon.png"
 
 const CategoryCard = ({ category }: { category: ICategory }) => {
   return (
@@ -9,7 +10,7 @@ const CategoryCard = ({ category }: { category: ICategory }) => {
       
       <div className="w-16 h-16 mx-auto transition-transform duration-200 group-hover:scale-105">
         <Image
-          src={category?.icon}
+          src={category?.icon || cartIcon}
           width={64}
           height={64}
           alt={`${category?.name} icon`}
