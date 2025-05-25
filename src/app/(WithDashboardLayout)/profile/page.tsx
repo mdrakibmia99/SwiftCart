@@ -14,9 +14,9 @@ const page = async () => {
         <Card className="rounded-2xl shadow-lg">
           <CardHeader className="flex flex-col items-center space-y-4">
             <Avatar className="w-24 h-24 shadow-md ring-2 ring-indigo-500">
-              {data?.image && (
+              {data?.profile.profilePhoto && (
                 <AvatarImage
-                  src={data?.image}
+                  src={data?.profile.profilePhoto}
                   alt="User avatar"
                   className="object-cover"
                 />
