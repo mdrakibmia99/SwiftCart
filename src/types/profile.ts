@@ -7,6 +7,8 @@ export enum UserRole {
 type profile = {
   _id: string;
   gender: string;
+  phoneNo : string;
+  profilePhoto : string;
 };
 
 // User Schema Definition
@@ -16,6 +18,7 @@ export interface IProfile {
   passwordChangedAt?: Date;
   name: string;
   role: UserRole;
+  phoneNo: string;
   hasShop: boolean;
   clientInfo: {
     device: "pc" | "mobile";
