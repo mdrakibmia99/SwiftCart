@@ -7,17 +7,15 @@ import ProfileCard from "@/components/modules/profile/ProfileCard";
 
 const page = async () => {
   const { data } = await getProfile();
-  
-
   return (
     <div className="p-6 space-y-5">
       <div className=" space-y-6">
         <Card className="rounded-2xl shadow-lg">
           <CardHeader className="flex flex-col items-center space-y-4">
             <Avatar className="w-24 h-24 shadow-md ring-2 ring-indigo-500">
-              {data?.profile.profilePhoto && (
+              {data?.profilePhoto && (
                 <AvatarImage
-                  src={data?.profile.profilePhoto}
+                  src={data?.profilePhoto}
                   alt="User avatar"
                   className="object-cover"
                 />

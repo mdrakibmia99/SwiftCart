@@ -1,8 +1,6 @@
 "use server"
-
 import { getValidToken } from "@/lib/verifyToken";
 import { revalidateTag } from "next/cache";
-import { FieldValues } from "react-hook-form";
 
 export const getProfile= async () => {
   const token = await getValidToken();
@@ -25,24 +23,25 @@ export const getProfile= async () => {
 
 export const updateProfile = async (formData: FormData) => {
   const token = await getValidToken();
+  console.log({token});
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/user/update-profile`,
       {
         method: "PATCH",
         headers: {
+          // "Content-Type": "application/json",
           Authorization: token,
         },
         body: formData,
       }
     );
-
     revalidateTag("USER");
-    return await res.json();
+    console.log(res);
+    const result = await res.json();
+    return result
   } catch (error: any) {
-    return {
-      success: false,
-      message: error.message || "Failed to update profile"
-    };
+    console.log(error);
+     return Error(error);
   }
 };
