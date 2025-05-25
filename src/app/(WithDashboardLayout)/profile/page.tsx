@@ -10,7 +10,7 @@ const page = async () => {
   return (
     <div className="p-6 space-y-5">
       <div className=" space-y-6">
-        <Card className="rounded-2xl shadow-lg">
+        <Card className="rounded-2xl shadow-lg bg-custom-gradient">
           <CardHeader className="flex flex-col items-center space-y-4">
             <Avatar className="w-24 h-24 shadow-md ring-2 ring-indigo-500">
               {data?.profilePhoto && (

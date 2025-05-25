@@ -95,9 +95,9 @@ export default function ContactPage() {
           transition={{ duration: 0.5 }}
           className="space-y-8"
         >
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-8">
             Get in Touch
-            <span className="block w-16 h-2 bg-green-500 mt-4 rounded-full" />
+            <span className="block w-16 h-2 bg-primary mt-4 rounded-full" />
           </h1>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -108,13 +108,13 @@ export default function ContactPage() {
                   name="name"
                   render={({ field }) => (
                     <FormItem className="space-y-2">
-                      <FormLabel className="text-gray-700 dark:text-gray-300">
+                      <FormLabel className="text-gray-700">
                         Name
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="John Doe"
-                          className="dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-green-500"
+                          className="focus:ring-2 focus:ring-primary"
                           {...field}
                           value={field.value || ''}
                         />
@@ -131,13 +131,13 @@ export default function ContactPage() {
                   name="email"
                   render={({ field }) => (
                     <FormItem className="space-y-2">
-                      <FormLabel className="text-gray-700 dark:text-gray-300">
+                      <FormLabel className="text-gray-700">
                         Email
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="john@example.com"
-                          className="dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-green-500"
+                          className="focus:ring-2 focus:ring-primary"
                           {...field}
                           value={field.value || ''}
                         />
@@ -155,13 +155,13 @@ export default function ContactPage() {
                 name="subject"
                 render={({ field }) => (
                   <FormItem className="space-y-2">
-                    <FormLabel className="text-gray-700 dark:text-gray-300">
+                    <FormLabel className="text-gray-700">
                       Subject
                     </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="How can we help?"
-                        className="dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-green-500"
+                        className="focus:ring-2 focus:ring-primary"
                         {...field}
                         value={field.value || ''}
                       />
@@ -178,13 +178,13 @@ export default function ContactPage() {
                 name="message"
                 render={({ field }) => (
                   <FormItem className="space-y-2">
-                    <FormLabel className="text-gray-700 dark:text-gray-300">
+                    <FormLabel className="text-gray-700">
                       Message
                     </FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Your message here..."
-                        className="dark:bg-gray-800 dark:border-gray-700 h-32 focus:ring-2 focus:ring-green-500"
+                        className="h-32 focus:ring-2 focus:ring-primary"
                         {...field}
                         value={field.value || ''}
                       />
@@ -197,7 +197,7 @@ export default function ContactPage() {
               <div className="text-center mt-3">
                 <Button
                   type="submit"
-                  className="w-full bg-green-500 hover:bg-green-600 text-white dark:bg-green-600 dark:hover:bg-green-700 transition-all transform hover:scale-[1.02]"
+                  className="w-full bg-primary hover:bg-green-600 text-white transition-all transform hover:scale-[1.02]"
                 >
                   {isSubmitting ? (
                     <div className="animate-spin">
@@ -216,13 +216,13 @@ export default function ContactPage() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-green-50 dark:bg-green-900/20 p-12 rounded-2xl flex flex-col justify-center space-y-8"
+          className="bg-secondary p-12 rounded-2xl flex flex-col justify-center space-y-8"
         >
           <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-green-100">
+            <h2 className="text-3xl font-bold text-gray-900">
               Let&lsquo;s talk!
             </h2>
-            <p className="text-lg text-gray-600 dark:text-green-200">
+            <p className="text-lg text-gray-600">
               Prefer other ways to connect? Reach out through our social
               channels or use the contact information below.
             </p>
@@ -230,9 +230,9 @@ export default function ContactPage() {
 
           <div className="space-y-6">
             <div className="flex items-center space-x-4">
-              <div className="p-3 bg-green-100 dark:bg-green-800 rounded-lg">
+              <div className="p-3 bg-white rounded-lg">
                 <svg
-                  className="w-6 h-6 text-green-600 dark:text-green-300"
+                  className="w-6 h-6 text-primary"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -246,17 +246,17 @@ export default function ContactPage() {
                 </svg>
               </div>
               <div>
-                <p className="text-gray-600 dark:text-green-200">Email</p>
-                <p className="font-medium text-gray-900 dark:text-green-100">
+                <p className="text-gray-600">Email</p>
+                <p className="font-medium text-gray-900">
                   support@swiftcart.com
                 </p>
               </div>
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="p-3 bg-green-100 dark:bg-green-800 rounded-lg">
+              <div className="p-3 bg-white rounded-lg">
                 <svg
-                  className="w-6 h-6 text-green-600 dark:text-green-300"
+                  className="w-6 h-6 text-primary"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -270,16 +270,16 @@ export default function ContactPage() {
                 </svg>
               </div>
               <div>
-                <p className="text-gray-600 dark:text-green-200">Phone</p>
-                <p className="font-medium text-gray-900 dark:text-green-100">
+                <p className="text-gray-600">Phone</p>
+                <p className="font-medium text-gray-900">
                   +880 1234 567 890
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="pt-8 border-t border-green-200 dark:border-green-800">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-green-100 mb-6">
+          <div className="pt-8 border-t border-primary/20">
+            <h3 className="text-lg font-medium text-gray-900 mb-6">
               Follow Us
             </h3>
             <div className="flex space-x-6">
@@ -287,7 +287,7 @@ export default function ContactPage() {
                 <a
                   key={social.name}
                   href={social.url}
-                  className="text-gray-600 hover:text-green-600 dark:text-green-300 dark:hover:text-green-400 transition-colors"
+                  className="text-gray-600 hover:text-primary transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

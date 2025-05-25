@@ -63,7 +63,7 @@ export default function FilterSidebar() {
               });
             }}
             size="sm"
-            className="bg-black hover:bg-gray-700 ml-5"
+            className="bg-primary hover:bg-secondary hover:text-primary hover:border-primary ml-5"
           >
             Clear Filters
           </Button>

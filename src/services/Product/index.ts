@@ -100,3 +100,23 @@ export const updateProduct = async (
     return Error(error);
   }
 };
+
+
+export const getTrendingProducts = async (
+  limit: number,
+) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/products/trending?limit=${limit}`,
+      {
+        next: {
+          tags: ['PRODUCT'],
+        },
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch (error: any) {
+    return Error(error.message);
+  }
+};
