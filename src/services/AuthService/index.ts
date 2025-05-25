@@ -103,5 +103,3 @@ export const getNewToken = async () => {
     return Error(error);
   }
 };
-
-
