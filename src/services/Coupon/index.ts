@@ -69,3 +69,28 @@ export const deleteCoupon = async (couponId: string): Promise<any> => {
     return Error(error);
   }
 };
+
+// update Coupon
+export const updateCoupon = async (
+  couponId: string,
+  data: any
+): Promise<any> => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/coupon/${couponId}/update-coupon`,
+      {
+        method: 'PATCH',
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    revalidateTag('COUPON');
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
