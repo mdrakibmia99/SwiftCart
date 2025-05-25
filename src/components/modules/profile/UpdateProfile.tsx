@@ -54,7 +54,6 @@ const UpdateProfile = ({ data: userData }: { data: IProfile }) => {
     try {
       const res = await updateProfile(formData);
       setIsLoading(true);
-      console.log(res);
       if (res.success) {
         toast.success(res?.message);
       } else {
