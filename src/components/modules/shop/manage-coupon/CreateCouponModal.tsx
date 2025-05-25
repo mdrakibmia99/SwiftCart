@@ -276,11 +276,11 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { toast } from "sonner";
-import { createCategory } from "@/services/Category";
+import { createCoupon } from "@/services/Coupon";
 
 const couponSchema = z.object({
   code: z.string().min(1, "Coupon code is required"),
-  discountType: z.enum(["percentage", "flat"], {
+  discountType: z.enum(["Percentage", "Flat"], {
     required_error: "Discount type is required",
   }),
   discountValue: z.coerce.number().min(1, "Discount value is required"),
@@ -303,7 +303,7 @@ export default function CreateCouponModal() {
   const form = useForm<CouponFormData>({
     resolver: zodResolver(couponSchema),
     defaultValues: {
-      discountType: "percentage",
+      discountType: "Percentage",
     },
   });
 
@@ -319,9 +319,16 @@ export default function CreateCouponModal() {
     };
 
     try {
-      await createCategory(couponData);
+     const res= await createCoupon(couponData);
+     console.log(res," res create coupon");
+     if(res.success){
       toast.success("Coupon created successfully!");
       form.reset();
+      setOpen(false);
+      return;
+     }
+      toast.error(res.message || "Failed to create coupon. Please try again.");
+
       setOpen(false);
     } catch (error) {
       console.error("Error creating coupon:", error);
@@ -369,8 +376,8 @@ export default function CreateCouponModal() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="percentage">Percentage</SelectItem>
-                      <SelectItem value="flat">Flat</SelectItem>
+                      <SelectItem value="Percentage">Percentage</SelectItem>
+                      <SelectItem value="Flat">Flat</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -383,7 +390,7 @@ export default function CreateCouponModal() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Discount Value ({discountType === "flat" ? "$" : "%"})
+                    Discount Value ({discountType === "Flat" ? "$" : "%"})
                   </FormLabel>
                   <FormControl>
                     <Input type="number" {...field} />
