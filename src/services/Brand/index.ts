@@ -1,16 +1,22 @@
-"use server";
+'use server';
 
-import { getValidToken } from "@/lib/verifyToken";
-import { revalidateTag } from "next/cache";
+import { getValidToken } from '@/lib/verifyToken';
+import { revalidateTag } from 'next/cache';
 
 //  get all brands
-export const getAllBrands = async () => {
+export const getAllBrands = async (
+  page?: string,
+  limit?: string
+): Promise<any> => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/brand`, {
-      next: {
-        tags: ["Brands"],
-      },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/brand?limit=${limit}&page=${page}`,
+      {
+        next: {
+          tags: ['Brands'],
+        },
+      }
+    );
     const data = await res.json();
     return data;
   } catch (error: any) {
@@ -24,18 +30,18 @@ export const createBrand = async (brandData: FormData): Promise<any> => {
 
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/brand`, {
-      method: "POST",
+      method: 'POST',
       body: brandData,
       headers: {
         Authorization: token,
       },
     });
 
-    revalidateTag("Brands");
+    revalidateTag('Brands');
 
     return res.json();
   } catch (error: any) {
-    throw new Error(error.message || "Something went wrong");
+    throw new Error(error.message || 'Something went wrong');
   }
 };
 
@@ -47,13 +53,13 @@ export const deleteBrand = async (brandId: string): Promise<any> => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/brand/${brandId}`,
       {
-        method: "DELETE",
+        method: 'DELETE',
         headers: {
           Authorization: token,
         },
       }
     );
-    revalidateTag("Brands");
+    revalidateTag('Brands');
     return res.json();
   } catch (error: any) {
     return Error(error);

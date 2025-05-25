@@ -1,19 +1,28 @@
 'use client';
 import { SCTable } from '@/components/ui/core/SCTable/index';
 import { ColumnDef } from '@tanstack/react-table';
-import { Trash, Plus } from 'lucide-react';
+import { Trash } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { IBrand } from '@/types';
+import { IBrand, IMeta } from '@/types';
 import { deleteBrand } from '@/services/Brand';
 import DeleteConfirmationModal from '@/components/ui/core/SCModal/DeleteConfirmationModal';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import CreateBrandModal from './CreateBrandModal';
+import TablePagination from '@/components/ui/core/SCTable/TablePagination';
 
-const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
+const ManageBrands = ({
+  brands,
+  meta,
+  page,
+}: {
+  brands: IBrand[];
+  meta: IMeta;
+  page: string;
+}) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
@@ -64,8 +73,8 @@ const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
       header: () => <div className="font-semibold">Status</div>,
       cell: ({ row }) => (
         <div>
-          <Badge 
-            variant={row.original.isActive ? "default" : "destructive"}
+          <Badge
+            variant={row.original.isActive ? 'default' : 'destructive'}
             className="px-3 py-1 rounded-full"
           >
             {row.original.isActive ? 'Active' : 'Inactive'}
@@ -95,16 +104,16 @@ const ManageBrands = ({ brands }: { brands: IBrand[] }) => {
       <Card className="shadow-sm">
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl font-bold text-gray-800">Manage Brands</CardTitle>
-            <CreateBrandModal/>
-              
+            <CardTitle className="text-2xl font-bold text-gray-800">
+              Manage Brands ({meta?.total})
+            </CardTitle>
+            <CreateBrandModal />
           </div>
         </CardHeader>
         <CardContent>
           <div className="rounded-md border">
-            <SCTable 
-              columns={columns} 
-              data={brands || []} />
+            <SCTable columns={columns} data={brands || []} />
+            <TablePagination page={Number(page)} totalPage={meta?.totalPage} />
           </div>
         </CardContent>
       </Card>

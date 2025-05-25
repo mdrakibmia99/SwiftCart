@@ -110,7 +110,7 @@ export default function PaymentDetails() {
       )}
       <Button
         onClick={handleOrder}
-        className="w-full text-xl font-semibold py-5"
+        className="w-full text-xl py-5"
       >
         Order Now
       </Button>

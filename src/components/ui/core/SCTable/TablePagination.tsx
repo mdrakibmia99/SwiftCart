@@ -1,30 +1,37 @@
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { Button } from "../../button";
-import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+'use client';
 
-const TablePagination = ({ totalPage }: { totalPage: number }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  //   console.log(currentPage);
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { Button } from '../../button';
+
+const TablePagination = ({
+  page,
+  totalPage,
+}: {
+  page: number;
+  totalPage: number;
+}) => {
+  const [currentPage, setCurrentPage] = useState(page || 1);
   const router = useRouter();
   const pathname = usePathname();
 
   const handlePrev = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      router.push(`${pathname}?page=${currentPage - 1}`);
+      router.push(`${pathname}?page=${currentPage - 1}`, { scroll: false });
     }
   };
 
   const handleNext = () => {
     if (currentPage < totalPage) {
       setCurrentPage(currentPage + 1);
-      router.push(`${pathname}?page=${currentPage + 1}`);
+      router.push(`${pathname}?page=${currentPage + 1}`, { scroll: false });
     }
   };
 
   return (
-    <div className="flex items-center gap-2 my-5">
+    <div className="flex justify-center items-center gap-2 my-5">
       <Button
         onClick={handlePrev}
         disabled={currentPage === 1}
@@ -38,10 +45,10 @@ const TablePagination = ({ totalPage }: { totalPage: number }) => {
         <Button
           onClick={() => {
             setCurrentPage(index + 1);
-            router.push(`${pathname}?page=${index + 1}`);
+            router.push(`${pathname}?page=${index + 1}`, { scroll: false });
           }}
           key={index}
-          variant={currentPage === index + 1 ? "default" : "outline"}
+          variant={currentPage === index + 1 ? 'default' : 'outline'}
           size="sm"
           className="w-8 h-8 rounded-full flex items-center justify-center"
         >

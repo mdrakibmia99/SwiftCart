@@ -18,7 +18,9 @@ const ProductDetailsPage = async ({
         title="Product Details"
         path="Home - Products - Product Details"
       />
-      <ProductDetails product={product} />
+      <div className="my-5">
+        <ProductDetails product={product} />
+      </div>
     </SCContainer>
   );
 };

@@ -1,4 +1,5 @@
-import AllProducts from '@/components/modules/products';
+
+import { AllProducts } from '@/components/modules/products';
 import ProductBanner from '@/components/modules/products/banner';
 import CategoryCard from '@/components/ui/core/CategoryCard';
 import SCContainer from '@/components/ui/core/SCContainer';
@@ -24,7 +25,7 @@ const AllProductsPage = async ({
       <h2 className="text-xl sm:text-2xl md:text-3xl font-bold my-5">
         Featured Collection
       </h2>
-      <div className="grid grid-cols-6 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5 md:gap-6">
         {categories?.slice(0, 6).map((category: ICategory, idx: number) => (
           <CategoryCard key={idx} category={category} />
         ))}

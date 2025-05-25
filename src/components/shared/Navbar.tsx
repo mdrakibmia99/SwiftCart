@@ -1,7 +1,6 @@
-'use client';
-
-import Image from 'next/image';
-import { Button } from '../ui/button';
+"use client";
+import Image from "next/image";
+import { Button } from "../ui/button";
 import {
   LogOut,
   ShoppingCart,
@@ -9,8 +8,9 @@ import {
   Search,
   Menu,
   CircleX,
-} from 'lucide-react';
-import Link from 'next/link';
+  ChevronUp,
+} from "lucide-react";
+import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,25 +18,23 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { logout } from '@/services/AuthService';
-import { useUser } from '@/context/UserContext';
-import { usePathname, useRouter } from 'next/navigation';
-import { protectedRoutes } from '@/contants';
-import { useAppSelector } from '@/redux/hooks';
-import { orderedProductsSelector } from '@/redux/features/cartSlice';
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { logout } from "@/services/AuthService";
+import { useUser } from "@/context/UserContext";
+import { usePathname, useRouter } from "next/navigation";
+import { protectedRoutes } from "@/contants";
+import { useAppSelector } from "@/redux/hooks";
+import { orderedProductsSelector } from "@/redux/features/cartSlice";
 // import logo from '../../../public/logo.png';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from '../ui/navigation-menu';
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+
+import { getProfile } from "@/services/Profile";
+import { IProfile } from "@/types/profile";
+import SearchInput from "../modules/home/SearchInput/SearchInput";
+import MegaMenu from "./MegaMenu";
+import { useFetchData } from "./Action/useFetchData";
 
 export default function Navbar() {
   const { user, setIsLoading } = useUser();
@@ -46,42 +44,75 @@ export default function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  console.log(user);
+  const [updatedUser, setUpdatedUser] = useState<IProfile | null>(null);
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+
+  const toggleCategory = (categoryName: string) => {
+    setExpandedCategory((prev) =>
+      prev === categoryName ? null : categoryName
+    );
+  };
   const handleLogOut = () => {
     logout();
     setIsLoading(true);
-    if (protectedRoutes.some(route => pathname.match(route))) {
-      router.push('/');
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/");
     }
   };
+  const fetchUpdatedUser = async () => {
+    const { data } = await getProfile();
+    setUpdatedUser(data);
+  };
+  useEffect(() => {
+    if (user) {
+      fetchUpdatedUser();
+    }
+  }, [user]);
 
-  // Close mega menu when scrolling
   useEffect(() => {
     const handleScroll = () => {
       if (isMegaMenuOpen) {
         setIsMegaMenuOpen(false);
       }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [isMegaMenuOpen]);
+
+  const {
+    categories: category,
+    brands,
+    featured,
+    flash,
+    trending,
+  } = useFetchData();
 
   const categories = [
     {
-      name: 'Electronics',
-      subcategories: ['Phones', 'Laptops', 'Cameras', 'Accessories'],
+      name: "Categories",
+      subcategories: category,
+      query: "categories",
     },
     {
-      name: 'Fashion',
-      subcategories: ["Men's Wear", "Women's Wear", 'Kids', 'Jewelry'],
+      name: "Brands",
+      subcategories: brands,
+      query: "brands",
     },
     {
-      name: 'Home & Living',
-      subcategories: ['Furniture', 'Kitchen', 'Decor', 'Lighting'],
+      name: "Featured Products",
+      subcategories: featured,
+      query: "products",
     },
     {
-      name: 'Beauty',
-      subcategories: ['Skincare', 'Makeup', 'Haircare', 'Fragrances'],
+      name: "Flash Sales",
+      subcategories: flash,
+      query: "products",
+    },
+
+    {
+      name: "Trending Products",
+      subcategories: trending,
+      query: "products",
     },
   ];
 
@@ -107,7 +138,7 @@ export default function Navbar() {
               <motion.div
                 className="relative w-28 h-10 md:w-40 md:h-12"
                 whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 <Image
                   src="/logo.png"
@@ -128,12 +159,7 @@ export default function Navbar() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <input
-                type="text"
-                placeholder="Search for products..."
-                className="w-full border border-gray-300 text-primary rounded-full py-2 px-5 pl-10 bg-secondary focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <Search className="absolute left-3 top-2.5 h-5 w-5 text-primary" />
+              <SearchInput />
             </motion.div>
           </div>
 
@@ -147,7 +173,7 @@ export default function Navbar() {
               <Search className="text-primary" size={20} />
             </button>
 
-            {user?.role === 'user' && (
+            {user?.role === "user" && (
               <motion.div
                 className="flex gap-2"
                 initial={{ opacity: 0 }}
@@ -165,7 +191,7 @@ export default function Navbar() {
                         className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        transition={{ type: 'spring' }}
+                        transition={{ type: "spring" }}
                       >
                         {products?.length}
                       </motion.span>
@@ -177,7 +203,7 @@ export default function Navbar() {
 
             {user?.email ? (
               <>
-                {user?.role === 'user' && (
+                {user?.role === "user" && updatedUser?.hasShop === false ? (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -189,7 +215,7 @@ export default function Navbar() {
                       </Button>
                     </Link>
                   </motion.div>
-                )}
+                ) : null}
 
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -199,9 +225,14 @@ export default function Navbar() {
                   <DropdownMenu>
                     <DropdownMenuTrigger>
                       <Avatar>
-                        <AvatarImage src={user?.profilePhoto} />
+                        {updatedUser?.profilePhoto && (
+                          <AvatarImage
+                            src={updatedUser?.profilePhoto}
+                            alt="User avatar"
+                            className="object-cover"
+                          />
+                        )}
                         <AvatarFallback className="text-2xl font-bold bg-indigo-500 text-white">
-                          {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
                           {user?.name[0].toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
@@ -215,7 +246,7 @@ export default function Navbar() {
                       <DropdownMenuItem>
                         <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
                       </DropdownMenuItem>
-                      {user?.role === 'user' && (
+                      {user?.role === "user" && (
                         <DropdownMenuItem>
                           <Link href="/user/shop">My Shop</Link>
                         </DropdownMenuItem>
@@ -257,61 +288,17 @@ export default function Navbar() {
             <motion.div
               className="md:hidden py-2"
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  placeholder="Search for products..."
-                  className="w-full border border-gray-300 rounded-full py-2 px-5 pl-10 focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-                <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-              </div>
+              <SearchInput />
             </motion.div>
           )}
         </AnimatePresence>
 
         {/* Categories Navigation - Desktop */}
-        <div className="hidden md:flex justify-center border-t">
-          <NavigationMenu>
-            <NavigationMenuList>
-              {categories.map(category => (
-                <NavigationMenuItem key={category.name}>
-                  <NavigationMenuTrigger className="text-sm font-medium hover:text-primary data-[state=open]:text-primary">
-                    {category.name}
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="container mx-auto px-4 py-6 grid grid-cols-4 gap-6 w-screen">
-                      {categories.map(cat => (
-                        <div key={cat.name} className="space-y-2">
-                          <h3 className="font-bold text-lg">{cat.name}</h3>
-                          <ul className="space-y-1">
-                            {cat.subcategories.map(sub => (
-                              <li key={sub}>
-                                <NavigationMenuLink asChild>
-                                  <Link
-                                    href={`/category/${cat.name.toLowerCase()}/${sub
-                                      .toLowerCase()
-                                      .replace(/\s+/g, '-')}`}
-                                    className="hover:text-primary transition-colors block py-1"
-                                  >
-                                    {sub}
-                                  </Link>
-                                </NavigationMenuLink>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
-        </div>
+        <MegaMenu categories={categories} />
 
         {/* Mobile Menu - Appears when hamburger clicked */}
         <AnimatePresence>
@@ -319,25 +306,67 @@ export default function Navbar() {
             <motion.div
               className="md:hidden bg-white shadow-lg"
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
             >
               <div className="px-4 py-3 space-y-4">
-                {user?.role === 'user' && (
-                  <Link href="/create-shop">
-                    <Button className="w-full">Create Shop</Button>
-                  </Link>
-                )}
-
                 <div className="space-y-2">
-                  <h3 className="font-bold px-2">Categories</h3>
-                  {categories.map(category => (
+                  <div>
+                    {user?.role === "user" && updatedUser?.hasShop === false ? (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                      >
+                        <Link href="/create-shop">
+                          <Button className="rounded-full ">Create Shop</Button>
+                        </Link>
+                      </motion.div>
+                    ) : null}
+                  </div>
+                  {categories.map((category) => (
                     <div key={category.name} className="border-b last:border-0">
-                      <button className="w-full text-left px-2 py-3 flex justify-between items-center">
+                      <button
+                        onClick={() => toggleCategory(category.name)}
+                        className="w-full text-left px-2 py-3 flex justify-between items-center"
+                        aria-expanded={expandedCategory === category.name}
+                      >
                         {category.name}
-                        <ChevronDown className="h-4 w-4" />
+                        {expandedCategory === category.name ? (
+                          <ChevronUp className="h-4 w-4" />
+                        ) : (
+                          <ChevronDown className="h-4 w-4" />
+                        )}
                       </button>
+
+                      {expandedCategory === category.name && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="pl-4 space-y-2"
+                        >
+                          {category.subcategories.map((sub) => (
+                            <Link
+                              key={sub.id}
+                              href={
+                                category.query === "products" 
+                                  ? `/products/${sub.id}`
+                                  : {
+                                      pathname: "/products",
+                                      query: {
+                                        [category.query]: sub.id
+                                      }
+                                    }
+                              }
+                              className="block py-2 text-sm hover:text-primary transition-colors"
+                            >
+                              {sub.name}
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
                     </div>
                   ))}
                 </div>

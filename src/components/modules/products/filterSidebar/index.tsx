@@ -63,7 +63,7 @@ export default function FilterSidebar() {
               });
             }}
             size="sm"
-            className="bg-black hover:bg-gray-700 ml-5"
+            className="bg-primary hover:bg-secondary hover:text-primary hover:border-primary ml-5"
           >
             Clear Filters
           </Button>
@@ -95,7 +95,7 @@ export default function FilterSidebar() {
             {categories?.map((category: { _id: string; name: string }) => (
               <div key={category._id} className="flex items-center space-x-2">
                 <RadioGroupItem
-                  onClick={() => handleSearchQuery("category", category._id)}
+                  onClick={() => handleSearchQuery("categories", category._id)}
                   value={category._id}
                   id={category._id}
                 />
