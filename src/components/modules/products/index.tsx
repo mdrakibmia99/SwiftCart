@@ -1,15 +1,19 @@
+"use client";
 import ProductCard from "@/components/ui/core/ProductCard";
-import { IProduct } from "@/types";
 import FilterSidebar from "./filterSidebar";
+import { IProduct } from "@/types";
 
-const AllProducts = ({ products }: { products: IProduct[] }) => {
+export const AllProducts = ({ products }: { products: IProduct[] }) => {
   return (
-    <div className="flex gap-8 my-10">
-      <div className="w-full max-w-sm">
+    <div className="flex flex-col lg:flex-row gap-8 my-10">
+      {/* Sidebar */}
+      <div className="w-full lg:max-w-xs">
         <FilterSidebar />
       </div>
-      <div>
-        <div className="grid grid-cols-3 gap-8">
+
+      {/* Products */}
+      <div className="w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {products?.map((product: IProduct, idx: number) => (
             <ProductCard key={idx} product={product} />
           ))}
@@ -18,5 +22,3 @@ const AllProducts = ({ products }: { products: IProduct[] }) => {
     </div>
   );
 };
-
-export default AllProducts;
