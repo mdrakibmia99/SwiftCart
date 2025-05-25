@@ -1,18 +1,17 @@
-// app/dashboard/shops/_components/ShopTable.tsx
-'use client'
-import { ColumnDef } from "@tanstack/react-table";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuTrigger 
-} from "@/components/ui/dropdown-menu";
-import { MoreHorizontal } from "lucide-react";
-import { SCTable } from "@/components/ui/core/SCTable";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
+'use client';
+
+import { ColumnDef } from '@tanstack/react-table';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { MoreHorizontal } from 'lucide-react';
+import { SCTable } from '@/components/ui/core/SCTable';
+import Image from 'next/image';
 
 export type TShop = {
   _id: string;
@@ -40,20 +39,18 @@ interface ShopTableProps {
   onDelete: (shopId: string) => void;
 }
 
-const ShopTable = ({ shops,  onDelete }: ShopTableProps) => {
-  const router = useRouter();
-  console.log(shops);
+const ShopTable = ({ shops, onDelete }: ShopTableProps) => {
   const columns: ColumnDef<TShop>[] = [
     {
-      accessorKey: "shopName",
-      header: "Shop",
+      accessorKey: 'shopName',
+      header: 'Shop',
       cell: ({ row }) => (
         <div className="flex items-center gap-3">
           {row.original.logo ? (
-            <Image 
-            height={40}
-            width={40}
-              src={row.original.logo} 
+            <Image
+              height={40}
+              width={40}
+              src={row.original.logo}
               alt={row.original.shopName}
               className="rounded-full w-10 h-10 object-cover"
             />
@@ -64,31 +61,35 @@ const ShopTable = ({ shops,  onDelete }: ShopTableProps) => {
           )}
           <div>
             <p className="font-medium">{row.original.shopName}</p>
-            <p className="text-sm text-gray-500">{row.original.address.split(' ').slice(0,2).join(' ')}</p>
+            <p className="text-sm text-gray-500">
+              {row.original.address.split(' ').slice(0, 2).join(' ')}
+            </p>
           </div>
         </div>
       ),
     },
     {
-      accessorKey: "user",
-      header: "Owner",
+      accessorKey: 'user',
+      header: 'Owner',
       cell: ({ row }) => (
         <div>
           <p className="font-medium">{row.original.user?.name || 'N/A'}</p>
-          <p className="text-sm text-gray-500">{row.original.user?.email || 'N/A'}</p>
+          <p className="text-sm text-gray-500">
+            {row.original.user?.email || 'N/A'}
+          </p>
         </div>
       ),
     },
     {
-      accessorKey: "contactNumber",
-      header: "Contact",
+      accessorKey: 'contactNumber',
+      header: 'Contact',
       cell: ({ row }) => (
         <p className="text-sm">{row.original.contactNumber}</p>
       ),
     },
     {
-      accessorKey: "isActive",
-      header: "Status",
+      accessorKey: 'isActive',
+      header: 'Status',
       cell: ({ row }) => (
         <Badge variant={row.original.isActive ? 'default' : 'destructive'}>
           {row.original.isActive ? 'Active' : 'Inactive'}
@@ -96,7 +97,7 @@ const ShopTable = ({ shops,  onDelete }: ShopTableProps) => {
       ),
     },
     {
-      id: "actions",
+      id: 'actions',
       cell: ({ row }) => {
         const shop = row.original;
 
@@ -109,7 +110,7 @@ const ShopTable = ({ shops,  onDelete }: ShopTableProps) => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem 
+                <DropdownMenuItem
                   onClick={() => onDelete(shop._id)}
                   className="text-red-600 focus:text-red-600"
                 >
@@ -123,7 +124,7 @@ const ShopTable = ({ shops,  onDelete }: ShopTableProps) => {
     },
   ];
 
-  return <SCTable columns={columns} data={shops}  />;
+  return <SCTable columns={columns} data={shops} />;
 };
 
 export default ShopTable;
