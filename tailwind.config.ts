@@ -60,7 +60,10 @@ export default {
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
   			}
-  		},
+		  },
+		  backgroundImage: {
+			'custom-gradient': `linear-gradient(315deg, hsla(196,70%,94%,1) 10%, hsla(195,37%,79%,1) 19%, hsla(195,37%,79%,1) 28%, hsla(196,70%,94%,1) 50%, hsla(195,37%,79%,1) 64%, hsla(196,32%,66%,1) 79%, hsla(196,70%,94%,1) 100%)`
+		  },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
