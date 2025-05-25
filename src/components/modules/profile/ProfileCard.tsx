@@ -12,7 +12,7 @@ const ProfileCard = ({ data }: { data: IProfile }) => {
   return (
     <div>
       <Card>
-        <div className="flex items-center border-b-2 border-dashed pb-4 p-6 justify-between ">
+        <div className="flex items-center border-b-2 bg-secondary border-dashed pb-4 p-6 justify-between ">
           <h1 className="text-lg font-semibold">My Profile</h1>
           <Button
             onClick={() => setIsEditing((prev) => !prev)}
@@ -61,7 +61,7 @@ const ProfileCard = ({ data }: { data: IProfile }) => {
             
           </div>
         </CardHeader>
-        <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6 ">
+        <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-secondary gap-4 p-6 ">
           <div className="space-y-4">
             <Label className="flex items-center gap-1">
               <Globe className="w-4 h-4" />

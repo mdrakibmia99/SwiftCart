@@ -1,24 +1,25 @@
-"use client";
-import { Facebook, Instagram, X, Linkedin } from "lucide-react";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import Image from "next/image";
+'use client';
+
+import { Facebook, Instagram, X } from 'lucide-react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+
 const Footer = () => {
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/shop", label: "Shop" },
-    { href: "/products", label: "App Products" },
-    { href: "/about", label: "About Us" },
-    { href: "/testimonial", label: "Testimonial" },
-    { href: "/blogs", label: "Blogs" },
-    { href: "/contact", label: "Contact Us" },
+    { href: '/', label: 'Home' },
+    // { href: '/shop', label: 'Shop' },
+    { href: '/products', label: 'All Products' },
+    { href: '/about', label: 'About Us' },
+    { href: '/testimonial', label: 'Testimonial' },
+    { href: '/blogs', label: 'Blogs' },
+    { href: '/contact', label: 'Contact Us' },
   ];
 
   const socialLinks = [
-    { href: "https://www.facebook.com/mdkhaledsshuvo", icon: Facebook },
-    { href: "https://www.instagram.com/mdkhaledsshuvo", icon: Instagram },
-    { href: "https://x.com/mdkhaledsshuvo", icon: X },
-    { href: "https://www.linkedin.com/in/mdkhaledsshuvo", icon: Linkedin },
+    { href: 'https://www.facebook.com/mdkhaledsshuvo', icon: Facebook },
+    { href: 'https://www.instagram.com/mdkhaledsshuvo', icon: Instagram },
+    { href: 'https://x.com/mdkhaledsshuvo', icon: X },
   ];
 
   return (
@@ -35,7 +36,7 @@ const Footer = () => {
             <motion.div
               className="relative w-28 h-10 md:w-40 md:h-12"
               whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 10 }}
             >
               <Image
                 src="/logo.png"
@@ -56,7 +57,7 @@ const Footer = () => {
 
         {/* Responsive navigation links */}
         <ul className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm text-gray-800 font-medium my-6">
-          {navLinks.map((link) => (
+          {navLinks.map(link => (
             <li key={link.href}>
               <Link
                 href={link.href}
@@ -67,40 +68,37 @@ const Footer = () => {
             </li>
           ))}
         </ul>
-        {/* Social links */}
-        <div className="flex justify-center space-x-4 md:space-x-6 mb-6">
-          {/* social Links */}
-          {/* <div className="flex justify-center space-x-4">
+
+        {/* social Links */}
+        {/* <div className="flex justify-center space-x-4">
           {socialLinks.map(({ href, icon: Icon }, index) => (
             <Link
               href={href}
               key={index}
-              className="text-gray-600 hover:text-purple-600 transition-colors duration-200"
-              aria-label={Icon.name}
+              className="text-gray-600 hover:text-purple-600"
             >
-              <Icon className="w-5 h-5 md:w-6 md:h-6" />
+              <Icon className="w-5 h-5" />
             </Link>
           ))}
         </div> */}
 
-          <div className="flex justify-center space-x-4 mt-6">
-            {socialLinks.map(({ href, icon: Icon }, index) => (
-              <Link
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                key={index}
-                className="group inline-flex items-center justify-center w-10 h-10 rounded-full bg-neutral-800 transition-all duration-300 ease-in-out transform hover:bg-white hover:scale-150 hover:border hover:border-white cursor-pointer"
-              >
-                <Icon className="w-5 h-5 text-gray-300 group-hover:text-black transition-colors duration-300 ease-in-out" />
-              </Link>
-            ))}
-          </div>
+        <div className="flex justify-center space-x-4 mt-6">
+          {socialLinks.map(({ href, icon: Icon }, index) => (
+            <Link
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              key={index}
+              className="group inline-flex items-center justify-center w-10 h-10 rounded-full bg-neutral-800 transition-all duration-300 ease-in-out transform hover:bg-white hover:scale-150 hover:border hover:border-white cursor-pointer"
+            >
+              <Icon className="w-5 h-5 text-gray-300 group-hover:text-black transition-colors duration-300 ease-in-out" />
+            </Link>
+          ))}
+        </div>
 
-          {/* Copyright */}
-          <div className="text-xs text-gray-500 mt-8 text-center">
-            © {new Date().getFullYear()} SwiftCart. All rights reserved.
-          </div>
+        {/* Copyright */}
+        <div className="text-sm text-gray-500 mt-8 text-center">
+          ©{new Date().getFullYear()} SwiftCart. All rights reserved.
         </div>
       </div>
     </footer>
