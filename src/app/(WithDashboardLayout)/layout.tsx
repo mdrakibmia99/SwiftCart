@@ -13,22 +13,44 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { getProfile } from "@/services/Profile";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { data: profile } = await getProfile();
+  const userRole = profile?.role || 'user'; // Default to 'user' if role not available
+
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar userRole={userRole} />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4 ">
-            <SidebarTrigger className="-ml-1 " />
+        {/* Header with breadcrumb navigation */}
+        <header className="sticky top-0 z-10 bg-background flex h-16 items-center justify-between px-4 border-b">
+          <div className="flex items-center gap-2">
+            <SidebarTrigger className="-ml-1" />
+            <Breadcrumb className="hidden sm:flex">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/dashboard">Home</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{userRole === 'admin' ? 'Admin' : 'User'} Dashboard</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
           </div>
+          
+          {/* Add user profile/notification components here if needed */}
         </header>
-        <div className="p-4 pt-0 min-h-screen">{children}</div>
+
+        {/* Main content area */}
+        <main className="p-4 pt-6 min-h-[calc(100vh-4rem)] bg-muted/10">
+          {children}
+        </main>
       </SidebarInset>
     </SidebarProvider>
   );
