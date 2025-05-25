@@ -1,38 +1,55 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { heroImages } from "@/app/(WithCommonLayout)/(home)/_components/_data";
-import Link from "next/link";
-import SCContainer from "@/components/ui/core/SCContainer";
+import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { heroImages } from '@/app/(WithCommonLayout)/(home)/_components/_data';
+import Link from 'next/link';
+import SCContainer from '@/components/ui/core/SCContainer';
 
 export function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState<"left" | "right">("right");
+  const [direction, setDirection] = useState<'left' | 'right'>('right');
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const startAutoSlide = () => {
+    intervalRef.current = setInterval(() => {
+      setDirection('right');
+      setCurrentIndex(prevIndex =>
+        prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000);
+  };
+
+  const stopAutoSlide = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+  };
 
   const nextSlide = () => {
-    setDirection("right");
-    setCurrentIndex((prevIndex) =>
+    stopAutoSlide();
+    setDirection('right');
+    setCurrentIndex(prevIndex =>
       prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
     );
+    startAutoSlide();
   };
 
   const prevSlide = () => {
-    setDirection("left");
-    setCurrentIndex((prevIndex) =>
+    stopAutoSlide();
+    setDirection('left');
+    setCurrentIndex(prevIndex =>
       prevIndex === 0 ? heroImages.length - 1 : prevIndex - 1
     );
+    startAutoSlide();
   };
 
-  // Auto-rotate slides every 5 seconds
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
-    return () => clearInterval(interval);
+    startAutoSlide();
+    return () => stopAutoSlide();
   }, []);
 
   return (
@@ -42,9 +59,9 @@ export function HeroSection() {
           <motion.div
             key={heroImages[currentIndex].id}
             custom={direction}
-            initial={{ opacity: 0, x: direction === "right" ? 100 : -100 }}
+            initial={{ opacity: 0, x: direction === 'right' ? 100 : -100 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: direction === "right" ? -100 : 100 }}
+            exit={{ opacity: 0, x: direction === 'right' ? -100 : 100 }}
             transition={{ duration: 0.9 }}
             className="absolute inset-0"
           >
@@ -56,7 +73,6 @@ export function HeroSection() {
                 className="object-cover object-[0_20%]"
                 priority
               />
-              {/* Updated gradient overlay - dark on left half, fading to right */}
               <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/40 to-transparent"></div>
               <div className="container mx-auto px-4 md:px-20 lg:px-40 h-full flex items-center">
                 <div className="max-w-lg text-white z-10">
@@ -81,7 +97,7 @@ export function HeroSection() {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.6 }}
                   >
-                    <Button asChild size="lg" className=" lg:text-lg">
+                    <Button asChild size="lg" className="lg:text-lg">
                       <Link href={heroImages[currentIndex].link}>
                         {heroImages[currentIndex].cta}
                       </Link>
@@ -115,11 +131,13 @@ export function HeroSection() {
             <button
               key={index}
               onClick={() => {
-                setDirection(index > currentIndex ? "right" : "left");
+                stopAutoSlide();
+                setDirection(index > currentIndex ? 'right' : 'left');
                 setCurrentIndex(index);
+                startAutoSlide();
               }}
               className={`w-3 h-3 rounded-full transition-colors ${
-                index === currentIndex ? "bg-white" : "bg-white/50"
+                index === currentIndex ? 'bg-white' : 'bg-white/50'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
