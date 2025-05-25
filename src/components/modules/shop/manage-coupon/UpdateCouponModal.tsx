@@ -1,16 +1,13 @@
-
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { format, formatISO } from "date-fns";
+import { toast } from "sonner";
+import { CalendarIcon, Edit } from "lucide-react";
+
 import {
   Dialog,
   DialogContent,
@@ -24,8 +21,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -34,19 +40,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { format, formatISO } from "date-fns";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { toast } from "sonner";
-import { createCoupon } from "@/services/Coupon";
+import { updateCoupon } from "@/services/Coupon";
+import { ICoupon } from "@/types";
+
 
 const couponSchema = z.object({
   code: z.string().min(1, "Coupon code is required"),
-  discountType: z.enum(["Percentage", "Flat"], {
-    required_error: "Discount type is required",
-  }),
+  discountType: z.enum(["Percentage", "Flat"]),
   discountValue: z.coerce.number().min(1, "Discount value is required"),
   minOrderAmount: z.coerce.number().min(1, "Minimum order amount is required"),
   maxDiscountAmount: z.coerce
@@ -60,14 +60,19 @@ const couponSchema = z.object({
   }),
 });
 
-type CouponFormData = z.infer<typeof couponSchema>;
+export type CouponFormData = z.infer<typeof couponSchema>;
 
-export default function CreateCouponModal() {
+
+
+export default function UpdateCouponModal({ coupon }: { coupon: ICoupon }) {
   const [open, setOpen] = useState(false);
+
   const form = useForm<CouponFormData>({
     resolver: zodResolver(couponSchema),
     defaultValues: {
-      discountType: "Percentage",
+      ...coupon,
+      startDate: new Date(coupon.startDate),
+      endDate: new Date(coupon.endDate),
     },
   });
 
@@ -75,41 +80,50 @@ export default function CreateCouponModal() {
   const discountType = form.watch("discountType");
   const isLoading = form.formState.isSubmitting;
 
+  useEffect(() => {
+    if (open && coupon) {
+      form.reset({
+        ...coupon,
+        startDate: new Date(coupon.startDate),
+        endDate: new Date(coupon.endDate),
+      });
+    }
+  }, [open, coupon, form]);
+
   const onSubmit = async (data: CouponFormData) => {
-    const couponData = {
+    const payload = {
       ...data,
       startDate: formatISO(data.startDate),
       endDate: formatISO(data.endDate),
     };
 
     try {
-     const res= await createCoupon(couponData);
-     console.log(res," res create coupon");
-     if(res.success){
-      toast.success("Coupon created successfully!");
-      form.reset();
-      setOpen(false);
-      return;
-     }
-      toast.error(res.message || "Failed to create coupon. Please try again.");
+      console.log("Updating coupon with payload:", payload);
+      const res = await updateCoupon(coupon._id, payload);
 
-      setOpen(false);
+      if (res.success) {
+        toast.success("Coupon updated successfully!");
+        form.reset();
+        setOpen(false);
+      } else {
+        toast.error(res.message || "Something went wrong.");
+      }
     } catch (error) {
-      console.error("Error creating coupon:", error);
-      toast.error("Failed to create coupon. Please try again.");
+      console.error("Error updating coupon:", error);
+      toast.error("Something went wrong.");
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Create Coupon</Button>
+        <Edit className="w-5 h-5" />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create Coupon</DialogTitle>
+          <DialogTitle>Edit Coupon</DialogTitle>
           <DialogDescription className="sr-only">
-            Create coupon for your customers that will help them to save some money.
+            Update coupon details.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -265,7 +279,7 @@ export default function CreateCouponModal() {
               )}
             />
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Creating..." : "Create"}
+              {isLoading ? "Updating..." : "Update"}
             </Button>
           </form>
         </Form>

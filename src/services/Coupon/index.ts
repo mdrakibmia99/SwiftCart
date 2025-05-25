@@ -45,7 +45,7 @@ export const getAllCoupon = async () => {
   }
 };
 
-// delete category
+// delete coupon
 export const deleteCoupon = async (couponId: string): Promise<any> => {
   const token = await getValidToken();
   try {
@@ -55,7 +55,29 @@ export const deleteCoupon = async (couponId: string): Promise<any> => {
         method: 'DELETE',
         headers: {
           Authorization: token,
+          "Content-Type": "application/json",
         },
+      }
+    );
+    revalidateTag('COUPON');
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+// delete coupon
+export const updateCoupon = async (couponId: string,data:any): Promise<any> => {
+  const token = await getValidToken();
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/coupon/${couponId}/update-coupon`,
+      {
+        method: 'PATCH',
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       }
     );
     revalidateTag('COUPON');
