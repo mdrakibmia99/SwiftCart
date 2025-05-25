@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -8,54 +8,56 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { registrationSchema } from "./registerValidation";
-import { registerUser } from "@/services/AuthService";
-import { useRouter } from "next/navigation";
-import { useUser } from "@/context/UserContext";
-import { useEffect, useState } from "react";
-import { PasswordInput } from "@/components/ui/password-input";
-import Link from "next/link";
-import { toast } from "sonner";
-import HelperFooter from "@/components/shared/HelperFooter";
-// import Logo from "@/assets/svgs/Logo";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { registrationSchema } from './registerValidation';
+import { registerUser } from '@/services/AuthService';
+import { useRouter } from 'next/navigation';
+import { useUser } from '@/context/UserContext';
+import { useEffect, useState } from 'react';
+import { PasswordInput } from '@/components/ui/password-input';
+import Link from 'next/link';
+import { toast } from 'sonner';
+import HelperFooter from '@/components/shared/HelperFooter';
 
 const passwordRequirements = [
-  { label: "One uppercase letter", test: (pw: string) => /[A-Z]/.test(pw) },
-  { label: "One lowercase letter", test: (pw: string) => /[a-z]/.test(pw) },
-  { label: "One number", test: (pw: string) => /[0-9]/.test(pw) },
+  { label: 'One uppercase letter', test: (pw: string) => /[A-Z]/.test(pw) },
+  { label: 'One lowercase letter', test: (pw: string) => /[a-z]/.test(pw) },
+  { label: 'One number', test: (pw: string) => /[0-9]/.test(pw) },
   {
-    label: "One special character",
+    label: 'One special character',
     test: (pw: string) => /[!@#$%^&*(),.?\":{}|<>]/.test(pw),
   },
-  { label: "Minimum 8 characters", test: (pw: string) => pw.length >= 8 },
+  { label: 'Minimum 8 characters', test: (pw: string) => pw.length >= 8 },
 ];
 
 export default function RegisterForm() {
   const form = useForm({ resolver: zodResolver(registrationSchema) });
+
   const {
     formState: { isSubmitting },
   } = form;
-  const password = form.watch("password") || "";
+
+  const password = form.watch('password') || '';
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const router = useRouter();
   const { setIsLoading } = useUser();
 
   useEffect(() => {
-    const valid = passwordRequirements.every((rule) => rule.test(password));
+    const valid = passwordRequirements.every(rule => rule.test(password));
     setIsPasswordValid(valid);
   }, [password]);
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async data => {
     try {
       const res = await registerUser(data);
       setIsLoading(true);
+
       if (res?.success) {
         toast.success(res.message);
-        router.push("/");
+        router.push('/');
       } else {
         toast.error(res.message);
       }
@@ -67,7 +69,6 @@ export default function RegisterForm() {
   return (
     <div className="bg-white border border-gray-200 shadow-md rounded-2xl p-6 w-full max-w-md mx-auto space-y-6">
       <div className="flex items-center gap-3">
-        {/* <Logo /> */}
         <div>
           <h2 className="text-2xl font-bold text-gray-800">Create Account</h2>
           <p className="text-sm text-gray-500">
@@ -85,7 +86,11 @@ export default function RegisterForm() {
               <FormItem>
                 <FormLabel>Full Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="John Doe" {...field} />
+                  <Input
+                    placeholder="John Doe"
+                    {...field}
+                    value={field.value || ''}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -98,7 +103,11 @@ export default function RegisterForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="you@example.com" {...field} />
+                  <Input
+                    placeholder="you@example.com"
+                    {...field}
+                    value={field.value || ''}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -111,7 +120,7 @@ export default function RegisterForm() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <PasswordInput {...field} />
+                  <PasswordInput {...field} value={field.value || ''} />
                 </FormControl>
 
                 <div className="mt-2 space-y-1">
@@ -119,14 +128,14 @@ export default function RegisterForm() {
                     <div key={i} className="flex items-center gap-2 text-sm">
                       <div
                         className={`w-2 h-2 rounded-full ${
-                          rule.test(password) ? "bg-green-600" : "bg-gray-300"
+                          rule.test(password) ? 'bg-green-600' : 'bg-gray-300'
                         }`}
                       />
                       <span
                         className={`${
                           rule.test(password)
-                            ? "text-green-600"
-                            : "text-gray-400"
+                            ? 'text-green-600'
+                            : 'text-gray-400'
                         }`}
                       >
                         {rule.label}
@@ -140,13 +149,13 @@ export default function RegisterForm() {
             )}
           />
           <Button className="w-full" disabled={!isPasswordValid} type="submit">
-            {isSubmitting ? "Registering..." : "Register"}
+            {isSubmitting ? 'Registering...' : 'Register'}
           </Button>
         </form>
       </Form>
 
       <p className="text-sm text-center text-gray-600">
-        Already have an account?{" "}
+        Already have an account?{' '}
         <Link href="/login" className="text-primary hover:underline">
           Login here
         </Link>

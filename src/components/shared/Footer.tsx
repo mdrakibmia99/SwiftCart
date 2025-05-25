@@ -1,15 +1,15 @@
 'use client';
 
-
-import { Facebook, Instagram, X, Linkedin } from 'lucide-react';
+import { Facebook, Instagram, X } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+
 const Footer = () => {
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/shop', label: 'Shop' },
-    { href: '/products', label: 'App Products' },
+    // { href: '/shop', label: 'Shop' },
+    { href: '/products', label: 'All Products' },
     { href: '/about', label: 'About Us' },
     { href: '/testimonial', label: 'Testimonial' },
     { href: '/blogs', label: 'Blogs' },
@@ -20,7 +20,6 @@ const Footer = () => {
     { href: 'https://www.facebook.com/mdkhaledsshuvo', icon: Facebook },
     { href: 'https://www.instagram.com/mdkhaledsshuvo', icon: Instagram },
     { href: 'https://x.com/mdkhaledsshuvo', icon: X },
-    { href: 'https://www.linkedin.com/in/mdkhaledsshuvo', icon: Linkedin },
   ];
 
   return (
@@ -53,12 +52,12 @@ const Footer = () => {
             essentials, fashion, and more! Limited stock.
           </p>
         </div>
-        
+
         <hr className="my-6" />
-        
+
         {/* Responsive navigation links */}
         <ul className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm text-gray-800 font-medium my-6">
-          {navLinks.map((link) => (
+          {navLinks.map(link => (
             <li key={link.href}>
               <Link
                 href={link.href}
@@ -100,8 +99,8 @@ const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <div className="text-xs text-gray-500 mt-8 text-center">
-          © {new Date().getFullYear()} SwiftCart. All rights reserved.
+        <div className="text-sm text-gray-500 mt-8 text-center">
+          ©{new Date().getFullYear()} SwiftCart. All rights reserved.
         </div>
       </div>
     </footer>
