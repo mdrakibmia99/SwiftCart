@@ -31,7 +31,7 @@ const Category = async () => {
       
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-6"> {/* Reduced gaps on mobile */}
         {categories?.slice(0, 6).map((category: ICategory, idx: number) => (
-          <CategoryCard key={category._id || idx} category={category} />
+          <CategoryCard key={idx} category={category} />
         ))}
       </div>
     </SCContainer>

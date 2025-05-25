@@ -1,14 +1,15 @@
 'use client';
 
-import { Facebook, Instagram, X, Linkedin } from 'lucide-react';
+import { Facebook, Instagram, X } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+
 const Footer = () => {
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/shop', label: 'Shop' },
-    { href: '/products', label: 'App Products' },
+    // { href: '/shop', label: 'Shop' },
+    { href: '/products', label: 'All Products' },
     { href: '/about', label: 'About Us' },
     { href: '/testimonial', label: 'Testimonial' },
     { href: '/blogs', label: 'Blogs' },
@@ -19,11 +20,10 @@ const Footer = () => {
     { href: 'https://www.facebook.com/mdkhaledsshuvo', icon: Facebook },
     { href: 'https://www.instagram.com/mdkhaledsshuvo', icon: Instagram },
     { href: 'https://x.com/mdkhaledsshuvo', icon: X },
-    { href: 'https://www.linkedin.com/in/mdkhaledsshuvo', icon: Linkedin },
   ];
 
   return (
-    <footer className="bg-white border-t border-gray-200 py-24">
+    <footer className="bg-secondary border-t border-gray-200 py-24">
       <div className="max-w-6xl mx-auto px-4 text-center">
         <div className="flex flex-col items-center mb-6">
           {/* <div className="flex items-center space-x-2">
@@ -53,11 +53,16 @@ const Footer = () => {
           </p>
         </div>
 
-        <hr />
-        <ul className="flex justify-center space-x-6 text-sm text-gray-800 font-medium my-4">
+        <hr className="my-6" />
+
+        {/* Responsive navigation links */}
+        <ul className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm text-gray-800 font-medium my-6">
           {navLinks.map(link => (
             <li key={link.href}>
-              <Link href={link.href} className="hover:text-purple-600">
+              <Link
+                href={link.href}
+                className="hover:text-purple-600 transition-colors duration-200"
+              >
                 {link.label}
               </Link>
             </li>
@@ -89,6 +94,11 @@ const Footer = () => {
               <Icon className="w-5 h-5 text-gray-300 group-hover:text-black transition-colors duration-300 ease-in-out" />
             </Link>
           ))}
+        </div>
+
+        {/* Copyright */}
+        <div className="text-sm text-gray-500 mt-8 text-center">
+          ©{new Date().getFullYear()} SwiftCart. All rights reserved.
         </div>
       </div>
     </footer>
