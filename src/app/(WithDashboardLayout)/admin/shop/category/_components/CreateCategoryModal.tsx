@@ -19,7 +19,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { createCategory } from '@/services/Category';
@@ -27,11 +27,27 @@ import { Loader2, Plus, UploadCloud, X } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 
+type FormValues = {
+  name: string;
+  description: string;
+};
+
+const defaultValues: FormValues = {
+  name: '',
+  description: ''
+};
+
 const CreateCategoryModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
-  const form = useForm();
+  
+  const form = useForm<FormValues>({
+    defaultValues,
+    mode: 'onChange' // Add form mode for better control
+  });
+
+  const { reset } = form;
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -45,7 +61,7 @@ const CreateCategoryModal = () => {
     }
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit = async (data: FormValues) => {
     try {
       if (!file) {
         toast.error('Please upload an icon');
@@ -60,10 +76,7 @@ const CreateCategoryModal = () => {
 
       if (res?.success) {
         toast.success(res?.message);
-        setIsOpen(false);
-        form.reset();
-        setFile(null);
-        setPreview(null);
+        handleClose();
       } else {
         toast.error(res?.message || 'Failed to create category');
       }
@@ -74,6 +87,13 @@ const CreateCategoryModal = () => {
   };
 
   const removeImage = () => {
+    setFile(null);
+    setPreview(null);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+    reset(defaultValues); // Properly reset form values
     setFile(null);
     setPreview(null);
   };
@@ -97,7 +117,6 @@ const CreateCategoryModal = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Left Column - Form Fields */}
               <div className="space-y-4">
                 <FormField
                   control={form.control}
@@ -109,6 +128,7 @@ const CreateCategoryModal = () => {
                       <FormControl>
                         <Input
                           {...field}
+                          value={field.value ?? ''} // Ensure value is never undefined
                           placeholder="e.g. Electronics, Clothing"
                           className="w-full"
                         />
@@ -127,6 +147,7 @@ const CreateCategoryModal = () => {
                       <FormControl>
                         <Textarea
                           {...field}
+                          value={field.value ?? ''} // Ensure value is never undefined
                           placeholder="Brief description about this category"
                           className="min-h-[120px]"
                         />
@@ -137,7 +158,6 @@ const CreateCategoryModal = () => {
                 />
               </div>
 
-              {/* Right Column - Image Upload */}
               <div className="space-y-2">
                 <FormLabel>Category Icon</FormLabel>
                 <div 
@@ -192,7 +212,7 @@ const CreateCategoryModal = () => {
             <DialogFooter>
               <Button 
                 variant="outline" 
-                onClick={() => setIsOpen(false)}
+                onClick={handleClose}
                 type="button"
               >
                 Cancel
