@@ -56,7 +56,7 @@ export default function DashboardPage({
                   {stat.change} from last month
                 </p>
               </div>
-              <div className="p-3 rounded-lg bg-primary/10">{stat.icon}</div>
+              <div className="p-3 rounded-lg  bg-secondary">{stat.icon}</div>
             </div>
           </Card>
         ))}

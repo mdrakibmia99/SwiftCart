@@ -56,7 +56,7 @@ export function NavMain({
               <SidebarMenuButton 
                 asChild 
                 tooltip={item.title}
-                className="flex-1"
+                className="flex-1 hover:bg-secondary"
               >
                 <Link 
                   href={item.items?.length ? "#" : item.url}
