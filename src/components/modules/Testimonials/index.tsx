@@ -76,7 +76,7 @@ export default function Testimonials() {
   return (
     <div className="my-5 md:my-20">
       <SCContainer>
-        <section className="py-14 bg-blue-50">
+        <section className="py-14 bg-blue-50 rounded-md">
           <div className="text-center">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 md:mb-6 text-gray-900">
               Success Stories
