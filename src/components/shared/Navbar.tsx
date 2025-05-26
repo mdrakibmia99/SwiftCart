@@ -254,7 +254,7 @@ export default function Navbar() {
                       </DropdownMenuItem>
                       {user?.role === "user" && (
                         <DropdownMenuItem>
-                          <Link href="/user/shop">My Shop</Link>
+                          <Link href="/user/dashboard">My Shop</Link>
                         </DropdownMenuItem>
                       )}
                       <DropdownMenuSeparator />
