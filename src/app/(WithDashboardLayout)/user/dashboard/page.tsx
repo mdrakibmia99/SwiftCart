@@ -25,6 +25,7 @@ import {
 
 const UserDashboard = () => {
   const routes = useRouter();
+  const routes = useRouter();
   const shopStats = {
     totalSales: 1245,
     activeProducts: 28,
@@ -146,7 +147,11 @@ const UserDashboard = () => {
             <CardContent className="p-4">
               <div className="flex items-center gap-4">
                 <div className={`${item.bg} p-3 rounded-full`}>{item.icon}</div>
+                <div className={`${item.bg} p-3 rounded-full`}>{item.icon}</div>
                 <div>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    {item.title}
+                  </p>
                   <p className="text-gray-500 dark:text-gray-400">
                     {item.title}
                   </p>
