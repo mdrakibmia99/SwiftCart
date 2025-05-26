@@ -21,11 +21,10 @@ import { useEffect, useState } from 'react';
 import SCImageUploader from '@/components/ui/core/SCImageUploader';
 import ImagePreviewer from '@/components/ui/core/SCImageUploader/ImagePreviewer';
 import { Plus } from 'lucide-react';
-import Logo from '@/assets/svgs/Logo';
-
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -44,7 +43,6 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
   );
   const [categories, setCategories] = useState<ICategory[] | []>([]);
   const [brands, setBrands] = useState<IBrand[] | []>([]);
-
   const router = useRouter();
 
   const form = useForm({
@@ -52,8 +50,8 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
       name: product?.name || '',
       description: product?.description || '',
       price: product?.price || '',
-      category: product?.category?.name || '',
-      brand: product?.brand?.name || '',
+      category: product?.category?._id || '',
+      brand: product?.brand?._id || '',
       stock: product?.stock || '',
       weight: product?.weight || '',
       availableColors: product?.availableColors?.map(color => ({
@@ -130,7 +128,6 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
         (specification[item.key] = item.value)
     );
 
-
     const modifiedData = {
       ...data,
       availableColors,
@@ -164,7 +161,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
   return (
     <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-2xl p-5 ">
       <div className="flex items-center space-x-4 mb-5 ">
-        <Logo />
+        {/* <Logo /> */}
 
         <h1 className="text-xl font-bold">Update Product Info</h1>
       </div>
@@ -218,11 +215,13 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {categories.map(category => (
-                        <SelectItem key={category?._id} value={category?._id}>
-                          {category?.name}
-                        </SelectItem>
-                      ))}
+                      <SelectGroup>
+                        {categories.map((category, idx) => (
+                          <SelectItem key={idx} value={category?._id}>
+                            {category?.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
                     </SelectContent>
                   </Select>
 
@@ -246,11 +245,13 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {brands.map(brand => (
-                        <SelectItem key={brand?._id} value={brand?._id}>
-                          {brand?.name}
-                        </SelectItem>
-                      ))}
+                      <SelectGroup>
+                        {brands.map(brand => (
+                          <SelectItem key={brand?._id} value={brand?._id}>
+                            {brand?.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
                     </SelectContent>
                   </Select>
 
