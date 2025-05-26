@@ -168,7 +168,7 @@ const ManageProducts = ({
   ];
 
   return (
-    <div>
+    <div className='min-w-[700px]'>
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold">Manage Products</h1>
         <div className="flex items-center gap-2">
