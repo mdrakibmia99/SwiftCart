@@ -1,5 +1,4 @@
 "use client";
-
 import ProductCard from "@/components/ui/core/ProductCard";
 import FilterSidebar from "./filterSidebar";
 import { IProduct } from "@/types";
@@ -19,7 +18,7 @@ export const AllProducts = ({ products }: { products: IProduct[] }) => {
 
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsDesktop(window.innerWidth >= 1024); // lg breakpoint
+      setIsDesktop(window.innerWidth >= 1024);
     };
 
     // Initial check
