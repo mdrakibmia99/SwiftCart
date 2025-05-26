@@ -35,7 +35,7 @@ const ManageBrands = ({
     try {
       if (selectedId) {
         const res = await deleteBrand(selectedId);
-        console.log(res);
+
         if (res.success) {
           toast.success(res.message);
           setModalOpen(false);

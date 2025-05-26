@@ -6,8 +6,11 @@ import { Star, ChevronRight, ChevronLeft } from 'lucide-react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import { addProduct } from '@/redux/features/cartSlice';
+import { useAppDispatch } from '@/redux/hooks';
 
 const ProductDetails = ({ product }: { product: IProduct }) => {
+  const dispatch = useAppDispatch();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -21,6 +24,10 @@ const ProductDetails = ({ product }: { product: IProduct }) => {
     setCurrentImageIndex(prev =>
       prev === 0 ? product?.imageUrls.length - 1 : prev - 1
     );
+  };
+
+  const handleAddProduct = (product: IProduct) => {
+    dispatch(addProduct(product));
   };
 
   return (
@@ -200,13 +207,15 @@ const ProductDetails = ({ product }: { product: IProduct }) => {
           <div className="space-y-3">
             <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
               <Button
+                disabled={product?.stock === 0}
+                onClick={() => handleAddProduct(product)}
                 size="lg"
                 className="w-full bg-primary text-secondary hover:bg-primary/90"
               >
                 Add to Cart
               </Button>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
+            {/* <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
               <Button
                 size="lg"
                 variant="outline"
@@ -214,7 +223,7 @@ const ProductDetails = ({ product }: { product: IProduct }) => {
               >
                 Buy Now
               </Button>
-            </motion.div>
+            </motion.div> */}
           </div>
         </motion.div>
       </div>

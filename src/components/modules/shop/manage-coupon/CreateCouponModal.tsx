@@ -321,7 +321,7 @@ export default function CreateCouponModal() {
 
     try {
       const res = await createCoupon(couponData);
-      console.log(res, ' res create coupon');
+
       if (res.success) {
         toast.success('Coupon created successfully!');
         form.reset();
