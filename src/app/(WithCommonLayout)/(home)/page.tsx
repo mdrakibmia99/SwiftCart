@@ -4,6 +4,7 @@ import Category from './_components/_category/CategoryModule';
 import TopBrands from './_components/_brand/BrandModule';
 import { HeroSection } from '@/components/modules/home/HeroSection';
 import { Subscribe } from '@/components/modules/Newsletter';
+import Tawk from './_components/_Tawk/Tawk';
 
 const HomePage = async () => {
   return (
@@ -16,6 +17,7 @@ const HomePage = async () => {
       <div className="my-5">
         <Subscribe />
       </div>
+      <Tawk/>
     </div>
   );
 };
