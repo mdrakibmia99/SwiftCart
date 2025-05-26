@@ -3,7 +3,7 @@
 import { SCTable } from '@/components/ui/core/SCTable/index';
 import { IMeta, IProduct } from '@/types';
 import { ColumnDef } from '@tanstack/react-table';
-import { Edit, Eye, Plus, Trash } from 'lucide-react';
+import { Edit, Plus, Trash } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -24,54 +24,64 @@ const ManageProducts = ({
   page: string;
 }) => {
   const router = useRouter();
-  const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
-  const handleView = (product: IProduct) => {
-    console.log('Viewing product:', product);
-  };
-
-  const handleDelete = async(productId: string) => {
+  const handleDelete = async (productId: string) => {
     try {
-      const res=await  deleteProduct(productId);
-      console.log('Delete response:', res);
+      const res = await deleteProduct(productId);
       if (res.success) {
         toast.success('Product deleted successfully');
-
+        // Optional: refresh data or remove the deleted product from UI here
       } else {
         toast.error(res.message || 'Failed to delete product');
       }
-      
     } catch (error) {
       console.error('Error deleting product:', error);
-      // You can show a toast notification here if needed
       toast.error('Failed to delete product');
-      
     }
   };
 
   const columns: ColumnDef<IProduct>[] = [
     {
       id: 'select',
-      header: ({ table }) => (
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && 'indeterminate')
-          }
-          onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      ),
+      header: ({ table }) => {
+        const allPageRows = table.getRowModel().rows;
+        const isAllSelected = table.getIsAllPageRowsSelected();
+        const isSomeSelected = table.getIsSomePageRowsSelected();
+
+        return (
+          <Checkbox
+            checked={isAllSelected || (isSomeSelected && 'indeterminate')}
+            onCheckedChange={(value) => {
+              table.toggleAllPageRowsSelected(!!value);
+              if (value) {
+                const ids = allPageRows.map((row) => row.original._id);
+                setSelectedIds(ids);
+              } else {
+                setSelectedIds([]);
+              }
+            }}
+            aria-label="Select all"
+          />
+        );
+      },
       cell: ({ row }) => (
         <Checkbox
           checked={row.getIsSelected()}
-          onCheckedChange={value => {
-            if (value) {
-              setSelectedIds(prev => [...prev, row.original._id]);
-            } else {
-              setSelectedIds(selectedIds.filter(id => id !== row.original._id));
-            }
+          onCheckedChange={(value) => {
             row.toggleSelected(!!value);
+            setSelectedIds((prev) => {
+              if (value) {
+                // Add id if not already selected
+                if (!prev.includes(row.original._id)) {
+                  return [...prev, row.original._id];
+                }
+                return prev;
+              } else {
+                // Remove id
+                return prev.filter((id) => id !== row.original._id);
+              }
+            });
           }}
           aria-label="Select row"
         />
@@ -79,7 +89,6 @@ const ManageProducts = ({
       enableSorting: false,
       enableHiding: false,
     },
-
     {
       accessorKey: 'name',
       header: 'Product Name',
@@ -118,7 +127,7 @@ const ManageProducts = ({
     },
     {
       accessorKey: 'offerPrice',
-      header: 'Ofter Price',
+      header: 'Offer Price',
       cell: ({ row }) => (
         <span>
           $ {row.original.offerPrice ? row.original.offerPrice.toFixed(2) : '0'}
@@ -126,25 +135,15 @@ const ManageProducts = ({
       ),
     },
     {
-      accessorKey: 'action',
+      id: 'action',
       header: 'Action',
       cell: ({ row }) => (
         <div className="flex items-center space-x-3">
-          {/* <button
-            className="text-gray-500 hover:text-blue-500"
-            title="View"
-            onClick={() => handleView(row.original)}
-          >
-            <Eye className="w-5 h-5" />
-          </button> */}
-
           <button
             className="text-gray-500 hover:text-green-500"
             title="Edit"
             onClick={() =>
-              router.push(
-                `/admin/shop/products/update-product/${row.original._id}`
-              )
+              router.push(`/admin/shop/products/update-product/${row.original._id}`)
             }
           >
             <Edit className="w-5 h-5" />
@@ -161,7 +160,7 @@ const ManageProducts = ({
       ),
     },
   ];
-console.log('Selected IDs:', selectedIds);
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -173,10 +172,7 @@ console.log('Selected IDs:', selectedIds);
           >
             Add Product <Plus />
           </Button>
-          <DiscountModal
-            selectedIds={selectedIds}
-            setSelectedIds={setSelectedIds}
-          />
+          <DiscountModal selectedIds={selectedIds} setSelectedIds={setSelectedIds} />
         </div>
       </div>
       <SCTable columns={columns} data={products || []} />
