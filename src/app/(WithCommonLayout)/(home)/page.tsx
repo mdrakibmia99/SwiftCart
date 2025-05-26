@@ -5,6 +5,7 @@ import TopBrands from './_components/_brand/BrandModule';
 import { HeroSection } from '@/components/modules/home/HeroSection';
 import { Subscribe } from '@/components/modules/Newsletter';
 import Tawk from './_components/_Tawk/Tawk';
+import Testimonials from '@/components/modules/Testimonials';
 
 const HomePage = async () => {
   return (
@@ -14,10 +15,9 @@ const HomePage = async () => {
       <FeaturedProducts />
       <FlashSale />
       <TopBrands />
-      <div className="my-5">
-        <Subscribe />
-      </div>
-      <Tawk/>
+      <Subscribe />
+      <Testimonials />
+      <Tawk />
     </div>
   );
 };
