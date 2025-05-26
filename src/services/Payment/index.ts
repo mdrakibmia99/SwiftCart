@@ -4,7 +4,7 @@ import { revalidateTag } from 'next/cache';
 import { getValidToken } from '@/lib/verifyToken';
 
 // getAllPayments for Admin
-export const getAllPayments = async (
+export const getAllPaymentsForAdmin = async (
   page?: string,
   limit?: string
 ): Promise<any> => {
@@ -31,8 +31,8 @@ export const getAllPayments = async (
   }
 };
 
-// getMemberPayments for Member
-export const getMemberPayments = async (
+// getUserPayments for User
+export const getUserPaymentsForUser = async (
   page?: string,
   limit?: string
 ): Promise<any> => {

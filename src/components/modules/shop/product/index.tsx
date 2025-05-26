@@ -66,6 +66,7 @@ const ManageProducts = ({
         );
       },
       cell: ({ row }) => (
+        
         <Checkbox
           checked={row.getIsSelected()}
           onCheckedChange={(value) => {
@@ -110,11 +111,11 @@ const ManageProducts = ({
       header: 'Category',
       cell: ({ row }) => <span>{row.original.category.name}</span>,
     },
-    {
-      accessorKey: 'brand',
-      header: 'Brand',
-      cell: ({ row }) => <span>{row.original.brand.name}</span>,
-    },
+    // {
+    //   accessorKey: 'brand',
+    //   header: 'Brand',
+    //   cell: ({ row }) => <span>{row.original?.brand?.name}</span>,
+    // },
     {
       accessorKey: 'stock',
       header: 'Stock',
