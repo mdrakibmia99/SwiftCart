@@ -33,7 +33,7 @@ const ManageCategories = ({ categories, meta, page }: TCategoriesProps) => {
     try {
       if (selectedId) {
         const res = await deleteCategory(selectedId);
-        console.log(res);
+        
         if (res.success) {
           toast.success(res.message);
           setModalOpen(false);

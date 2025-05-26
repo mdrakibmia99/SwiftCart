@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -6,7 +6,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "../ui/navigation-menu";
+} from '../ui/navigation-menu';
 
 interface SubcategoryItem {
   id: string;
@@ -58,10 +58,10 @@ const MegaMenu = ({ categories }: MegaMenuProps) => {
                               <NavigationMenuLink asChild>
                                 <Link
                                   href={
-                                    category.query === "products"
+                                    category.query === 'products'
                                       ? `/products/${sub.id}`
                                       : {
-                                          pathname: "/products",
+                                          pathname: '/products',
                                           query: { [category.query]: sub.id },
                                         }
                                   }

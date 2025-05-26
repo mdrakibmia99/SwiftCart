@@ -25,16 +25,6 @@ const HelperFooter = () => {
           <span>Take Me Home</span>
         </button>
       </div>
-
-      {/* <div className="mt-8">
-        <button
-          onClick={() => router.push("/ideas")}
-          className="flex items-center gap-2 text-sm text-primary dark:text-green-400 dark:hover:text-green-300"
-        >
-          <ShoppingBag className="w-4 h-4" />
-          <span>Explore Sustainability Ideas</span>
-        </button>
-      </div> */}
     </div>
   );
 };

@@ -24,8 +24,13 @@ const CouponTable = ({
   const handleDelete = async (couponId: string) => {
     try {
       const res = await deleteCoupon(couponId);
-      console.log('Delete response:', res);
-      toast.success('Coupon deleted successfully');
+      
+      if (res.success) {
+        toast.success('Coupon deleted successfully');
+        // toast.success(res.message);
+      } else {
+        toast.error(res.message);
+      }
     } catch (error) {
       console.error('Error deleting coupon:', error);
       toast.error('Failed to delete coupon');

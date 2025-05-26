@@ -101,8 +101,6 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
     appendSpec({ key: '', value: '' });
   };
 
-  // console.log(specFields);
-
   useEffect(() => {
     const fetchData = async () => {
       const [categoriesData, brandsData] = await Promise.all([
@@ -132,7 +130,6 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
         (specification[item.key] = item.value)
     );
 
-    // console.log({ availableColors, keyFeatures, specification });
 
     const modifiedData = {
       ...data,

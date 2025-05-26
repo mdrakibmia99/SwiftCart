@@ -1,17 +1,17 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getCurrentUser } from "./services/AuthService";
+import { NextRequest, NextResponse } from 'next/server';
+import { getCurrentUser } from './services/AuthService';
 
 type Role = keyof typeof roleBasedPrivateRoutes;
 
-const authRoutes = ["/login", "/register"];
+const authRoutes = ['/login', '/register'];
 
 const roleBasedPrivateRoutes = {
-  user: [/^\/user/, /^\/create-shop/],
-  admin: [/^\/admin/],
+  user: [/^\/user/, /^\/create-shop/, /^\/profile/],
+  admin: [/^\/admin/, /^\/profile/],
 };
 
 export const middleware = async (request: NextRequest) => {
-  const { pathname } = request.nextUrl;
+  const { pathname, origin } = request.nextUrl;
 
   const userInfo = await getCurrentUser();
 
@@ -19,32 +19,29 @@ export const middleware = async (request: NextRequest) => {
     if (authRoutes.includes(pathname)) {
       return NextResponse.next();
     } else {
-      return NextResponse.redirect(
-        new URL(
-          `http://localhost:3000/login?redirectPath=${pathname}`,
-          request.url
-        )
-      );
+      return NextResponse.redirect(`${origin}/login?redirectPath=${pathname}`);
     }
   }
 
   if (userInfo?.role && roleBasedPrivateRoutes[userInfo?.role as Role]) {
     const routes = roleBasedPrivateRoutes[userInfo?.role as Role];
-    if (routes.some((route) => pathname.match(route))) {
+    if (routes.some(route => pathname.match(route))) {
       return NextResponse.next();
     }
   }
 
-  return NextResponse.redirect(new URL("/", request.url));
+  return NextResponse.redirect(new URL('/', request.url));
 };
 
 export const config = {
   matcher: [
-    "/login",
-    "/create-shop",
-    "/admin",
-    "/admin/:page",
-    "/user",
-    "/user/:page",
+    '/login',
+    '/register',
+    '/create-shop',
+    '/admin',
+    '/admin/:page',
+    '/user',
+    '/user/:page',
+    '/profile',
   ],
 };

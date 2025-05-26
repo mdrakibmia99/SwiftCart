@@ -22,9 +22,8 @@ export const getAllShops = async () => {
 
     const result = await res.json();
     return result;
-  } catch (error: any) {
-    console.error('Error fetching shops:', error.message);
-    throw error;
+  } catch (err: any) {
+    console.error(err?.message);
   }
 };
 

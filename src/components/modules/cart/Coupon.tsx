@@ -35,7 +35,7 @@ export default function Coupon() {
         fetchCoupon({ couponCode: data.coupon, subTotal, shopId }) as any
       ).unwrap();
     } catch (error: any) {
-      console.log(error);
+      console.error(error);
       toast.error(error.message);
     }
   };
