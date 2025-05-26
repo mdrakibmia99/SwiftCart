@@ -25,7 +25,6 @@ import {
 
 const UserDashboard = () => {
   const routes = useRouter();
-  const routes = useRouter();
   const shopStats = {
     totalSales: 1245,
     activeProducts: 28,
