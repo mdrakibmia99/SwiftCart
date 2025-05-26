@@ -43,7 +43,7 @@ const MegaMenu = ({ categories }: MegaMenuProps) => {
               ) : (
                 // Render dropdown for categories with subcategories
                 <>
-                  <NavigationMenuTrigger className="text-sm font-medium hover:text-primary data-[state=open]:text-primary">
+                  <NavigationMenuTrigger className="text-sm bg-secondary font-medium hover:text-primary data-[state=open]:text-primary">
                     {category.name}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
