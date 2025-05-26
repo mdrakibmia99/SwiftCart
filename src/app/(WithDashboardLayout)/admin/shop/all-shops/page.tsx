@@ -11,8 +11,6 @@ export default async function ShopsPage() {
 
     try {
       await deleteShop(shopId);
-      // Revalidate data or refresh page
-      // revalidatePath('/dashboard/shops');
     } catch (error) {
       console.error('Failed to delete shop:', error);
       throw error;
@@ -29,3 +27,5 @@ export default async function ShopsPage() {
     </div>
   );
 }
+
+
