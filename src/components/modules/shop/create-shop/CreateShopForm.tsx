@@ -12,7 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { Textarea } from '@/components/ui/textarea';
-import Logo from '@/assets/svgs/Logo';
+// import Logo from '@/assets/svgs/Logo';
 import SCImageUploader from '@/components/ui/core/SCImageUploader';
 import { useState } from 'react';
 import ImagePreviewer from '@/components/ui/core/SCImageUploader/ImagePreviewer';
