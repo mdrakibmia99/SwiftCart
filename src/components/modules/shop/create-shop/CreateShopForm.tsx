@@ -18,11 +18,12 @@ import { useState } from 'react';
 import ImagePreviewer from '@/components/ui/core/SCImageUploader/ImagePreviewer';
 import { createShop } from '@/services/Shop';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 export default function CreateShopForm() {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreview, setImagePreview] = useState<string[] | []>([]);
-
+  const router = useRouter()
   const form = useForm();
 
   const {
@@ -51,6 +52,7 @@ export default function CreateShopForm() {
 
       if (res.success) {
         toast.success(res.message);
+        router.push('/user/shop/products')
       } else {
         toast.error(res.message);
       }

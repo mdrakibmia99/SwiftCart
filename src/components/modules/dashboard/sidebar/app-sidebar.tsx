@@ -51,10 +51,10 @@ const USER_NAV_ITEMS = [
     ],
   },
   {
-    title: 'Account',
-    url: '#',
+    title: 'Profile',
+    url: '/profile',
     icon: Settings,
-    items: [{ title: 'Profile', url: '/profile' }],
+   
   },
 ];
 
@@ -93,11 +93,11 @@ const ADMIN_NAV_ITEMS = [
   },
 ];
 
-// Common Secondary Items
-const COMMON_SECONDARY_ITEMS = [
-  { title: 'Support', url: '/support', icon: LifeBuoy },
-  { title: 'Feedback', url: '/feedback', icon: Send },
-];
+// // Common Secondary Items
+// const COMMON_SECONDARY_ITEMS = [
+//   { title: 'Support', url: '/support', icon: LifeBuoy },
+//   { title: 'Feedback', url: '/feedback', icon: Send },
+// ];
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   userRole: 'user' | 'admin'; // Role-based prop
@@ -117,9 +117,9 @@ export function AppSidebar({ userRole, ...props }: AppSidebarProps) {
         <NavMain items={navItems} />
 
         {/* Common Secondary Navigation */}
-        <div className="mt-4">
+        {/* <div className="mt-4">
           <NavMain items={COMMON_SECONDARY_ITEMS} />
-        </div>
+        </div> */}
       </SidebarContent>
 
       <SidebarFooter>
