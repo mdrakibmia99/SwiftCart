@@ -4,14 +4,15 @@ import { revalidateTag } from 'next/cache';
 import { getValidToken } from '@/lib/verifyToken';
 
 // getAllPayments for Admin
-export const getAllPayments = async (): // page?: string,
-// limit?: string
-Promise<any> => {
+export const getAllPayments = async (
+  page?: string,
+  limit?: string
+): Promise<any> => {
   const token = await getValidToken();
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/payment?limit=100`,
+      `${process.env.NEXT_PUBLIC_BASE_API}/payment?limit=${limit}&page=${page}`,
       {
         method: 'GET',
         headers: {
@@ -31,14 +32,15 @@ Promise<any> => {
 };
 
 // getMemberPayments for Member
-export const getMemberPayments = async (): // page?: string,
-// limit?: string
-Promise<any> => {
+export const getMemberPayments = async (
+  page?: string,
+  limit?: string
+): Promise<any> => {
   const token = await getValidToken();
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/payment/member?limit=100`,
+      `${process.env.NEXT_PUBLIC_BASE_API}/payment/user?limit=${limit}&page=${page}`,
       {
         method: 'GET',
         headers: {
