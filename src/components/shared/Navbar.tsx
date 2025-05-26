@@ -173,7 +173,7 @@ export default function Navbar() {
               <Search className="text-primary" size={20} />
             </button>
 
-            {user?.role === "user" && (
+           
               <motion.div
                 className="flex gap-2"
                 initial={{ opacity: 0 }}
@@ -199,7 +199,7 @@ export default function Navbar() {
                   </Button>
                 </Link>
               </motion.div>
-            )}
+            
 
             {user?.email ? (
               <>
