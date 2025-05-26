@@ -13,7 +13,9 @@ const HomePage = async () => {
       <FeaturedProducts />
       <FlashSale />
       <TopBrands />
-      <Subscribe />
+      <div className="my-5">
+        <Subscribe />
+      </div>
     </div>
   );
 };
