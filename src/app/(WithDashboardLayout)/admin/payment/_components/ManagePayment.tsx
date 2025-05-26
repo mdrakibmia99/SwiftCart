@@ -104,7 +104,7 @@ const ManagePayments = ({
           {row.original.amount?.toLocaleString()} BDT
         </div>
       ),
-    },
+    } ,
     {
       accessorKey: "status",
       header: () => <div className="font-semibold">Status</div>,
