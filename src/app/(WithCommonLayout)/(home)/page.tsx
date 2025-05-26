@@ -6,6 +6,7 @@ import { HeroSection } from '@/components/modules/home/HeroSection';
 import { Subscribe } from '@/components/modules/Newsletter';
 import Tawk from './_components/_Tawk/Tawk';
 import Testimonials from '@/components/modules/Testimonials';
+import Trending from './_components/_Trending/Trending';
 
 const HomePage = async () => {
   return (
@@ -13,6 +14,7 @@ const HomePage = async () => {
       <HeroSection />
       <Category />
       <FeaturedProducts />
+      <Trending/>
       <FlashSale />
       <TopBrands />
       <Testimonials />
