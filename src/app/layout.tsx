@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${imprima.className}  antialiased`}>
+      <body className={`${imprima.className}  antialiased `}>
         <Providers>
           <Toaster
             richColors
