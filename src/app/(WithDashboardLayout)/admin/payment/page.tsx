@@ -2,12 +2,13 @@ import { getAllPaymentsForAdmin } from '@/services/Payment';
 import ManagePayments from './_components/ManagePayment';
 
 
+
 const PaymentPage = async ({
   searchParams,
 }: {
-  searchParams: { page: string };
+  searchParams: Promise<{ page: string }>;
 }) => {
-  const { page } = await searchParams;
+    const { page } = await searchParams;
   const { data: payments, meta } = await getAllPaymentsForAdmin(page, '10');
 
   return (
