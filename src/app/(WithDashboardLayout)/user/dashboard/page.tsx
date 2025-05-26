@@ -5,11 +5,11 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
-  Rocket,
+  // Rocket,
   Package,
   DollarSign,
   BarChart,
-  Edit,
+  // Edit,
   MessageSquare,
   Bell,
   Star,
@@ -83,10 +83,10 @@ const UserDashboard = () => {
             Grow your business with SwiftCart - Your products reached 15,234 customers last month!
           </p>
         </div>
-        <Button className="gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+        {/* <Button className="gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
           <Rocket className="w-5 h-5" />
           Boost Your Sales
-        </Button>
+        </Button> */}
       </div>
 
       {/* Quick Stats Grid */}
