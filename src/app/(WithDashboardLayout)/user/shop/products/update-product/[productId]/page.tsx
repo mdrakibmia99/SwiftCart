@@ -1,5 +1,5 @@
-import UpdateProductForm from "@/components/modules/shop/product/UpdateProductForm";
-import { getSingleProduct } from "@/services/Product";
+import UpdateProductForm from '@/components/modules/shop/product/UpdateProductForm';
+import { getSingleProduct } from '@/services/Product';
 
 const UpdateProductPage = async ({
   params,
@@ -9,7 +9,6 @@ const UpdateProductPage = async ({
   const { productId } = await params;
 
   const { data: product } = await getSingleProduct(productId);
-  //   console.log(product);
 
   return (
     <div className="flex justify-center items-center">

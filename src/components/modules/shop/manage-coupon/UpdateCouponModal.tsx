@@ -94,7 +94,6 @@ export default function UpdateCouponModal({ coupon }: { coupon: ICoupon }) {
     };
 
     try {
-      console.log('Updating coupon with payload:', payload);
       const res = await updateCoupon(coupon._id, payload);
 
       if (res.success) {
