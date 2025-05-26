@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { Button } from '../ui/button';
+import Image from "next/image";
+import { Button } from "../ui/button";
 import {
   LogOut,
   ShoppingCart,
@@ -10,8 +10,8 @@ import {
   Menu,
   CircleX,
   ChevronUp,
-} from 'lucide-react';
-import Link from 'next/link';
+} from "lucide-react";
+import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,23 +19,23 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { logout } from '@/services/AuthService';
-import { useUser } from '@/context/UserContext';
-import { usePathname, useRouter } from 'next/navigation';
-import { protectedRoutes } from '@/contants';
-import { useAppSelector } from '@/redux/hooks';
-import { orderedProductsSelector } from '@/redux/features/cartSlice';
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { logout } from "@/services/AuthService";
+import { useUser } from "@/context/UserContext";
+import { usePathname, useRouter } from "next/navigation";
+import { protectedRoutes } from "@/contants";
+import { useAppSelector } from "@/redux/hooks";
+import { orderedProductsSelector } from "@/redux/features/cartSlice";
 // import logo from '../../../public/logo.png';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 
-import { getProfile } from '@/services/Profile';
-import { IProfile } from '@/types/profile';
-import SearchInput from '../modules/home/SearchInput/SearchInput';
-import MegaMenu from './MegaMenu';
-import { useFetchData } from './Action/useFetchData';
+import { getProfile } from "@/services/Profile";
+import { IProfile } from "@/types/profile";
+import SearchInput from "../modules/home/SearchInput/SearchInput";
+import MegaMenu from "./MegaMenu";
+import { useFetchData } from "./Action/useFetchData";
 
 export default function Navbar() {
   const { user, setIsLoading } = useUser();
@@ -49,13 +49,15 @@ export default function Navbar() {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
   const toggleCategory = (categoryName: string) => {
-    setExpandedCategory(prev => (prev === categoryName ? null : categoryName));
+    setExpandedCategory((prev) =>
+      prev === categoryName ? null : categoryName
+    );
   };
   const handleLogOut = () => {
     logout();
     setIsLoading(true);
-    if (protectedRoutes.some(route => pathname.match(route))) {
-      router.push('/');
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/");
     }
   };
   const fetchUpdatedUser = async () => {
@@ -74,8 +76,8 @@ export default function Navbar() {
         setIsMegaMenuOpen(false);
       }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [isMegaMenuOpen]);
 
   const {
@@ -88,30 +90,35 @@ export default function Navbar() {
 
   const categories = [
     {
-      name: 'Categories',
-      subcategories: category,
-      query: 'categories',
+      name: "All Products",
+      subcategories: [],
+      query: "",
     },
     {
-      name: 'Brands',
-      subcategories: brands,
-      query: 'brands',
+      name: "Categories",
+      subcategories: category || [],
+      query: "categories",
     },
     {
-      name: 'Featured Products',
-      subcategories: featured,
-      query: 'products',
+      name: "Brands",
+      subcategories: brands || [],
+      query: "brands",
     },
     {
-      name: 'Flash Sales',
-      subcategories: flash,
-      query: 'products',
+      name: "Featured Products",
+      subcategories: featured || [],
+      query: "products",
+    },
+    {
+      name: "Flash Sales",
+      subcategories: flash || [],
+      query: "products",
     },
 
     {
-      name: 'Trending Products',
-      subcategories: trending,
-      query: 'products',
+      name: "Trending Products",
+      subcategories: trending || [],
+      query: "products",
     },
   ];
 
@@ -137,7 +144,7 @@ export default function Navbar() {
               <motion.div
                 className="relative w-28 h-10 md:w-40 md:h-12"
                 whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 <Image
                   src="/logo.png"
@@ -172,7 +179,7 @@ export default function Navbar() {
               <Search className="text-primary" size={20} />
             </button>
 
-            {user?.role === 'user' && (
+            {user?.role === "user" && (
               <motion.div
                 className="flex gap-2"
                 initial={{ opacity: 0 }}
@@ -190,7 +197,7 @@ export default function Navbar() {
                         className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        transition={{ type: 'spring' }}
+                        transition={{ type: "spring" }}
                       >
                         {products?.length}
                       </motion.span>
@@ -202,7 +209,7 @@ export default function Navbar() {
 
             {user?.email ? (
               <>
-                {user?.role === 'user' && updatedUser?.hasShop === false ? (
+                {user?.role === "user" && updatedUser?.hasShop === false ? (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -245,7 +252,7 @@ export default function Navbar() {
                       <DropdownMenuItem>
                         <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
                       </DropdownMenuItem>
-                      {user?.role === 'user' && (
+                      {user?.role === "user" && (
                         <DropdownMenuItem>
                           <Link href="/user/shop">My Shop</Link>
                         </DropdownMenuItem>
@@ -287,7 +294,7 @@ export default function Navbar() {
             <motion.div
               className="md:hidden py-2"
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
             >
@@ -305,14 +312,14 @@ export default function Navbar() {
             <motion.div
               className="md:hidden bg-white shadow-lg"
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
             >
               <div className="px-4 py-3 space-y-4">
                 <div className="space-y-2">
                   <div>
-                    {user?.role === 'user' && updatedUser?.hasShop === false ? (
+                    {user?.role === "user" && updatedUser?.hasShop === false ? (
                       <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -324,47 +331,58 @@ export default function Navbar() {
                       </motion.div>
                     ) : null}
                   </div>
-                  {categories.map(category => (
+                  {categories.map((category) => (
                     <div key={category.name} className="border-b last:border-0">
-                      <button
-                        onClick={() => toggleCategory(category.name)}
-                        className="w-full text-left px-2 py-3 flex justify-between items-center"
-                        aria-expanded={expandedCategory === category.name}
-                      >
-                        {category.name}
-                        {expandedCategory === category.name ? (
-                          <ChevronUp className="h-4 w-4" />
-                        ) : (
-                          <ChevronDown className="h-4 w-4" />
-                        )}
-                      </button>
-
-                      {expandedCategory === category.name && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          className="pl-4 space-y-2"
+                      {category.subcategories.length === 0 ? (
+                        // Render as Link if no subcategories
+                        <Link
+                          href="/products" // Direct link for "All Products"
+                          className="w-full text-left px-2 py-3 flex justify-between items-center"
                         >
-                          {category.subcategories.map(sub => (
-                            <Link
-                              key={sub.id}
-                              href={
-                                category.query === 'products'
-                                  ? `/products/${sub.id}`
-                                  : {
-                                      pathname: '/products',
-                                      query: {
-                                        [category.query]: sub.id,
-                                      },
-                                    }
-                              }
-                              className="block py-2 text-sm hover:text-primary transition-colors"
+                          {category.name}
+                        </Link>
+                      ) : (
+                        // Otherwise, render dropdown button and subcategories
+                        <>
+                          <button
+                            onClick={() => toggleCategory(category.name)}
+                            className="w-full text-left px-2 py-3 flex justify-between items-center"
+                            aria-expanded={expandedCategory === category.name}
+                          >
+                            {category.name}
+                            {expandedCategory === category.name ? (
+                              <ChevronUp className="h-4 w-4" />
+                            ) : (
+                              <ChevronDown className="h-4 w-4" />
+                            )}
+                          </button>
+
+                          {expandedCategory === category.name && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="pl-4 space-y-2"
                             >
-                              {sub.name}
-                            </Link>
-                          ))}
-                        </motion.div>
+                              {category.subcategories.map((sub) => (
+                                <Link
+                                  key={sub.id}
+                                  href={
+                                    category.query === "products"
+                                      ? `/products/${sub.id}`
+                                      : {
+                                          pathname: "/products",
+                                          query: { [category.query]: sub.id },
+                                        }
+                                  }
+                                  className="block py-2 text-sm hover:text-primary transition-colors"
+                                >
+                                  {sub.name}
+                                </Link>
+                              ))}
+                            </motion.div>
+                          )}
+                        </>
                       )}
                     </div>
                   ))}
