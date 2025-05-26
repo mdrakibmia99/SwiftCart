@@ -56,8 +56,8 @@ export const getSingleProduct = async (productId: string) => {
       }
     );
 
-   const result = await res.json();
-   return result;
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error.message);
   }
@@ -84,7 +84,7 @@ export const addProduct = async (productData: FormData): Promise<any> => {
   }
 };
 
-// update product
+// update Product
 export const updateProduct = async (
   productData: FormData,
   productId: string
@@ -110,39 +110,42 @@ export const updateProduct = async (
     return Error(error);
   }
 };
-// update product
-export const deleteProduct = async (
-  productId: string
-): Promise<any> => {
+
+// delete Product
+export const deleteProduct = async (productId: string): Promise<any> => {
   const token = await getValidToken();
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/product/${productId}`,
       {
-        method: "DELETE",
+        method: 'DELETE',
         headers: {
           Authorization: token,
         },
       }
     );
-    revalidateTag("PRODUCT");
-    return res.json();
+
+    revalidateTag('PRODUCTS');
+
+    const result = await res.json();
+    return result;
   } catch (error: any) {
     return Error(error);
   }
 };
 
+// get Trending Products
 export const getTrendingProducts = async (limit: number) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_API}/products/trending?limit=${limit}`,
+      `${process.env.NEXT_PUBLIC_BASE_API}/product/trending?limit=${limit}`,
       {
         next: {
           tags: ['PRODUCTS'],
         },
       }
     );
-    
+
     const result = await res.json();
     return result;
   } catch (error: any) {

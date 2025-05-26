@@ -84,10 +84,10 @@ export const useFetchData = () => {
 
   const fetchTrending = async () => {
     try {
-      const data = await getTrendingProducts(8);
-      if (!Array.isArray(data)) throw new Error('Invalid data format');
+      const { data: products } = await getTrendingProducts(8);
+      // if (!Array.isArray(data)) throw new Error('Invalid data format');
 
-      const trendingItems: SubcategoryItem[] = data.map(
+      const trendingItems: SubcategoryItem[] = products.map(
         (prod: { _id: string; name: string }) => ({
           name: prod.name,
           id: prod._id,

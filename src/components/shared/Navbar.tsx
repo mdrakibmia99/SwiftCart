@@ -81,14 +81,14 @@ export default function Navbar() {
   }, [isMegaMenuOpen]);
 
   const {
-    categories: category,
+    categories,
     brands,
     featured,
     flash,
     trending,
   } = useFetchData();
 
-  const categories = [
+  const menuCategories = [
     {
       name: "All Products",
       subcategories: [],
@@ -96,7 +96,7 @@ export default function Navbar() {
     },
     {
       name: "Categories",
-      subcategories: category || [],
+      subcategories: categories || [],
       query: "categories",
     },
     {
@@ -304,7 +304,7 @@ export default function Navbar() {
         </AnimatePresence>
 
         {/* Categories Navigation - Desktop */}
-        <MegaMenu categories={categories} />
+        <MegaMenu categories={menuCategories} />
 
         {/* Mobile Menu - Appears when hamburger clicked */}
         <AnimatePresence>
@@ -331,7 +331,7 @@ export default function Navbar() {
                       </motion.div>
                     ) : null}
                   </div>
-                  {categories.map((category) => (
+                  {menuCategories.map((category) => (
                     <div key={category.name} className="border-b last:border-0">
                       {category.subcategories.length === 0 ? (
                         // Render as Link if no subcategories
