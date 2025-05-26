@@ -359,7 +359,7 @@ export default function CreateCouponModal() {
                 <FormItem>
                   <FormLabel>Coupon Code</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} value={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -398,7 +398,7 @@ export default function CreateCouponModal() {
                     Discount Value ({discountType === 'Flat' ? '$' : '%'})
                   </FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <Input type="number" {...field} value={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -411,7 +411,7 @@ export default function CreateCouponModal() {
                 <FormItem>
                   <FormLabel>Minimum Order Amount</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <Input type="number" {...field} value={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -424,7 +424,7 @@ export default function CreateCouponModal() {
                 <FormItem>
                   <FormLabel>Maximum Discount Amount</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <Input type="number" {...field} value={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
