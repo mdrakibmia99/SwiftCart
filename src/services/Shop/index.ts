@@ -1,19 +1,20 @@
-'use server';
+"use server";
 
-import { getValidToken } from '@/lib/verifyToken';
+import { getValidToken } from "@/lib/verifyToken";
+import { revalidateTag } from "next/cache";
 
 export const createShop = async (data: FormData) => {
   const token = await getValidToken();
 
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/shop`, {
-      method: 'POST',
+      method: "POST",
       headers: {
         Authorization: token,
       },
       body: data,
     });
-
+    revalidateTag("USERS");
     const result = await res.json();
     return result;
   } catch (error: any) {

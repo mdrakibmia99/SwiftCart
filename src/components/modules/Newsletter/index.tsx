@@ -119,7 +119,7 @@ export function Subscribe() {
                     >
                       <div className="absolute inset-0 bg-secondary rounded-full animate-ping" />
                     </motion.div>
-                    <span className="text-gray-700 dark:text-gray-300 group-hover:text-green-600 transition-colors">
+                    <span className="text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors">
                       {item}
                     </span>
                   </li>
@@ -186,7 +186,7 @@ export function Subscribe() {
                       <Button
                         disabled={isSubmitting}
                         type="submit"
-                        className="w-full bg-primary hover:bg-green-500 text-white shadow-lg shadow-primary/30 relative overflow-hidden"
+                        className="w-full bg-primary hover:bg-white-500 text-white shadow-lg shadow-primary/30 relative overflow-hidden"
                       >
                         <span className="flex items-center gap-2 z-10 relative">
                           Subscribe Now

@@ -80,13 +80,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isMegaMenuOpen]);
 
-  const {
-    categories,
-    brands,
-    featured,
-    flash,
-    trending,
-  } = useFetchData();
+  const { categories, brands, featured, flash, trending } = useFetchData();
 
   const menuCategories = [
     {
@@ -331,8 +325,8 @@ export default function Navbar() {
                       </motion.div>
                     ) : null}
                   </div>
-                  {menuCategories.map((category) => (
-                    <div key={category.name} className="border-b last:border-0">
+                  {menuCategories.map((category, idx) => (
+                    <div key={idx + 1} className="border-b last:border-0">
                       {category.subcategories.length === 0 ? (
                         // Render as Link if no subcategories
                         <Link
@@ -364,9 +358,9 @@ export default function Navbar() {
                               exit={{ opacity: 0, height: 0 }}
                               className="pl-4 space-y-2"
                             >
-                              {category.subcategories.map((sub) => (
+                              {category.subcategories.map((sub, idx) => (
                                 <Link
-                                  key={sub.id}
+                                  key={idx + 1}
                                   href={
                                     category.query === "products"
                                       ? `/products/${sub.id}`

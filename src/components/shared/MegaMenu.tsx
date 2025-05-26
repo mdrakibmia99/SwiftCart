@@ -29,7 +29,7 @@ const MegaMenu = ({ categories }: MegaMenuProps) => {
       <NavigationMenu>
         <NavigationMenuList>
           {categories.map((category, idx) => (
-            <NavigationMenuItem key={idx}>
+            <NavigationMenuItem key={idx + 1}>
               {category.subcategories.length === 0 ? (
                 // Render as direct link if no subcategories
                 <NavigationMenuLink asChild>
@@ -54,7 +54,7 @@ const MegaMenu = ({ categories }: MegaMenuProps) => {
                         </h3>
                         <ul className="grid grid-cols-3 gap-x-8 gap-y-2">
                           {category.subcategories.map((sub, idx) => (
-                            <li key={idx}>
+                            <li key={idx + 1}>
                               <NavigationMenuLink asChild>
                                 <Link
                                   href={
