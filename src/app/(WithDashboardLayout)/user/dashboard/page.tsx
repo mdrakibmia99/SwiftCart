@@ -1,9 +1,7 @@
+"use client";
 
-
-'use client';
-
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   // Rocket,
   Package,
@@ -13,9 +11,9 @@ import {
   MessageSquare,
   Bell,
   Star,
-} from 'lucide-react';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+} from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import {
   BarChart as ReBarChart,
   Bar,
@@ -23,10 +21,10 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
 
 const UserDashboard = () => {
-  const routes=useRouter()
+  const routes = useRouter();
   const shopStats = {
     totalSales: 1245,
     activeProducts: 28,
@@ -35,40 +33,58 @@ const UserDashboard = () => {
   };
 
   const recentProducts = [
-    { id: 1, name: 'Wireless Headphones', price: 199.99, stock: 15, sales: 45 },
-    { id: 2, name: 'Smart Fitness Watch', price: 149.99, stock: 22, sales: 32 },
+    {
+      id: 1,
+      name: "Wireless Headphones",
+      image:
+        "https://cdn.kd1.io/nexus/product/114-1718649000-nexus2.png?width=800&height=800&mode=fill&fill=solid&fill-color=FFFFFF",
+      price: 199.99,
+      stock: 15,
+      sales: 45,
+    },
+    {
+      id: 2,
+      name: "Smart Fitness Watch",
+      price: 149.99,
+      stock: 22,
+      sales: 32,
+      image:
+        "https://m.media-amazon.com/images/I/51MB+kF8RYL._AC_UF1000,1000_QL80_.jpg",
+    },
     {
       id: 3,
-      name: 'Organic Cotton T-Shirt',
+      name: "Organic Cotton T-Shirt",
       price: 29.99,
       stock: 56,
       sales: 89,
+      image:
+        "https://allmade.com/cdn/shop/files/unisex-organic-cotton-tee-734095_900x.jpg?v=1722956768",
     },
   ];
 
   const recentReviews = [
     {
       id: 1,
-      product: 'Wireless Headphones',
+      product: "Wireless Headphones",
       rating: 4.5,
-      comment: 'Excellent sound quality!',
+      comment: "Excellent sound quality!",
     },
     {
       id: 2,
-      product: 'Smart Fitness Watch',
+      product: "Smart Fitness Watch",
       rating: 5,
       comment: "Best fitness tracker I've owned",
     },
   ];
 
   const salesData = [
-    { day: 'Mon', sales: 1200 },
-    { day: 'Tue', sales: 2100 },
-    { day: 'Wed', sales: 800 },
-    { day: 'Thu', sales: 1600 },
-    { day: 'Fri', sales: 2450 },
-    { day: 'Sat', sales: 1800 },
-    { day: 'Sun', sales: 1900 },
+    { day: "Mon", sales: 1200 },
+    { day: "Tue", sales: 2100 },
+    { day: "Wed", sales: 800 },
+    { day: "Thu", sales: 1600 },
+    { day: "Fri", sales: 2450 },
+    { day: "Sat", sales: 1800 },
+    { day: "Sun", sales: 1900 },
   ];
 
   return (
@@ -80,7 +96,8 @@ const UserDashboard = () => {
             Welcome to Your Selling Hub
           </h1>
           <p className="text-gray-600 dark:text-gray-300">
-            Grow your business with SwiftCart - Your products reached 15,234 customers last month!
+            Grow your business with SwiftCart - Your products reached 15,234
+            customers last month!
           </p>
         </div>
         {/* <Button className="gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
@@ -90,41 +107,49 @@ const UserDashboard = () => {
       </div>
 
       {/* Quick Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {[
           {
-            title: 'Total Sales',
+            title: "Total Sales",
             value: shopStats.totalSales,
-            icon: <DollarSign className="w-6 h-6 text-green-600 dark:text-green-400" />,
-            bg: 'bg-green-100 dark:bg-green-900/30',
+            icon: (
+              <DollarSign className="w-6 h-6 text-green-600 dark:text-green-400" />
+            ),
+            bg: "bg-green-100 dark:bg-green-900/30",
           },
           {
-            title: 'Active Products',
+            title: "Active Products",
             value: shopStats.activeProducts,
-            icon: <Package className="w-6 h-6 text-blue-600 dark:text-blue-400" />,
-            bg: 'bg-blue-100 dark:bg-blue-900/30',
+            icon: (
+              <Package className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            ),
+            bg: "bg-blue-100 dark:bg-blue-900/30",
           },
           {
-            title: 'Pending Orders',
+            title: "Pending Orders",
             value: shopStats.pendingOrders,
-            icon: <BarChart className="w-6 h-6 text-purple-600 dark:text-purple-400" />,
-            bg: 'bg-purple-100 dark:bg-purple-900/30',
+            icon: (
+              <BarChart className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+            ),
+            bg: "bg-purple-100 dark:bg-purple-900/30",
           },
           {
-            title: 'Total Revenue',
+            title: "Total Revenue",
             value: `$${shopStats.totalRevenue.toLocaleString()}`,
-            icon: <DollarSign className="w-6 h-6 text-orange-600 dark:text-orange-400" />,
-            bg: 'bg-orange-100 dark:bg-orange-900/30',
+            icon: (
+              <DollarSign className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+            ),
+            bg: "bg-orange-100 dark:bg-orange-900/30",
           },
         ].map((item, i) => (
           <Card key={i} className="bg-white dark:bg-gray-800">
             <CardContent className="p-4">
               <div className="flex items-center gap-4">
-                <div className={`${item.bg} p-3 rounded-full`}>
-                  {item.icon}
-                </div>
+                <div className={`${item.bg} p-3 rounded-full`}>{item.icon}</div>
                 <div>
-                  <p className="text-gray-500 dark:text-gray-400">{item.title}</p>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    {item.title}
+                  </p>
                   <p className="text-2xl font-bold">{item.value}</p>
                 </div>
               </div>
@@ -167,11 +192,14 @@ const UserDashboard = () => {
             </CardHeader>
             <CardContent className="p-6">
               <div className="space-y-6">
-                {recentProducts.map(product => (
-                  <div key={product.id} className="flex items-center gap-4 group">
+                {recentProducts.map((product) => (
+                  <div
+                    key={product.id}
+                    className="flex items-center gap-4 group"
+                  >
                     <div className="relative w-20 h-20 rounded-lg overflow-hidden">
                       <Image
-                        src="/placeholder-product.jpg"
+                        src={product?.image}
                         alt={product.name}
                         fill
                         className="object-cover"
@@ -204,8 +232,11 @@ const UserDashboard = () => {
               <CardTitle>Quick Actions</CardTitle>
             </CardHeader>
             <CardContent className="p-6 grid grid-cols-2 gap-4">
-              
-              <Button onClick={()=>routes.push('/user/shop/products/add-product')} variant="outline" className="h-24 flex-col gap-2">
+              <Button
+                onClick={() => routes.push("/user/shop/products/add-product")}
+                variant="outline"
+                className="h-24 flex-col gap-2"
+              >
                 <Package className="w-6 h-6" />
                 Add New Product
               </Button>
@@ -230,7 +261,7 @@ const UserDashboard = () => {
               <CardTitle>Recent Reviews</CardTitle>
             </CardHeader>
             <CardContent className="p-6 space-y-6">
-              {recentReviews.map(review => (
+              {recentReviews.map((review) => (
                 <div key={review.id} className="group">
                   <div className="flex items-center gap-4">
                     <div className="flex-1">
@@ -241,8 +272,8 @@ const UserDashboard = () => {
                             key={i}
                             className={`w-4 h-4 ${
                               i < Math.floor(review.rating)
-                                ? 'fill-yellow-400 text-yellow-400'
-                                : 'fill-gray-200 text-gray-200'
+                                ? "fill-yellow-400 text-yellow-400"
+                                : "fill-gray-200 text-gray-200"
                             }`}
                           />
                         ))}
