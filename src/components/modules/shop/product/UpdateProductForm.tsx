@@ -135,7 +135,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
       specification,
       price: parseFloat(data.price),
       stock: parseInt(data.stock),
-      weight: parseFloat(data.stock),
+      weight: parseFloat(data.weight),
     };
 
     const formData = new FormData();
@@ -192,7 +192,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                 <FormItem>
                   <FormLabel>Price</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ''} />
+                    <Input type="number" {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -266,7 +266,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                 <FormItem>
                   <FormLabel>Stock</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ''} />
+                    <Input type="number" {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -279,7 +279,7 @@ export default function UpdateProductForm({ product }: { product: IProduct }) {
                 <FormItem>
                   <FormLabel>Weight</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ''} />
+                    <Input type="number" {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

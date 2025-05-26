@@ -111,11 +111,16 @@ const ManageProducts = ({
       header: 'Category',
       cell: ({ row }) => <span>{row.original.category.name}</span>,
     },
-    // {
-    //   accessorKey: 'brand',
-    //   header: 'Brand',
-    //   cell: ({ row }) => <span>{row.original?.brand?.name}</span>,
-    // },
+    {
+      accessorKey: 'brand',
+      header: 'Brand',
+      cell: ({ row }) => <span>{row.original?.brand?.name}</span>,
+    },
+    {
+      accessorKey: 'weight',
+      header: 'Weight',
+      cell: ({ row }) => <span>{row.original?.weight}</span>,
+    },
     {
       accessorKey: 'stock',
       header: 'Stock',
