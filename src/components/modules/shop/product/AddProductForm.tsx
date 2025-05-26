@@ -21,8 +21,7 @@ import { useEffect, useState } from 'react';
 import SCImageUploader from '@/components/ui/core/SCImageUploader';
 import ImagePreviewer from '@/components/ui/core/SCImageUploader/ImagePreviewer';
 import { Plus } from 'lucide-react';
-import Logo from '@/assets/svgs/Logo';
-
+// import Logo from '@/assets/svgs/Logo';
 import {
   Select,
   SelectContent,
@@ -127,7 +126,7 @@ export default function AddProductsForm() {
       specification,
       price: parseFloat(data.price),
       stock: parseInt(data.stock),
-      weight: parseFloat(data.stock),
+      weight: parseFloat(data.weight),
     };
 
     const formData = new FormData();
@@ -141,7 +140,7 @@ export default function AddProductsForm() {
 
       if (res.success) {
         toast.success(res.message);
-        router.push('/admin/shop/products');
+        router.push('/user/shop/products');
       } else {
         toast.error(res.message);
       }
@@ -153,7 +152,7 @@ export default function AddProductsForm() {
   return (
     <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-2xl p-5 bg-secondary">
       <div className="flex items-center space-x-4 mb-5 ">
-        <Logo />
+        {/* <Logo /> */}
 
         <h1 className="text-xl font-bold">Add Product</h1>
       </div>
@@ -184,7 +183,7 @@ export default function AddProductsForm() {
                 <FormItem>
                   <FormLabel>Price</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ''} />
+                    <Input type="number" {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -254,7 +253,7 @@ export default function AddProductsForm() {
                 <FormItem>
                   <FormLabel>Stock</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ''} />
+                    <Input type="number" {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -267,7 +266,7 @@ export default function AddProductsForm() {
                 <FormItem>
                   <FormLabel>Weight</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ''} />
+                    <Input type="number" {...field} value={field.value || ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -67,7 +67,9 @@ export function NavUser() {
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar>
                   <AvatarImage src={user?.profilePhoto} alt={user?.name} />
-                  <AvatarFallback>{user?.role}</AvatarFallback>
+                  <AvatarFallback className="text-2xl font-bold bg-indigo-500 text-white">
+                    {user?.name[0].toUpperCase()}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">{user?.name}</span>

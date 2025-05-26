@@ -12,7 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { Textarea } from '@/components/ui/textarea';
-import Logo from '@/assets/svgs/Logo';
+// import Logo from '@/assets/svgs/Logo';
 import SCImageUploader from '@/components/ui/core/SCImageUploader';
 import { useState } from 'react';
 import ImagePreviewer from '@/components/ui/core/SCImageUploader/ImagePreviewer';
@@ -62,7 +62,7 @@ export default function CreateShopForm() {
   return (
     <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-2xl p-5 my-5">
       <div className="flex items-center space-x-4 mb-5">
-        <Logo />
+        {/* <Logo /> */}
         <div>
           <h1 className="text-xl font-semibold">Create Your Shop</h1>
           <p className="font-extralight text-sm text-gray-600">
