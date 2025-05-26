@@ -107,7 +107,7 @@ export function AppSidebar({ userRole, ...props }: AppSidebarProps) {
   const navItems = userRole === 'admin' ? ADMIN_NAV_ITEMS : USER_NAV_ITEMS;
 
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar  collapsible="icon" {...props}>
       <SidebarHeader>
         <LogoHeader />
       </SidebarHeader>
