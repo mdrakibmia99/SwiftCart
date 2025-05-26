@@ -1,5 +1,3 @@
-
-
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -26,7 +24,7 @@ import {
 } from 'recharts';
 
 const UserDashboard = () => {
-  const routes=useRouter()
+  const routes = useRouter();
   const shopStats = {
     totalSales: 1245,
     activeProducts: 28,
@@ -80,7 +78,8 @@ const UserDashboard = () => {
             Welcome to Your Selling Hub
           </h1>
           <p className="text-gray-600 dark:text-gray-300">
-            Grow your business with SwiftCart - Your products reached 15,234 customers last month!
+            Grow your business with SwiftCart - Your products reached a huge
+            customers last month!
           </p>
         </div>
         {/* <Button className="gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
@@ -95,36 +94,44 @@ const UserDashboard = () => {
           {
             title: 'Total Sales',
             value: shopStats.totalSales,
-            icon: <DollarSign className="w-6 h-6 text-green-600 dark:text-green-400" />,
+            icon: (
+              <DollarSign className="w-6 h-6 text-green-600 dark:text-green-400" />
+            ),
             bg: 'bg-green-100 dark:bg-green-900/30',
           },
           {
             title: 'Active Products',
             value: shopStats.activeProducts,
-            icon: <Package className="w-6 h-6 text-blue-600 dark:text-blue-400" />,
+            icon: (
+              <Package className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            ),
             bg: 'bg-blue-100 dark:bg-blue-900/30',
           },
           {
             title: 'Pending Orders',
             value: shopStats.pendingOrders,
-            icon: <BarChart className="w-6 h-6 text-purple-600 dark:text-purple-400" />,
+            icon: (
+              <BarChart className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+            ),
             bg: 'bg-purple-100 dark:bg-purple-900/30',
           },
           {
             title: 'Total Revenue',
             value: `$${shopStats.totalRevenue.toLocaleString()}`,
-            icon: <DollarSign className="w-6 h-6 text-orange-600 dark:text-orange-400" />,
+            icon: (
+              <DollarSign className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+            ),
             bg: 'bg-orange-100 dark:bg-orange-900/30',
           },
         ].map((item, i) => (
           <Card key={i} className="bg-white dark:bg-gray-800">
             <CardContent className="p-4">
               <div className="flex items-center gap-4">
-                <div className={`${item.bg} p-3 rounded-full`}>
-                  {item.icon}
-                </div>
+                <div className={`${item.bg} p-3 rounded-full`}>{item.icon}</div>
                 <div>
-                  <p className="text-gray-500 dark:text-gray-400">{item.title}</p>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    {item.title}
+                  </p>
                   <p className="text-2xl font-bold">{item.value}</p>
                 </div>
               </div>
@@ -168,7 +175,10 @@ const UserDashboard = () => {
             <CardContent className="p-6">
               <div className="space-y-6">
                 {recentProducts.map(product => (
-                  <div key={product.id} className="flex items-center gap-4 group">
+                  <div
+                    key={product.id}
+                    className="flex items-center gap-4 group"
+                  >
                     <div className="relative w-20 h-20 rounded-lg overflow-hidden">
                       <Image
                         src="/placeholder-product.jpg"
@@ -204,8 +214,11 @@ const UserDashboard = () => {
               <CardTitle>Quick Actions</CardTitle>
             </CardHeader>
             <CardContent className="p-6 grid grid-cols-2 gap-4">
-              
-              <Button onClick={()=>routes.push('/user/shop/products/add-product')} variant="outline" className="h-24 flex-col gap-2">
+              <Button
+                onClick={() => routes.push('/user/shop/products/add-product')}
+                variant="outline"
+                className="h-24 flex-col gap-2"
+              >
                 <Package className="w-6 h-6" />
                 Add New Product
               </Button>
