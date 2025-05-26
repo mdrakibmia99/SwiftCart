@@ -1,13 +1,12 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { format, formatISO } from "date-fns";
-import { toast } from "sonner";
-import { CalendarIcon, Edit } from "lucide-react";
-
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { format, formatISO } from 'date-fns';
+import { toast } from 'sonner';
+import { CalendarIcon, Edit } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -15,13 +14,13 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
+} from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
 import {
   Form,
   FormControl,
@@ -29,40 +28,37 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { cn } from "@/lib/utils";
-import { updateCoupon } from "@/services/Coupon";
-import { ICoupon } from "@/types";
-
+} from '@/components/ui/select';
+import { cn } from '@/lib/utils';
+import { updateCoupon } from '@/services/Coupon';
+import { ICoupon } from '@/types';
 
 const couponSchema = z.object({
-  code: z.string().min(1, "Coupon code is required"),
-  discountType: z.enum(["Percentage", "Flat"]),
-  discountValue: z.coerce.number().min(1, "Discount value is required"),
-  minOrderAmount: z.coerce.number().min(1, "Minimum order amount is required"),
+  code: z.string().min(1, 'Coupon code is required'),
+  discountType: z.enum(['Percentage', 'Flat']),
+  discountValue: z.coerce.number().min(1, 'Discount value is required'),
+  minOrderAmount: z.coerce.number().min(1, 'Minimum order amount is required'),
   maxDiscountAmount: z.coerce
     .number()
-    .min(1, "Maximum discount amount is required"),
+    .min(1, 'Maximum discount amount is required'),
   startDate: z.date({
-    required_error: "Start date is required",
+    required_error: 'Start date is required',
   }),
   endDate: z.date({
-    required_error: "End date is required",
+    required_error: 'End date is required',
   }),
 });
 
 export type CouponFormData = z.infer<typeof couponSchema>;
-
-
 
 export default function UpdateCouponModal({ coupon }: { coupon: ICoupon }) {
   const [open, setOpen] = useState(false);
@@ -76,8 +72,8 @@ export default function UpdateCouponModal({ coupon }: { coupon: ICoupon }) {
     },
   });
 
-  const startDate = form.watch("startDate");
-  const discountType = form.watch("discountType");
+  const startDate = form.watch('startDate');
+  const discountType = form.watch('discountType');
   const isLoading = form.formState.isSubmitting;
 
   useEffect(() => {
@@ -98,19 +94,19 @@ export default function UpdateCouponModal({ coupon }: { coupon: ICoupon }) {
     };
 
     try {
-      console.log("Updating coupon with payload:", payload);
+      console.log('Updating coupon with payload:', payload);
       const res = await updateCoupon(coupon._id, payload);
 
       if (res.success) {
-        toast.success("Coupon updated successfully!");
+        toast.success('Coupon updated successfully!');
         form.reset();
         setOpen(false);
       } else {
-        toast.error(res.message || "Something went wrong.");
+        toast.error(res.message || 'Something went wrong.');
       }
     } catch (error) {
-      console.error("Error updating coupon:", error);
-      toast.error("Something went wrong.");
+      console.error('Error updating coupon:', error);
+      toast.error('Something went wrong.');
     }
   };
 
@@ -147,7 +143,10 @@ export default function UpdateCouponModal({ coupon }: { coupon: ICoupon }) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Discount Type</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select discount type" />
@@ -168,7 +167,7 @@ export default function UpdateCouponModal({ coupon }: { coupon: ICoupon }) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Discount Value ({discountType === "Flat" ? "$" : "%"})
+                    Discount Value ({discountType === 'Flat' ? '$' : '%'})
                   </FormLabel>
                   <FormControl>
                     <Input type="number" {...field} />
@@ -215,11 +214,13 @@ export default function UpdateCouponModal({ coupon }: { coupon: ICoupon }) {
                         <Button
                           variant="outline"
                           className={cn(
-                            "w-full h-10 pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
+                            'w-full h-10 pl-3 text-left font-normal',
+                            !field.value && 'text-muted-foreground'
                           )}
                         >
-                          {field.value ? format(field.value, "PPP") : "Pick a date"}
+                          {field.value
+                            ? format(field.value, 'PPP')
+                            : 'Pick a date'}
                           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
                       </FormControl>
@@ -229,7 +230,7 @@ export default function UpdateCouponModal({ coupon }: { coupon: ICoupon }) {
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}
-                        disabled={(date) =>
+                        disabled={date =>
                           date.getTime() < new Date().setHours(0, 0, 0, 0)
                         }
                         initialFocus
@@ -252,12 +253,14 @@ export default function UpdateCouponModal({ coupon }: { coupon: ICoupon }) {
                         <Button
                           variant="outline"
                           className={cn(
-                            "w-full h-10 pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
+                            'w-full h-10 pl-3 text-left font-normal',
+                            !field.value && 'text-muted-foreground'
                           )}
                           disabled={!startDate}
                         >
-                          {field.value ? format(field.value, "PPP") : "Pick a date"}
+                          {field.value
+                            ? format(field.value, 'PPP')
+                            : 'Pick a date'}
                           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
                       </FormControl>
@@ -267,7 +270,7 @@ export default function UpdateCouponModal({ coupon }: { coupon: ICoupon }) {
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}
-                        disabled={(date) =>
+                        disabled={date =>
                           startDate ? date < startDate : false
                         }
                         initialFocus
@@ -279,7 +282,7 @@ export default function UpdateCouponModal({ coupon }: { coupon: ICoupon }) {
               )}
             />
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Updating..." : "Update"}
+              {isLoading ? 'Updating...' : 'Update'}
             </Button>
           </form>
         </Form>

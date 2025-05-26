@@ -4,6 +4,7 @@ import { SCTable } from '@/components/ui/core/SCTable/index';
 import { IMeta, IProduct } from '@/types';
 import { ColumnDef } from '@tanstack/react-table';
 import { Edit, Plus, Trash } from 'lucide-react';
+import { Edit, Plus, Trash } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -26,6 +27,7 @@ const ManageProducts = ({
   const router = useRouter();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
+  const handleDelete = async (productId: string) => {
   const handleDelete = async (productId: string) => {
     try {
       const res = await deleteProduct(productId);
