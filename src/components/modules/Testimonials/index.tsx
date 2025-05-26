@@ -76,7 +76,7 @@ export default function Testimonials() {
   return (
     <div className="my-5 md:my-20">
       <SCContainer>
-        <section className="py-14 bg-blue-50 rounded-md">
+        <section className="py-14 bg-secondary rounded-md">
           <div className="text-center">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 md:mb-6 text-gray-900">
               Success Stories
@@ -89,7 +89,7 @@ export default function Testimonials() {
               {testimonials.map((testimonial, index) => (
                 <Card
                   key={index}
-                  className="p-2 md:p-6 mx-3 md:mx-6 bg-white shadow-md rounded-lg"
+                  className="p-2 md:p-6 mx-3 md:mx-6 w-[350px] md:w-[480px] bg-white shadow-md rounded-lg"
                 >
                   <CardContent className="flex flex-col items-center">
                     <Avatar className="w-12 md:w-16 h-12 md:h-16 mb-4">
@@ -108,7 +108,7 @@ export default function Testimonials() {
                       {testimonial.name}
                     </h3>
                     <p className="text-sm text-gray-500">{testimonial.role}</p>
-                    <p className="text-gray-700 text-base md:text-lg font-medium my-2 md:my-4 text-center">
+                    <p className="text-gray-700 text-base md:text-lg font-medium line-clamp-2 my-2 md:my-4 text-center">
                       &quot;{testimonial.feedback}&quot;
                     </p>
                     <div className="flex">
