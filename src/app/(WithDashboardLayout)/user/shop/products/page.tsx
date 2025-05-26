@@ -10,7 +10,7 @@ const ManageProductsPage = async ({
 
   const { data: products, meta } = await getAllProducts(page, '10');
   return (
-    <div>
+    <div className='w-full overflow-x-auto'>
       <ManageProducts products={products} meta={meta} page={page} />
     </div>
   );
