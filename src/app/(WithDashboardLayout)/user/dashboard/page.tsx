@@ -1,3 +1,7 @@
+
+
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -11,8 +15,18 @@ import {
   Star,
 } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import {
+  BarChart as ReBarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 
 const UserDashboard = () => {
+  const routes=useRouter()
   const shopStats = {
     totalSales: 1245,
     activeProducts: 28,
@@ -47,8 +61,18 @@ const UserDashboard = () => {
     },
   ];
 
+  const salesData = [
+    { day: 'Mon', sales: 1200 },
+    { day: 'Tue', sales: 2100 },
+    { day: 'Wed', sales: 800 },
+    { day: 'Thu', sales: 1600 },
+    { day: 'Fri', sales: 2450 },
+    { day: 'Sat', sales: 1800 },
+    { day: 'Sun', sales: 1900 },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6 md:p-10">
+    <div className="min-h-screen bg-secondary dark:bg-gray-900 p-6 md:p-10">
       {/* Shop Header */}
       <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
@@ -56,8 +80,7 @@ const UserDashboard = () => {
             Welcome to Your Selling Hub
           </h1>
           <p className="text-gray-600 dark:text-gray-300">
-            Grow your business with SwiftCart - Your products reached 15,234
-            customers last month!
+            Grow your business with SwiftCart - Your products reached 15,234 customers last month!
           </p>
         </div>
         <Button className="gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
@@ -67,70 +90,47 @@ const UserDashboard = () => {
       </div>
 
       {/* Quick Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-        <Card className="bg-white dark:bg-gray-800">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-4">
-              <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-full">
-                <DollarSign className="w-6 h-6 text-green-600 dark:text-green-400" />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        {[
+          {
+            title: 'Total Sales',
+            value: shopStats.totalSales,
+            icon: <DollarSign className="w-6 h-6 text-green-600 dark:text-green-400" />,
+            bg: 'bg-green-100 dark:bg-green-900/30',
+          },
+          {
+            title: 'Active Products',
+            value: shopStats.activeProducts,
+            icon: <Package className="w-6 h-6 text-blue-600 dark:text-blue-400" />,
+            bg: 'bg-blue-100 dark:bg-blue-900/30',
+          },
+          {
+            title: 'Pending Orders',
+            value: shopStats.pendingOrders,
+            icon: <BarChart className="w-6 h-6 text-purple-600 dark:text-purple-400" />,
+            bg: 'bg-purple-100 dark:bg-purple-900/30',
+          },
+          {
+            title: 'Total Revenue',
+            value: `$${shopStats.totalRevenue.toLocaleString()}`,
+            icon: <DollarSign className="w-6 h-6 text-orange-600 dark:text-orange-400" />,
+            bg: 'bg-orange-100 dark:bg-orange-900/30',
+          },
+        ].map((item, i) => (
+          <Card key={i} className="bg-white dark:bg-gray-800">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-4">
+                <div className={`${item.bg} p-3 rounded-full`}>
+                  {item.icon}
+                </div>
+                <div>
+                  <p className="text-gray-500 dark:text-gray-400">{item.title}</p>
+                  <p className="text-2xl font-bold">{item.value}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-gray-500 dark:text-gray-400">Total Sales</p>
-                <p className="text-2xl font-bold">{shopStats.totalSales}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-white dark:bg-gray-800">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-4">
-              <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-full">
-                <Package className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-              </div>
-              <div>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Active Products
-                </p>
-                <p className="text-2xl font-bold">{shopStats.activeProducts}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-white dark:bg-gray-800">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-4">
-              <div className="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-full">
-                <BarChart className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-              </div>
-              <div>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Pending Orders
-                </p>
-                <p className="text-2xl font-bold">{shopStats.pendingOrders}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-white dark:bg-gray-800">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-4">
-              <div className="bg-orange-100 dark:bg-orange-900/30 p-3 rounded-full">
-                <DollarSign className="w-6 h-6 text-orange-600 dark:text-orange-400" />
-              </div>
-              <div>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Total Revenue
-                </p>
-                <p className="text-2xl font-bold">
-                  ${shopStats.totalRevenue.toLocaleString()}
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
       {/* Main Content Grid */}
@@ -146,10 +146,14 @@ const UserDashboard = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-6 h-80">
-              {/* Replace with actual chart component */}
-              <div className="w-full h-full bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-                <span className="text-gray-500">Sales Chart Preview</span>
-              </div>
+              <ResponsiveContainer width="100%" height="100%">
+                <ReBarChart data={salesData}>
+                  <XAxis dataKey="day" stroke="#1c799b" fontSize={12} />
+                  <YAxis stroke="#1c799b" fontSize={12} />
+                  <Tooltip />
+                  <Bar dataKey="sales" fill="#1c799b" radius={[4, 4, 0, 0]} />
+                </ReBarChart>
+              </ResponsiveContainer>
             </CardContent>
           </Card>
 
@@ -164,10 +168,7 @@ const UserDashboard = () => {
             <CardContent className="p-6">
               <div className="space-y-6">
                 {recentProducts.map(product => (
-                  <div
-                    key={product.id}
-                    className="flex items-center gap-4 group"
-                  >
+                  <div key={product.id} className="flex items-center gap-4 group">
                     <div className="relative w-20 h-20 rounded-lg overflow-hidden">
                       <Image
                         src="/placeholder-product.jpg"
@@ -184,10 +185,10 @@ const UserDashboard = () => {
                         <p>Sales: {product.sales}</p>
                       </div>
                     </div>
-                    <Button variant="outline" size="sm" className="gap-2">
+                    {/* <Button variant="outline" size="sm" className="gap-2">
                       <Edit className="w-4 h-4" />
                       Edit
-                    </Button>
+                    </Button> */}
                   </div>
                 ))}
               </div>
@@ -203,7 +204,8 @@ const UserDashboard = () => {
               <CardTitle>Quick Actions</CardTitle>
             </CardHeader>
             <CardContent className="p-6 grid grid-cols-2 gap-4">
-              <Button variant="outline" className="h-24 flex-col gap-2">
+              
+              <Button onClick={()=>routes.push('/user/shop/products/add-product')} variant="outline" className="h-24 flex-col gap-2">
                 <Package className="w-6 h-6" />
                 Add New Product
               </Button>
@@ -238,7 +240,7 @@ const UserDashboard = () => {
                           <Star
                             key={i}
                             className={`w-4 h-4 ${
-                              i < review.rating
+                              i < Math.floor(review.rating)
                                 ? 'fill-yellow-400 text-yellow-400'
                                 : 'fill-gray-200 text-gray-200'
                             }`}
