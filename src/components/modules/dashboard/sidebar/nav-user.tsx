@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import { ChevronsUpDown, LogOut } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ChevronsUpDown, LogOut } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@/components/ui/sidebar';
-import { useUser } from '@/context/UserContext';
-import { usePathname, useRouter } from 'next/navigation';
-import { logout } from '@/services/AuthService';
-import { protectedRoutes } from '@/contants';
+} from "@/components/ui/sidebar";
+import { useUser } from "@/context/UserContext";
+import { usePathname, useRouter } from "next/navigation";
+import { logout } from "@/services/AuthService";
+import { protectedRoutes } from "@/contants";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -29,8 +29,8 @@ export function NavUser() {
 
   const handleLogout = () => {
     logout();
-    if (protectedRoutes.some(route => pathname.match(route))) {
-      router.push('/');
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/");
     }
     setIsLoading(true);
   };
@@ -44,10 +44,10 @@ export function NavUser() {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-8 w-8 rounded-lg">
+              <Avatar>
                 <AvatarImage src={user?.profilePhoto} alt={user?.name} />
-                <AvatarFallback className="rounded-lg">
-                  {user?.role}
+                <AvatarFallback className="text-2xl font-bold bg-indigo-500 text-white">
+                  {user?.name[0].toUpperCase()}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -59,7 +59,7 @@ export function NavUser() {
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-            side={isMobile ? 'bottom' : 'right'}
+            side={isMobile ? "bottom" : "right"}
             align="end"
             sideOffset={4}
           >
