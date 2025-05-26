@@ -11,14 +11,12 @@ const ValidationPage = async ({
   const { tran_id } = await searchParams;
   const res = await validatePayment(tran_id as string);
 
-  console.log({ res, tran_id });
-
   return (
     <>
       <PaymentAfter
         response={res}
         icon={'ShieldCheck'}
-        pageName="Payment Successful"
+        pageName="Payment Successful!"
         description="Your payment is validated successfully. Take a ScreenShot before refreshing or leaving this page for further queries."
         href="/"
         buttonText="Go to Home"
