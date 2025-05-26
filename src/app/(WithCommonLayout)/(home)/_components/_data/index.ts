@@ -7,7 +7,7 @@ export const heroImages = [
     description:
       "Trusted by 10,000+ happy customers — we value your satisfaction and security",
     cta: "Shop Now",
-    link: "/",
+    link: "/products",
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ export const heroImages = [
     description:
       "Get your products at lightning speed — same-day and next-day delivery available!",
     cta: "Order Now",
-    link: "/",
+    link: "/products",
   },
   {
     id: 3,
@@ -27,7 +27,6 @@ export const heroImages = [
     description:
       "Seamless shopping experience on mobile and desktop — browse, buy, and track easily!",
     cta: "View Collection",
-    link: "/collection/winter",
+    link: "/products",
   },
-
 ];

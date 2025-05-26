@@ -1,7 +1,7 @@
 import ProductBanner from '@/components/modules/products/banner';
 import ProductDetails from '@/components/modules/products/productDetails';
 import SCContainer from '@/components/ui/core/SCContainer';
-import { getSingleProduct } from '@/services/Product';
+import { getAllProducts, getSingleProduct } from '@/services/Product';
 
 const ProductDetailsPage = async ({
   params,
@@ -11,6 +11,7 @@ const ProductDetailsPage = async ({
   const { productId } = await params;
 
   const { data: product } = await getSingleProduct(productId);
+  const { data: products } = await getAllProducts();
 
   return (
     <SCContainer>
@@ -19,7 +20,7 @@ const ProductDetailsPage = async ({
         path="Home - Products - Product Details"
       />
       <div className="my-5">
-        <ProductDetails product={product} />
+        <ProductDetails product={product} data={products} />
       </div>
     </SCContainer>
   );
