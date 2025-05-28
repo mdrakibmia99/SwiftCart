@@ -20,8 +20,8 @@ mind.
 
 ## 📂 Repository Links
 
-- [Frontend](https://github.com/khaledssbd/SwiftCart)
-- [Backend](https://github.com/khaledssbd/SwiftCart-APIs)
+- [Frontend](https://github.com/mdrakibmia99/SwiftCart)
+- [Backend](https://github.com/mdrakibmia99/SwiftCart-APIs)
 
 ## 🛠️ Key Features
 
@@ -79,7 +79,7 @@ mind.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/khaledssbd/SwiftCart.git
+   git clone https://github.com/mdrakibmia99/SwiftCart.git
    cd SwiftCart
 
    ```
@@ -115,7 +115,7 @@ mind.
 1. Clone the repo:
 
    ```bash
-   git clone https://github.com/khaledssbd/SwiftCart-APIs.git
+   git clone https://github.com/mdrakibmia99/SwiftCart-APIs.git
    cd SwiftCart-APIs
 
    ```
